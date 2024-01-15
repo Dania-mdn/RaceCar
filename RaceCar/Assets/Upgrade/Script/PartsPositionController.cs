@@ -33,6 +33,7 @@ public class PartsPositionController : MonoBehaviour
                 startMediate = hit.transform.gameObject;
             }
         }
+        EventManager.DuOnClickDown(true);
     }
     public void OnClickUp()
     {
@@ -107,6 +108,7 @@ public class PartsPositionController : MonoBehaviour
             }
         }
         startMediate = null;
+        EventManager.DuOnClickDown(false);
     }
     public void BuyParts()
     {
