@@ -8,6 +8,7 @@ public class EventManager : MonoBehaviour
     public static event Action<int, int> UpgradeAuto;
     public static event Action<bool> OnClickDown;
     public static event Action Sale;
+    public static event Action<float> SetAvalebleIncpmMoney;
     public static void DuUpgradeAuto(int ID, int lvl)
     {
         UpgradeAuto?.Invoke(ID, lvl);
@@ -19,5 +20,9 @@ public class EventManager : MonoBehaviour
     public static void DuSale()
     {
         Sale?.Invoke();
+    }
+    public static void DuSetAvalebleIncpmMoney(float count)
+    {
+        SetAvalebleIncpmMoney?.Invoke(count);
     }
 }

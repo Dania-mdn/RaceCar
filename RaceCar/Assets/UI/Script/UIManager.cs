@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
 {
     public GameObject SaleButtonTrue;
     public GameObject SaleButtonFalse;
+    public GameObject Income;
+    public TextMeshProUGUI IncomePrice;
     public TextMeshProUGUI Money;
     public TextMeshProUGUI MoneyInSecond;
     public TextMeshProUGUI PartsPrice;
@@ -18,10 +20,12 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         EventManager.OnClickDown += OnclickDown;
+        EventManager.SetAvalebleIncpmMoney += AvalebleIncpmMoney;
     }
     private void OnDisable()
     {
         EventManager.OnClickDown += OnclickDown;
+        EventManager.SetAvalebleIncpmMoney -= AvalebleIncpmMoney;
     }
 
     private void OnclickDown(bool isClick)
@@ -35,6 +39,18 @@ public class UIManager : MonoBehaviour
         {
             SaleButtonFalse.SetActive(false);
             SaleButtonTrue.SetActive(true);
+        }
+    }
+    private void AvalebleIncpmMoney(float AvalableCount)
+    {
+        Debug.Log(1);
+        if (AvalableCount >= 4)
+        {
+            Income.SetActive(false);
+        }
+        else
+        {
+            Income.SetActive(true);
         }
     }
 }

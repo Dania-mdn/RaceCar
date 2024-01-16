@@ -24,7 +24,7 @@ public class MoneyHandler : MonoBehaviour
     private float IncomCount = 4;
     private float MoneyIncom;
 
-    private float PartsPrize = 100;
+    private float PartsPrize = 5;
 
     private void OnEnable()
     {
@@ -99,6 +99,7 @@ public class MoneyHandler : MonoBehaviour
         {
             moneyInSecond = moneyInSecond + (moneyInSecond * 0.5f);
             IncomCount = IncomCount - 4;
+            EventManager.DuSetAvalebleIncpmMoney(IncomCount);
         }
     }
     public void PrepeaToSale(bool isClick)
@@ -120,6 +121,7 @@ public class MoneyHandler : MonoBehaviour
             money = money - PartsPrize;
             PartsPositionController.BuyParts(); 
             IncomCount++;
+            EventManager.DuSetAvalebleIncpmMoney(IncomCount);
         }
     }
     public void Race()
