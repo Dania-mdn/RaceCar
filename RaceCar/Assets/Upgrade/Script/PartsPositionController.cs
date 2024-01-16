@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PartsPositionController : MonoBehaviour
@@ -33,7 +34,9 @@ public class PartsPositionController : MonoBehaviour
                 startMediate = hit.transform.gameObject;
             }
         }
-        EventManager.DuOnClickDown(true);
+
+        if(Mediate != null)
+            EventManager.DuOnClickDown(true);
     }
     public void OnClickUp()
     {
@@ -101,14 +104,28 @@ public class PartsPositionController : MonoBehaviour
             }
             else
             {
-                Mediate.transform.position = startMediate.transform.position;
-                Mediate.transform.parent = startMediate.transform;
-                startMediate.GetComponent<Position>().Parts = Mediate.transform;
-                Mediate = null;
+                if (Mediate != null)
+                {
+                    Mediate.transform.position = startMediate.transform.position;
+                    Mediate.transform.parent = startMediate.transform;
+                    startMediate.GetComponent<Position>().Parts = Mediate.transform;
+                    Mediate = null;
+                }
             }
         }
         startMediate = null;
         EventManager.DuOnClickDown(false);
+    }
+    public bool TryParts()
+    {
+        for (int i = 0; i < PositionArray.Length; i++)
+        {
+            if(PositionArray[i].transform.childCount == 0)
+            {
+                return true;
+            }
+        }
+        return false;
     }
     public void BuyParts()
     {

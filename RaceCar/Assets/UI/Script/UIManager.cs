@@ -6,7 +6,14 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    public Image SaleButton;
+    public GameObject SaleButtonTrue;
+    public GameObject SaleButtonFalse;
+    public TextMeshProUGUI Money;
+    public TextMeshProUGUI MoneyInSecond;
+    public TextMeshProUGUI PartsPrice;
+    public TextMeshProUGUI PartsSale;
+    public Slider SliderAutotap;
+    public Slider SliderIncomX2;
 
     private void OnEnable()
     {
@@ -21,11 +28,13 @@ public class UIManager : MonoBehaviour
     {
         if (isClick)
         {
-            SaleButton.color = new Color(1f, 0f, 0f, 0.2f);
+            SaleButtonFalse.SetActive(true);
+            SaleButtonTrue.SetActive(false);
         }
         else
         {
-            SaleButton.color = new Color(1f, 1f, 1f, 0.2f);
+            SaleButtonFalse.SetActive(false);
+            SaleButtonTrue.SetActive(true);
         }
     }
 }

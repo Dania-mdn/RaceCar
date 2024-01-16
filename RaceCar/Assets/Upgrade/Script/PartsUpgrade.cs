@@ -29,6 +29,7 @@ public class PartsUpgrade : MonoBehaviour
     public void Buy()
     {
         Destroy(gameObject);
+        EventManager.DuSale();
     }
     public void UpgradeAuto()
     {
