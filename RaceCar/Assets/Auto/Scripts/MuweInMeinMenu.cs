@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityEngine.UIElements;
 
 public class MuweInMeinMenu : MonoBehaviour
@@ -12,9 +13,9 @@ public class MuweInMeinMenu : MonoBehaviour
     public GameObject rearLeftMesh;
     public GameObject rearRightMesh;
 
-    private float Speed;
+    private float Speed = 1;
     private Rigidbody rb;
-    public ParticleSystem ParticleSystem;
+
     private void OnEnable()
     {
         EventManager.AddSpeed += SetSpeed;
@@ -26,7 +27,6 @@ public class MuweInMeinMenu : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>(); 
-        ParticleSystem.Stop();
     }
     void Update()
     {
@@ -44,14 +44,6 @@ public class MuweInMeinMenu : MonoBehaviour
     }
     private void SetSpeed(float speed)
     {
-        if (speed > 1)
-        {
-            Speed = speed;
-            ParticleSystem.Play();
-        }
-        else
-        {
-            ParticleSystem.Stop();
-        }
+        Speed = speed;
     }
 }

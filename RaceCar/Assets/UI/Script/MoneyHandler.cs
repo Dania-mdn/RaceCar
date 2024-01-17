@@ -12,8 +12,12 @@ public class MoneyHandler : MonoBehaviour
     public float money;
     private float moneyInSecond = 5;
     private float coldawn = 1;
+
     private float timespeed;
     private float coefMnog = 1;
+
+    private float speed;
+    private float coefspeed = 0.2f;
 
     private float AutoTapColdawn = 60;
     private float AutoTapTme;
@@ -39,14 +43,14 @@ public class MoneyHandler : MonoBehaviour
     }
     private void Start()
     {
-        UIManager.IncomePrice.text = IncomPriece.ToString();
-        UIManager.PartsPrice.text = PartsPrize.ToString();
+        FormaterCount(IncomPriece, UIManager.IncomePrice);
+        FormaterCount(PartsPrize, UIManager.PartsPrice);
     }
     private void Update()
     {
         if (timespeed <= 0)
         {
-            if(coefMnog > 1)
+            if (coefMnog > 1)
             {
                 coefMnog = coefMnog - 1 * Time.deltaTime;
             }
@@ -82,11 +86,21 @@ public class MoneyHandler : MonoBehaviour
         {
             coefX2 = 1;
         }
+
+        if (speed <= 0)
+        {
+            EventManager.DoAddSpeed(1);
+        }
+        else
+        {
+            speed = speed - Time.deltaTime;
+        }
     }
     public void AddSpeed()
     {
         timespeed = coldawn;
-        EventManager.DoAddSpeed(4);
+        EventManager.DoAddSpeed(3);
+        speed = coefspeed;
     }
     public void SetRewardAutoTap()
     {

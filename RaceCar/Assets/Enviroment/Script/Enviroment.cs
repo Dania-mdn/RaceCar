@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using Cinemachine;
 
 public class Enviroment : MonoBehaviour
 {
@@ -11,8 +12,15 @@ public class Enviroment : MonoBehaviour
     public GameObject MeinRoad;
     public GameObject SecondRoad;
 
-    private float Speed;
+    private float Speed = 1;
 
+    public ParticleSystem ParticleSystem;
+    public CinemachineVirtualCamera VirtualCamera;
+
+    void Start()
+    {
+        ParticleSystem.Stop();
+    }
     private void OnEnable()
     {
         EventManager.AddSpeed += SetSpeed;
@@ -36,5 +44,15 @@ public class Enviroment : MonoBehaviour
     private void SetSpeed(float speed)
     {
         Speed = speed;
+        if (speed > 1)
+        {
+            VirtualCamera.Priority = 11;
+            ParticleSystem.Play();
+        }
+        else
+        {
+            VirtualCamera.Priority = 9;
+            ParticleSystem.Stop();
+        }
     }
 }
