@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +9,7 @@ public class MoneyHandler : MonoBehaviour
 {
     public UIManager UIManager;
     public PartsPositionController PartsPositionController;
-    private float money;
+    public float money;
     private float moneyInSecond = 5;
     private float coldawn = 1;
     private float timespeed;
@@ -22,9 +23,9 @@ public class MoneyHandler : MonoBehaviour
     private int coefX2 = 1;
 
     private float IncomCount = 4;
-    private float MoneyIncom;
 
-    private float PartsPrize = 5;
+    private float IncomPriece = 100;
+    private float PartsPrize = 100;
 
     private void OnEnable()
     {
@@ -33,11 +34,12 @@ public class MoneyHandler : MonoBehaviour
     }
     private void OnDisable()
     {
-        EventManager.OnClickDown += PrepeaToSale;
+        EventManager.OnClickDown -= PrepeaToSale;
         EventManager.Sale -= Sale;
     }
     private void Start()
     {
+        UIManager.IncomePrice.text = IncomPriece.ToString();
         UIManager.PartsPrice.text = PartsPrize.ToString();
     }
     private void Update()
@@ -60,8 +62,8 @@ public class MoneyHandler : MonoBehaviour
 
         money = money + (moneyInSecond * coefMnog * coefX2) * Time.deltaTime;
 
-        UIManager.MoneyInSecond.text = Mathf.Round(moneyInSecond * coefMnog * coefX2).ToString();
-        UIManager.Money.text = Mathf.Round(money).ToString();
+        FormaterCount(Mathf.Round(moneyInSecond * coefMnog * coefX2), UIManager.MoneyInSecond);
+        FormaterCount(Mathf.Round(money), UIManager.Money);
 
         if (AutoTapTme > 0)
         {
@@ -84,6 +86,7 @@ public class MoneyHandler : MonoBehaviour
     public void AddSpeed()
     {
         timespeed = coldawn;
+        EventManager.DoAddSpeed(4);
     }
     public void SetRewardAutoTap()
     {
@@ -100,11 +103,13 @@ public class MoneyHandler : MonoBehaviour
             moneyInSecond = moneyInSecond + (moneyInSecond * 0.5f);
             IncomCount = IncomCount - 4;
             EventManager.DuSetAvalebleIncpmMoney(IncomCount);
+            IncomPriece = IncomPriece + (IncomPriece * 0.5f);
+            FormaterCount(IncomPriece, UIManager.IncomePrice);
         }
     }
     public void PrepeaToSale(bool isClick)
     {
-        UIManager.PartsSale.text = Mathf.Round(PartsPrize / 2).ToString();
+        FormaterCount(Mathf.Round(PartsPrize / 2), UIManager.PartsSale);
     }
     public void Sale()
     {
@@ -117,15 +122,49 @@ public class MoneyHandler : MonoBehaviour
         if (Money >= 0 && PartsPositionController.TryParts())
         {
             PartsPrize = PartsPrize + (PartsPrize * 0.1f);
-            UIManager.PartsPrice.text = Mathf.Round(PartsPrize).ToString();
+            FormaterCount(Mathf.Round(PartsPrize), UIManager.PartsPrice);
             money = money - PartsPrize;
             PartsPositionController.BuyParts(); 
             IncomCount++;
             EventManager.DuSetAvalebleIncpmMoney(IncomCount);
         }
     }
+    public bool TryBuyBlocks(int Price)
+    {
+        if (money >= Price)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public void SetBuyBlocks(int Price)
+    {
+        money = money - Price;
+    }
     public void Race()
     {
         SceneManager.LoadScene(1);
+    }
+    private void FormaterCount(float Value, TextMeshProUGUI TextValue)
+    {
+        if (Value >= 1000000000)
+        {
+            TextValue.text = (Value / 1000000000f).ToString("F1") + "B";
+        }
+        else if (Value >= 1000000)
+        {
+            TextValue.text = (Value / 1000000f).ToString("F1") + "M";
+        }
+        else if (Value >= 1000)
+        {
+            TextValue.text = (Value / 1000f).ToString("F1") + "K";
+        }
+        else
+        {
+            TextValue.text = Value.ToString();
+        }
     }
 }

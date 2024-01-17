@@ -3,19 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Purchasing;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject SaleButtonTrue;
-    public GameObject SaleButtonFalse;
-    public GameObject Income;
-    public TextMeshProUGUI IncomePrice;
     public TextMeshProUGUI Money;
     public TextMeshProUGUI MoneyInSecond;
-    public TextMeshProUGUI PartsPrice;
-    public TextMeshProUGUI PartsSale;
+
     public Slider SliderAutotap;
     public Slider SliderIncomX2;
+
+    public GameObject Income;
+    public TextMeshProUGUI IncomePrice;
+
+    public GameObject SaleButtonTrue;
+    public GameObject SaleButtonFalse;
+    public TextMeshProUGUI PartsSale;
+
+    public TextMeshProUGUI PartsPrice;
 
     private void OnEnable()
     {
@@ -43,7 +48,6 @@ public class UIManager : MonoBehaviour
     }
     private void AvalebleIncpmMoney(float AvalableCount)
     {
-        Debug.Log(1);
         if (AvalableCount >= 4)
         {
             Income.SetActive(false);
@@ -52,5 +56,9 @@ public class UIManager : MonoBehaviour
         {
             Income.SetActive(true);
         }
+    }
+    public void DeleteSave()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }

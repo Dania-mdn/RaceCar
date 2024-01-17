@@ -26,18 +26,15 @@ public class PartsUpgrade : MonoBehaviour
             MeshLvl[i] = Mesh.GetChild(i).gameObject;
         }
     }
-    public void Buy()
+    public void Sale()
     {
         Destroy(gameObject);
         EventManager.DuSale();
     }
-    public void UpgradeAuto()
-    {
-        EventManager.DuUpgradeAuto(ID, lvl);
-        Destroy(gameObject);
-    }
     public void UpgradeLvL()
     {
+        if (lvl + 1 > MeshLvl.Length) return;
+
         lvl++;
         TMPlvl.text = lvl.ToString();
 
