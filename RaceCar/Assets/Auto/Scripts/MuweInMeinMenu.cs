@@ -38,9 +38,9 @@ public class MuweInMeinMenu : MonoBehaviour
         if(rb.IsSleeping()) rb.WakeUp();
 
         frontLeftMesh.transform.Rotate(Vector3.right * rotationSpeed * Speed * Time.deltaTime);
-        frontRightMesh.transform.Rotate(Vector3.right * rotationSpeed * Speed * Time.deltaTime);
+        frontRightMesh.transform.Rotate(Vector3.left * rotationSpeed * Speed * Time.deltaTime);
         rearLeftMesh.transform.Rotate(Vector3.right * rotationSpeed * Speed * Time.deltaTime);
-        rearRightMesh.transform.Rotate(Vector3.right * rotationSpeed * Speed * Time.deltaTime);
+        rearRightMesh.transform.Rotate(Vector3.left * rotationSpeed * Speed * Time.deltaTime);
     }
     private void SetSpeed(float speed)
     {

@@ -62,19 +62,19 @@ public class BlockPosition : MonoBehaviour
     {
         if (Value >= 1000000000)
         {
-            PriceText.text = (Value / 1000000000f).ToString("F1") + "B";
+            PriceText.text = "$" + (Value / 1000000000f).ToString("F1") + "B";
         }
         else if (Value >= 1000000)
         {
-            PriceText.text = (Value / 1000000f).ToString("F1") + "M";
+            PriceText.text = "$" + (Value / 1000000f).ToString("F1") + "M";
         }
         else if (Value >= 1000)
         {
-            PriceText.text = (Value / 1000f).ToString("F1") + "K";
+            PriceText.text = "$" + (Value / 1000f).ToString("F1") + "K";
         }
         else
         {
-            PriceText.text = Value.ToString();
+            PriceText.text = "$" + Value.ToString();
         }
     }
 }

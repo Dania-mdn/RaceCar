@@ -16,11 +16,12 @@ public class UIManager : MonoBehaviour
     public GameObject Income;
     public TextMeshProUGUI IncomePrice;
 
-    public GameObject SaleButtonTrue;
     public GameObject SaleButtonFalse;
     public TextMeshProUGUI PartsSale;
 
     public TextMeshProUGUI PartsPrice;
+    public GameObject BuyBlock;
+    public TextMeshProUGUI PartsPriceBlock;
 
     private void OnEnable()
     {
@@ -38,12 +39,10 @@ public class UIManager : MonoBehaviour
         if (isClick)
         {
             SaleButtonFalse.SetActive(true);
-            SaleButtonTrue.SetActive(false);
         }
         else
         {
             SaleButtonFalse.SetActive(false);
-            SaleButtonTrue.SetActive(true);
         }
     }
     private void AvalebleIncpmMoney(float AvalableCount)

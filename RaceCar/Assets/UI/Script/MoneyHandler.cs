@@ -95,6 +95,15 @@ public class MoneyHandler : MonoBehaviour
         {
             speed = speed - Time.deltaTime;
         }
+
+        if(PartsPrize + (PartsPrize * 0.1f) > money)
+        {
+            UIManager.BuyBlock.SetActive(true);
+        }
+        else
+        {
+            UIManager.BuyBlock.SetActive(false);
+        }
     }
     public void AddSpeed()
     {
@@ -137,6 +146,7 @@ public class MoneyHandler : MonoBehaviour
         {
             PartsPrize = PartsPrize + (PartsPrize * 0.1f);
             FormaterCount(Mathf.Round(PartsPrize), UIManager.PartsPrice);
+            FormaterCount(Mathf.Round(PartsPrize), UIManager.PartsPriceBlock);
             money = money - PartsPrize;
             PartsPositionController.BuyParts(); 
             IncomCount++;
@@ -166,19 +176,19 @@ public class MoneyHandler : MonoBehaviour
     {
         if (Value >= 1000000000)
         {
-            TextValue.text = (Value / 1000000000f).ToString("F1") + "B";
+            TextValue.text = "$" + (Value / 1000000000f).ToString("F1") + "B";
         }
         else if (Value >= 1000000)
         {
-            TextValue.text = (Value / 1000000f).ToString("F1") + "M";
+            TextValue.text = "$" + (Value / 1000000f).ToString("F1") + "M";
         }
         else if (Value >= 1000)
         {
-            TextValue.text = (Value / 1000f).ToString("F1") + "K";
+            TextValue.text = "$" + (Value / 1000f).ToString("F1") + "K";
         }
         else
         {
-            TextValue.text = Value.ToString();
+            TextValue.text = "$" + Value.ToString();
         }
     }
 }
