@@ -18,7 +18,7 @@ public class BlockPosition : MonoBehaviour
     public int alableCount;
     public int Price;
 
-    private void Start()
+    private void Awake()
     {
         block = GetComponent<Animation>();
         SpriteRenderer = GetComponent<SpriteRenderer>();

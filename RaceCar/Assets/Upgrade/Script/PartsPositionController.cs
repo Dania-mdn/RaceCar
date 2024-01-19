@@ -68,20 +68,17 @@ public class PartsPositionController : MonoBehaviour
             {
                 Position MediatePosition = hit.transform.GetComponent<Position>();
 
-                if (MediatePosition.Parts == null)
+                if (Mediate != null)
                 {
-                    if (Mediate != null)
+                    if (MediatePosition.Parts == null)
                     {
                         Mediate.transform.position = hit.transform.position;
                         Mediate.transform.parent = hit.transform;
                         MediatePosition.Parts = Mediate.transform;
                     }
-                }
-                else
-                {
-                    if (Mediate != null)
+                    else
                     {
-                        if(Mediate.GetComponent<PartsUpgrade>().ID == MediatePosition.Parts.gameObject.GetComponent<PartsUpgrade>().ID &&
+                        if (Mediate.GetComponent<PartsUpgrade>().ID == MediatePosition.Parts.gameObject.GetComponent<PartsUpgrade>().ID &&
                             Mediate.GetComponent<PartsUpgrade>().lvl == MediatePosition.Parts.gameObject.GetComponent<PartsUpgrade>().lvl)
                         {
                             Destroy(MediatePosition.Parts.gameObject.GetComponent<PartsUpgrade>().gameObject);
@@ -118,26 +115,35 @@ public class PartsPositionController : MonoBehaviour
 
                 if (Mediate != null)
                 {
-                    if (Mediate.GetComponent<PartsUpgrade>().ID == MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID].gameObject.GetComponent<PartsUpgrade>().ID &&
-                        Mediate.GetComponent<PartsUpgrade>().lvl == MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID].gameObject.GetComponent<PartsUpgrade>().lvl)
+                    if (MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID] == null)
                     {
-                        Destroy(MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID].gameObject.GetComponent<PartsUpgrade>().gameObject);
-
                         Mediate.transform.position = hit.transform.position;
                         Mediate.transform.parent = hit.transform;
                         MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID] = Mediate.transform;
-
-                        Mediate.GetComponent<PartsUpgrade>().UpgradeLvL();
                     }
                     else
                     {
-                        MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID].transform.position = startMediate.transform.position;
-                        MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID].transform.parent = startMediate.transform;
-                        startMediate.GetComponent<Position>().Parts = MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID];
+                        if (Mediate.GetComponent<PartsUpgrade>().ID == MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID].gameObject.GetComponent<PartsUpgrade>().ID &&
+                            Mediate.GetComponent<PartsUpgrade>().lvl == MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID].gameObject.GetComponent<PartsUpgrade>().lvl)
+                        {
+                            Destroy(MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID].gameObject.GetComponent<PartsUpgrade>().gameObject);
 
-                        Mediate.transform.position = hit.transform.position;
-                        Mediate.transform.parent = hit.transform;
-                        MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID] = Mediate.transform;
+                            Mediate.transform.position = hit.transform.position;
+                            Mediate.transform.parent = hit.transform;
+                            MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID] = Mediate.transform;
+
+                            Mediate.GetComponent<PartsUpgrade>().UpgradeLvL();
+                        }
+                        else
+                        {
+                            MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID].transform.position = startMediate.transform.position;
+                            MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID].transform.parent = startMediate.transform;
+                            startMediate.GetComponent<Position>().Parts = MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID];
+
+                            Mediate.transform.position = hit.transform.position;
+                            Mediate.transform.parent = hit.transform;
+                            MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID] = Mediate.transform;
+                        }
                     }
                     EventManager.DuUpgradeAuto(Mediate.GetComponent<PartsUpgrade>().ID, Mediate.GetComponent<PartsUpgrade>().lvl);
                 }
@@ -183,7 +189,7 @@ public class PartsPositionController : MonoBehaviour
     private void SetAvailableBlock()
     {
         int avalableCount = 0;
-        avalableCount = PlayerPrefs.GetInt("alableCount");
+        avalableCount = PlayerPrefs.GetInt("alableCount"); 
 
         for (int i = 0; i <= avalableCount; i++)
         {
@@ -192,11 +198,10 @@ public class PartsPositionController : MonoBehaviour
                 if (BlockPositionArray[i] != null)
                     Destroy(BlockPositionArray[i].gameObject);
             }
-            else 
-            {
-                if (i < BlockPositionArray.Length)
-                    BlockPositionArray[i].transform.GetChild(0).GetComponent<BlockPosition>().Open();
-            }
+        }
+        if (BlockPositionArray[avalableCount] != null)
+        {
+            BlockPositionArray[avalableCount].transform.GetChild(0).GetComponent<BlockPosition>().Open();
         }
     }
 }

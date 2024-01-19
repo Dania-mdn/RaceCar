@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &62097184836756945
+--- !u!1 &171247972063361193
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,7 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6808607516904409857}
+  - component: {fileID: 948987944581779726}
+  - component: {fileID: 3482104732036514563}
+  - component: {fileID: 4734244951582002484}
   m_Layer: 0
   m_Name: Wheel2
   m_TagString: Untagged
@@ -16,70 +18,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6808607516904409857
+--- !u!4 &948987944581779726
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 62097184836756945}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.789, y: -1.229, z: -0.6942873}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_GameObject: {fileID: 171247972063361193}
+  m_LocalRotation: {x: 0.50000006, y: 0.50000006, z: -0.49999997, w: -0.49999994}
+  m_LocalPosition: {x: 14.032262, y: -1.0523803, z: -3.4260304}
+  m_LocalScale: {x: 11.558722, y: 11.558722, z: 11.558722}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3015233902838231368}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3524170274681313013
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3015233902838231368}
-  - component: {fileID: 5141950655364412971}
-  - component: {fileID: 9140302255012988639}
-  m_Layer: 0
-  m_Name: "\u041A\u041E\u041B\u0415\u0421\u041E 3"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3015233902838231368
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3524170274681313013}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.1250823, y: 2.1250827, z: 2.1250827}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6808607516904409857}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5141950655364412971
+--- !u!33 &3482104732036514563
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3524170274681313013}
-  m_Mesh: {fileID: 5457369484257119599, guid: bdc2feed3129cbf47ba3110e149c85fb, type: 3}
---- !u!23 &9140302255012988639
+  m_GameObject: {fileID: 171247972063361193}
+  m_Mesh: {fileID: 5972815615752046672, guid: fbbbac67e2b663d45b2fc36f87dc8448, type: 3}
+--- !u!23 &4734244951582002484
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3524170274681313013}
+  m_GameObject: {fileID: 171247972063361193}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -93,10 +61,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: bdc2feed3129cbf47ba3110e149c85fb, type: 3}
-  - {fileID: -3846018093981099296, guid: bdc2feed3129cbf47ba3110e149c85fb, type: 3}
-  - {fileID: -6478536213147159724, guid: bdc2feed3129cbf47ba3110e149c85fb, type: 3}
-  - {fileID: -6922793697723135513, guid: bdc2feed3129cbf47ba3110e149c85fb, type: 3}
+  - {fileID: -6087771358165109452, guid: fbbbac67e2b663d45b2fc36f87dc8448, type: 3}
+  - {fileID: -876546973899608171, guid: fbbbac67e2b663d45b2fc36f87dc8448, type: 3}
+  - {fileID: -6922793697723135513, guid: fbbbac67e2b663d45b2fc36f87dc8448, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
