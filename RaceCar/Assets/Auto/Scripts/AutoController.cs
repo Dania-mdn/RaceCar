@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class AutoController : MonoBehaviour
 {
+    public float magnitude;
     public GameObject Direction;
     Rigidbody carRigidbody; // Stores the car's rigidbody.
     public float direction;
@@ -17,8 +18,8 @@ public class AutoController : MonoBehaviour
     public int maxSpeed = 90; //The maximum speed that the car can reach in km/h.
     [Range(10, 120)]
     public int maxReverseSpeed = 45; //The maximum speed that the car can reach while going on reverse in km/h.
-    [Range(1, 20)]
-    public int accelerationMultiplier = 2; // How fast the car can accelerate. 1 is a slow acceleration and 10 is the fastest.
+    [Range(1, 100)]
+    public float accelerationMultiplier; // How fast the car can accelerate. 1 is a slow acceleration and 10 is the fastest.
     [Space(10)]
     [Range(10, 45)]
     public int maxSteeringAngle = 30; // The maximum angle that the tires can reach while rotating the steering wheel.
@@ -311,7 +312,6 @@ public class AutoController : MonoBehaviour
     }
     public void Handbrake()
     {
-        Debug.Log(0);
         CancelInvoke("RecoverTraction");
         // We are going to start losing traction smoothly, there is were our 'driftingAxis' variable takes
         // place. This variable will start from 0 and will reach a top value of 1, which means that the maximum

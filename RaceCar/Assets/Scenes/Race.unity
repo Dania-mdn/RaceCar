@@ -10282,12 +10282,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fd4bc30772b47c4b96f8b08f5856bf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  magnitude: 0
   Direction: {fileID: 2085084196}
   direction: 0
   steeringAxis: 0
   maxSpeed: 50
   maxReverseSpeed: 10
-  accelerationMultiplier: 20
+  accelerationMultiplier: 100
   maxSteeringAngle: 30
   steeringSpeed: 0.5
   brakeForce: 350

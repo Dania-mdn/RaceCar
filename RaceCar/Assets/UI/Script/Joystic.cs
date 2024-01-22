@@ -17,7 +17,7 @@ public class Joystic : MonoBehaviour
         if (target_vector.magnitude < 30)
         {
             autoController.GoForward();
-            touchMarker.transform.position = transform.position + (touch_pos - transform.position).normalized * 8;
+            touchMarker.transform.position = transform.position + (touch_pos - transform.position).normalized * 10;
             Vector3 inputDirection = touchMarker.transform.localPosition - transform.localPosition;
             float _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y) * Mathf.Rad2Deg;
 
