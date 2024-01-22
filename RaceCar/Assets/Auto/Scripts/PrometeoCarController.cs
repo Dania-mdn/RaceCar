@@ -628,8 +628,9 @@ public class PrometeoCarController : MonoBehaviour
     }
 
     // This function applies brake torque to the wheels according to the brake force given by the user.
-    public void Brakes(){
-      frontLeftCollider.brakeTorque = brakeForce;
+    public void Brakes()
+    {
+        frontLeftCollider.brakeTorque = brakeForce;
       frontRightCollider.brakeTorque = brakeForce;
       rearLeftCollider.brakeTorque = brakeForce;
       rearRightCollider.brakeTorque = brakeForce;
@@ -638,8 +639,10 @@ public class PrometeoCarController : MonoBehaviour
     // This function is used to make the car lose traction. By using this, the car will start drifting. The amount of traction lost
     // will depend on the handbrakeDriftMultiplier variable. If this value is small, then the car will not drift too much, but if
     // it is high, then you could make the car to feel like going on ice.
-    public void Handbrake(){
-      CancelInvoke("RecoverTraction");
+    public void Handbrake()
+    {
+        Debug.Log(0);
+        CancelInvoke("RecoverTraction");
       // We are going to start losing traction smoothly, there is were our 'driftingAxis' variable takes
       // place. This variable will start from 0 and will reach a top value of 1, which means that the maximum
       // drifting value has been reached. It will increase smoothly by using the variable Time.deltaTime.

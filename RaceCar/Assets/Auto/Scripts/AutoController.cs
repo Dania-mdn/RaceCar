@@ -7,17 +7,21 @@ using UnityEngine.UI;
 
 public class AutoController : MonoBehaviour
 {
+    public GameObject Direction;
+    Rigidbody carRigidbody; // Stores the car's rigidbody.
+    public float direction;
+    public float steeringAxis; // Used to know whether the steering wheel has reached the maximum value. It goes from -1 to 1.
     [Space(20)]
     [Space(10)]
     [Range(20, 190)]
     public int maxSpeed = 90; //The maximum speed that the car can reach in km/h.
     [Range(10, 120)]
     public int maxReverseSpeed = 45; //The maximum speed that the car can reach while going on reverse in km/h.
-    [Range(1, 10)]
+    [Range(1, 20)]
     public int accelerationMultiplier = 2; // How fast the car can accelerate. 1 is a slow acceleration and 10 is the fastest.
     [Space(10)]
     [Range(10, 45)]
-    public int maxSteeringAngle = 27; // The maximum angle that the tires can reach while rotating the steering wheel.
+    public int maxSteeringAngle = 30; // The maximum angle that the tires can reach while rotating the steering wheel.
     [Range(0.1f, 1f)]
     public float steeringSpeed = 0.5f; // How fast the steering wheel turns.
     [Space(10)]
@@ -73,9 +77,6 @@ public class AutoController : MonoBehaviour
     [HideInInspector]
     public bool isTractionLocked; // Used to know whether the traction of the car is locked or not.
 
-    Rigidbody carRigidbody; // Stores the car's rigidbody.
-    public float direction;
-    float steeringAxis; // Used to know whether the steering wheel has reached the maximum value. It goes from -1 to 1.
     float throttleAxis; // Used to know whether the throttle has reached the maximum value. It goes from -1 to 1.
     float driftingAxis;
     float localVelocityZ;
@@ -174,53 +175,33 @@ public class AutoController : MonoBehaviour
 
     void Update()
     {
+        Direction.transform.rotation = Quaternion.Euler(0.0f, direction, 0.0f);
 
         carSpeed = (2 * Mathf.PI * frontLeftCollider.radius * frontLeftCollider.rpm * 60) / 1000;
         localVelocityX = transform.InverseTransformDirection(carRigidbody.velocity).x;
         localVelocityZ = transform.InverseTransformDirection(carRigidbody.velocity).z;
 
-        TurnLeft();
-        //TurnRight();
         if (Input.GetKey(KeyCode.W))
         {
-            deceleratingCar = false;
             GoForward();
-        }
-        if (!Input.GetKey(KeyCode.W) && !deceleratingCar)
-        {
-            deceleratingCar = true;
-        }
-        if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) && steeringAxis != 0f)
-        {
-            ResetSteeringAngle();
         }
 
         AnimateWheelMeshes();
     }
-
-    public void TurnLeft()
+    
+    public void Turn()
     {
-        steeringAxis = direction;
-        if (steeringAxis < -1f)
-        {
-            steeringAxis = -1f;
-        }
-        var steeringAngle = steeringAxis * maxSteeringAngle;
-        frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, steeringSpeed);
-        frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
-    }
+        Quaternion rotationQuaternion = Direction.transform.localRotation;
 
-    //public void TurnRight()
-    //{
-    //    steeringAxis = direction;
-    //    if (steeringAxis > 1f)
-    //    {
-    //        steeringAxis = 1f;
-    //    }
-    //    var steeringAngle = steeringAxis * maxSteeringAngle;
-    //    frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, steeringSpeed);
-    //    frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
-    //}
+        float steeringAxis = -rotationQuaternion.eulerAngles.y + 180;
+        float steeringAngle = -steeringAxis;
+
+        if(steeringAngle > -maxSteeringAngle && steeringAngle < maxSteeringAngle)
+        {
+            frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, steeringSpeed);
+            frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
+        }
+    }
 
     public void ResetSteeringAngle()
     {
@@ -328,6 +309,58 @@ public class AutoController : MonoBehaviour
         rearLeftCollider.brakeTorque = brakeForce;
         rearRightCollider.brakeTorque = brakeForce;
     }
+    public void Handbrake()
+    {
+        Debug.Log(0);
+        CancelInvoke("RecoverTraction");
+        // We are going to start losing traction smoothly, there is were our 'driftingAxis' variable takes
+        // place. This variable will start from 0 and will reach a top value of 1, which means that the maximum
+        // drifting value has been reached. It will increase smoothly by using the variable Time.deltaTime.
+        driftingAxis = driftingAxis + (Time.deltaTime);
+        float secureStartingPoint = driftingAxis * FLWextremumSlip * handbrakeDriftMultiplier;
+
+        if (secureStartingPoint < FLWextremumSlip)
+        {
+            driftingAxis = FLWextremumSlip / (FLWextremumSlip * handbrakeDriftMultiplier);
+        }
+        if (driftingAxis > 1f)
+        {
+            driftingAxis = 1f;
+        }
+        //If the forces aplied to the rigidbody in the 'x' asis are greater than
+        //3f, it means that the car lost its traction, then the car will start emitting particle systems.
+        if (Mathf.Abs(localVelocityX) > 2.5f)
+        {
+            isDrifting = true;
+        }
+        else
+        {
+            isDrifting = false;
+        }
+        //If the 'driftingAxis' value is not 1f, it means that the wheels have not reach their maximum drifting
+        //value, so, we are going to continue increasing the sideways friction of the wheels until driftingAxis
+        // = 1f.
+        if (driftingAxis < 1f)
+        {
+            FLwheelFriction.extremumSlip = FLWextremumSlip * handbrakeDriftMultiplier * driftingAxis;
+            frontLeftCollider.sidewaysFriction = FLwheelFriction;
+
+            FRwheelFriction.extremumSlip = FRWextremumSlip * handbrakeDriftMultiplier * driftingAxis;
+            frontRightCollider.sidewaysFriction = FRwheelFriction;
+
+            RLwheelFriction.extremumSlip = RLWextremumSlip * handbrakeDriftMultiplier * driftingAxis;
+            rearLeftCollider.sidewaysFriction = RLwheelFriction;
+
+            RRwheelFriction.extremumSlip = RRWextremumSlip * handbrakeDriftMultiplier * driftingAxis;
+            rearRightCollider.sidewaysFriction = RRwheelFriction;
+        }
+
+        // Whenever the player uses the handbrake, it means that the wheels are locked, so we set 'isTractionLocked = true'
+        // and, as a consequense, the car starts to emit trails to simulate the wheel skids.
+        isTractionLocked = true;
+        DriftCarPS();
+
+    }
 
     public void DriftCarPS()
     {
@@ -388,6 +421,52 @@ public class AutoController : MonoBehaviour
             {
                 RRWTireSkid.emitting = false;
             }
+        }
+    }
+    public void RecoverTraction()
+    {
+        isTractionLocked = false;
+        driftingAxis = driftingAxis - (Time.deltaTime / 1.5f);
+        if (driftingAxis < 0f)
+        {
+            driftingAxis = 0f;
+        }
+
+        //If the 'driftingAxis' value is not 0f, it means that the wheels have not recovered their traction.
+        //We are going to continue decreasing the sideways friction of the wheels until we reach the initial
+        // car's grip.
+        if (FLwheelFriction.extremumSlip > FLWextremumSlip)
+        {
+            FLwheelFriction.extremumSlip = FLWextremumSlip * handbrakeDriftMultiplier * driftingAxis;
+            frontLeftCollider.sidewaysFriction = FLwheelFriction;
+
+            FRwheelFriction.extremumSlip = FRWextremumSlip * handbrakeDriftMultiplier * driftingAxis;
+            frontRightCollider.sidewaysFriction = FRwheelFriction;
+
+            RLwheelFriction.extremumSlip = RLWextremumSlip * handbrakeDriftMultiplier * driftingAxis;
+            rearLeftCollider.sidewaysFriction = RLwheelFriction;
+
+            RRwheelFriction.extremumSlip = RRWextremumSlip * handbrakeDriftMultiplier * driftingAxis;
+            rearRightCollider.sidewaysFriction = RRwheelFriction;
+
+            Invoke("RecoverTraction", Time.deltaTime);
+
+        }
+        else if (FLwheelFriction.extremumSlip < FLWextremumSlip)
+        {
+            FLwheelFriction.extremumSlip = FLWextremumSlip;
+            frontLeftCollider.sidewaysFriction = FLwheelFriction;
+
+            FRwheelFriction.extremumSlip = FRWextremumSlip;
+            frontRightCollider.sidewaysFriction = FRwheelFriction;
+
+            RLwheelFriction.extremumSlip = RLWextremumSlip;
+            rearLeftCollider.sidewaysFriction = RLwheelFriction;
+
+            RRwheelFriction.extremumSlip = RRWextremumSlip;
+            rearRightCollider.sidewaysFriction = RRwheelFriction;
+
+            driftingAxis = 0f;
         }
     }
 }
