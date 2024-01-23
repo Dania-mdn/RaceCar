@@ -7,15 +7,15 @@ using UnityEngine.UI;
 
 public class AutoController : MonoBehaviour
 {
-    public float magnitude;
     public GameObject Direction;
+    public bool isImpuls = false;
     Rigidbody carRigidbody; // Stores the car's rigidbody.
     public float direction;
     public float steeringAxis; // Used to know whether the steering wheel has reached the maximum value. It goes from -1 to 1.
     [Space(20)]
     [Space(10)]
     [Range(20, 190)]
-    public int maxSpeed = 90; //The maximum speed that the car can reach in km/h.
+    public float maxSpeed = 90; //The maximum speed that the car can reach in km/h.
     [Range(10, 120)]
     public int maxReverseSpeed = 45; //The maximum speed that the car can reach while going on reverse in km/h.
     [Range(1, 100)]
@@ -181,6 +181,10 @@ public class AutoController : MonoBehaviour
         carSpeed = (2 * Mathf.PI * frontLeftCollider.radius * frontLeftCollider.rpm * 60) / 1000;
         localVelocityX = transform.InverseTransformDirection(carRigidbody.velocity).x;
         localVelocityZ = transform.InverseTransformDirection(carRigidbody.velocity).z;
+        if (carRigidbody.angularVelocity.magnitude > 1.1f)
+        {
+            carRigidbody.angularVelocity = carRigidbody.angularVelocity.normalized * 1.1f;
+        }
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -190,6 +194,15 @@ public class AutoController : MonoBehaviour
         AnimateWheelMeshes();
     }
     
+    public void Force()
+    {
+        if (!isImpuls && carRigidbody.velocity.magnitude < 15)
+        {
+            carRigidbody.AddForce(Direction.transform.forward * -6000, ForceMode.Impulse);
+            //carRigidbody.AddForce(frontLeftCollider.transform.forward * 8000, ForceMode.Impulse);
+            isImpuls = true;
+        }
+    }
     public void Turn()
     {
         Quaternion rotationQuaternion = Direction.transform.localRotation;
@@ -201,6 +214,16 @@ public class AutoController : MonoBehaviour
         {
             frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, steeringSpeed);
             frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
+        }
+        else if(steeringAngle < -maxSteeringAngle)
+        {
+            frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, -maxSteeringAngle, steeringSpeed);
+            frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, -maxSteeringAngle, steeringSpeed);
+        }
+        else if(steeringAngle > maxSteeringAngle)
+        {
+            frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, maxSteeringAngle, steeringSpeed);
+            frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, maxSteeringAngle, steeringSpeed);
         }
     }
 
@@ -312,6 +335,8 @@ public class AutoController : MonoBehaviour
     }
     public void Handbrake()
     {
+        frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, 0, steeringSpeed);
+        frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, 0, steeringSpeed);
         CancelInvoke("RecoverTraction");
         // We are going to start losing traction smoothly, there is were our 'driftingAxis' variable takes
         // place. This variable will start from 0 and will reach a top value of 1, which means that the maximum
