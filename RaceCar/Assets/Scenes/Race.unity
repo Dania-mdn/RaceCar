@@ -4137,7 +4137,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 1697935063}
-  m_PlaneDistance: 19.1
+  m_PlaneDistance: 0.3
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -17171,7 +17171,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9116306610981906364}
-  m_RootOrder: 11
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!146 &3814474301360541140
 WheelCollider:
@@ -22152,6 +22152,7 @@ Transform:
   - {fileID: 1095477633}
   - {fileID: 205403887}
   - {fileID: 1175724371}
+  - {fileID: 3785131229496236867}
   - {fileID: 442058865}
   - {fileID: 1498952989}
   - {fileID: 1742320687}
@@ -22160,7 +22161,6 @@ Transform:
   - {fileID: 1310829684}
   - {fileID: 1508702828}
   - {fileID: 628318925}
-  - {fileID: 3785131229496236867}
   m_Father: {fileID: 4673678903158360685}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
