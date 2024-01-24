@@ -171,6 +171,7 @@ public class MoneyHandler : MonoBehaviour
     public void Race()
     {
         SceneManager.LoadScene(1);
+        PlayerPrefs.SetInt("Race", 1);
     }
     private void FormaterCount(float Value, TextMeshProUGUI TextValue)
     {

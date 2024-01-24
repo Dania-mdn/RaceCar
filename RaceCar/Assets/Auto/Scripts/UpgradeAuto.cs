@@ -11,6 +11,29 @@ public class UpgradeAuto : MonoBehaviour
     public GameObject[] While2;
     public GameObject[] While3;
 
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("Race"))
+        {
+            if (PlayerPrefs.HasKey("ID 0"))
+            {
+                Upgrade(0, PlayerPrefs.GetInt("ID 0"));
+                Debug.Log(PlayerPrefs.GetInt("ID 0"));
+            }
+            if (PlayerPrefs.HasKey("ID 1"))
+            {
+                Upgrade(1, PlayerPrefs.GetInt("ID 1"));
+                Debug.Log(PlayerPrefs.GetInt("ID 1"));
+            }
+            if (PlayerPrefs.HasKey("ID 2"))
+            {
+                Upgrade(2, PlayerPrefs.GetInt("ID 2"));
+                Debug.Log(PlayerPrefs.GetInt("ID 2"));
+            }
+
+            PlayerPrefs.DeleteKey("Race");
+        }
+    }
     private void OnEnable()
     {
         EventManager.UpgradeAuto += Upgrade;
@@ -23,6 +46,7 @@ public class UpgradeAuto : MonoBehaviour
     {
         if(ID == 0)
         {
+            PlayerPrefs.SetInt("ID " + ID, lvl);
             for (int i = 0; i < Body.Length; i++)
             {
                 if (i == lvl)
@@ -37,6 +61,7 @@ public class UpgradeAuto : MonoBehaviour
         }
         else if(ID == 1)
         {
+            PlayerPrefs.SetInt("ID " + ID, lvl);
             for (int i = 0; i < Engine.Length; i++)
             {
                 if (i == lvl)
@@ -51,6 +76,7 @@ public class UpgradeAuto : MonoBehaviour
         }
         else
         {
+            PlayerPrefs.SetInt("ID " + ID, lvl);
             for (int i = 0; i < While0.Length; i++)
             {
                 if (i == lvl)

@@ -83,7 +83,6 @@ public class AutoController : MonoBehaviour
     float localVelocityZ;
     float localVelocityX;
     bool deceleratingCar;
-    bool touchControlsSetup = false;
 
     WheelFrictionCurve FLwheelFriction;
     float FLWextremumSlip;
