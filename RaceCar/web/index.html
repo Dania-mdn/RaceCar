@@ -13,7 +13,20 @@
 
 <style>	
       @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@200;500&display=swap');	
-      @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@200;500&family=MuseoModerno:wght@600&display=swap');	
+      @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@200;500&family=MuseoModerno:wght@600&display=swap');
+
+    div#gameContainer canvas[data-pixel-art="true"] {
+        position: absolute;
+        image-rendering: optimizeSpeed;
+        image-rendering: -webkit-crisp-edges;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: -o-crisp-edges;
+        image-rendering: crisp-edges;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: optimize-contrast;
+        image-rendering: pixelated;
+        -ms-interpolation-mode: nearest-neighbor;
+    }
     </style>
 
   </head>
@@ -44,7 +57,7 @@
       const buildUrl = "Build";
       const loaderUrl = buildUrl + "/web.loader.js";
       const config = {
-        dataUrl: buildUrl + "/88a67f6731e14405aa9a6ac0b2dbd632.data.unityweb",
+        dataUrl: buildUrl + "/0a049af9fe8aa135d2628467943e951c.data.unityweb",
         frameworkUrl: buildUrl + "/b9e7ab4adf586c7c53ddd1c5453770f5.js.unityweb",
         codeUrl: buildUrl + "/611a557b7bd88f4c0b97620d65194ae1.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",

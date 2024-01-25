@@ -7,7 +7,8 @@ using Cinemachine;
 public class Enviroment : MonoBehaviour
 {
     public GameObject[] road;
-    public float moveSpeed;
+    private float bazespeed = 2.5f;
+    private float moveSpeed = 2.5f;
 
     public GameObject MeinRoad;
     public GameObject SecondRoad;
@@ -24,10 +25,12 @@ public class Enviroment : MonoBehaviour
     private void OnEnable()
     {
         EventManager.AddSpeed += SetSpeed;
+        EventManager.Upgrade += UpgradeSpeed;
     }
     private void OnDisable()
     {
         EventManager.AddSpeed -= SetSpeed;
+        EventManager.Upgrade -= UpgradeSpeed;
     }
     private void Update()
     {
@@ -54,5 +57,9 @@ public class Enviroment : MonoBehaviour
             VirtualCamera.Priority = 9;
             ParticleSystem.Stop();
         }
+    }
+    private void UpgradeSpeed(float speed)
+    {
+        moveSpeed = bazespeed + speed / 2;
     }
 }

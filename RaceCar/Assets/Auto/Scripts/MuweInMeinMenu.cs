@@ -7,7 +7,8 @@ using UnityEngine.UIElements;
 
 public class MuweInMeinMenu : MonoBehaviour
 {
-    public float rotationSpeed = 400;
+    private float bazespeed = 200;
+    private float rotationSpeed = 200;
 
     public GameObject frontLeftMesh;
     public WheelCollider frontLeftCollider;
@@ -27,10 +28,12 @@ public class MuweInMeinMenu : MonoBehaviour
     private void OnEnable()
     {
         EventManager.AddSpeed += SetSpeed;
+        EventManager.Upgrade += UpgradeSpeed;
     }
     private void OnDisable()
     {
         EventManager.AddSpeed -= SetSpeed;
+        EventManager.Upgrade -= UpgradeSpeed;
     }
     void Start()
     {
@@ -84,5 +87,9 @@ public class MuweInMeinMenu : MonoBehaviour
     private void SetSpeed(float speed)
     {
         Speed = speed;
+    }
+    private void UpgradeSpeed(float speed)
+    {
+        rotationSpeed = bazespeed + speed / 2;
     }
 }

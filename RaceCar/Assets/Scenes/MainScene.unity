@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.13
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.15808904, g: 0.1791664, b: 0.21317455, a: 0.13}
+  m_IndirectSpecularColor: {r: 0.15808904, g: 0.17916644, b: 0.21317455, a: 0.13}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1500,7 +1500,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -55.109108, y: 38.666687}
+  m_AnchoredPosition: {x: -55.10913, y: 38.666748}
   m_SizeDelta: {x: 99.9758, y: 46.1096}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &410355647
@@ -2552,7 +2552,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Parts:
   - {fileID: 3752720927055969697, guid: 496a6ea0f44818d40968827007e33b84, type: 3}
-  - {fileID: 3752720927055969697, guid: 42358f58c7007714b9937599445bc9e1, type: 3}
+  - {fileID: 3752720927055969697, guid: 496a6ea0f44818d40968827007e33b84, type: 3}
   - {fileID: 3752720927055969697, guid: 42358f58c7007714b9937599445bc9e1, type: 3}
   PositionArray:
   - {fileID: 814586539}
@@ -2727,7 +2727,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIManager: {fileID: 829760612}
   PartsPositionController: {fileID: 822242844}
-  money: 100
+  money: 1000000
 --- !u!1 &841175230
 GameObject:
   m_ObjectHideFlags: 0
@@ -4268,7 +4268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -55.109108, y: 38.666687}
+  m_AnchoredPosition: {x: -55.10913, y: 38.666748}
   m_SizeDelta: {x: 99.9758, y: 46.1096}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1381543098
@@ -5526,7 +5526,6 @@ MonoBehaviour:
   - {fileID: 5962123349829916387, guid: 6c77f8b44f0a10949b403c40c9bbc17e, type: 3}
   - {fileID: 526457357103205448, guid: 4c5e6001aa448b148a4cc161265d983a, type: 3}
   - {fileID: 3421729277213546105, guid: fc084437b3710494e99461c46b74f82a, type: 3}
-  moveSpeed: 5
   MeinRoad: {fileID: 242642383}
   SecondRoad: {fileID: 563094661}
   ParticleSystem: {fileID: 1804512328}

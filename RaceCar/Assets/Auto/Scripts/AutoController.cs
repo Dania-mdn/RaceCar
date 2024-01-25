@@ -9,6 +9,7 @@ public class AutoController : MonoBehaviour
 {
     public GameObject Direction;
     public bool isImpuls = false;
+    public UIRace UIRace;
     Rigidbody carRigidbody; // Stores the car's rigidbody.
     public float direction;
     public float steeringAxis; // Used to know whether the steering wheel has reached the maximum value. It goes from -1 to 1.
@@ -131,15 +132,6 @@ public class AutoController : MonoBehaviour
         {
             initialCarEngineSoundPitch = carEngineSound.pitch;
         }
-
-        if (!useUI)
-        {
-            if (carSpeedText != null)
-            {
-                carSpeedText.text = "0";
-            }
-        }
-
         if (!useSounds)
         {
             if (carEngineSound != null)
@@ -171,6 +163,17 @@ public class AutoController : MonoBehaviour
                 RRWTireSkid.emitting = false;
             }
         }
+        if (useUI)
+        {
+            InvokeRepeating("CarSpeedUI", 0f, 0.2f);
+        }
+        else if (!useUI)
+        {
+            if (carSpeedText != null)
+            {
+                carSpeedText.text = "0";
+            }
+        }
     }
 
     void Update()
@@ -195,11 +198,11 @@ public class AutoController : MonoBehaviour
     
     public void Force()
     {
-        if (!isImpuls && carRigidbody.velocity.magnitude < 15)
+        if (!isImpuls && UIRace.ForceTme >= 2)
         {
-            carRigidbody.AddForce(Direction.transform.forward * -6000, ForceMode.Impulse);
-            //carRigidbody.AddForce(frontLeftCollider.transform.forward * 8000, ForceMode.Impulse);
-            isImpuls = true;
+            carRigidbody.AddForce(Direction.transform.forward * -7400, ForceMode.Impulse);
+            UIRace.SetForceColdawn();
+            //isImpuls = true;
         }
     }
     public void Turn()
@@ -385,7 +388,21 @@ public class AutoController : MonoBehaviour
         DriftCarPS();
 
     }
-
+    public void CarSpeedUI()
+    {
+        if (useUI)
+        {
+            try
+            {
+                float absoluteCarSpeed = Mathf.Abs(carSpeed);
+                carSpeedText.text = Mathf.RoundToInt(absoluteCarSpeed).ToString();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning(ex);
+            }
+        }
+    }
     public void DriftCarPS()
     {
 

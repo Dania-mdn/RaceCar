@@ -108,7 +108,7 @@ public class MoneyHandler : MonoBehaviour
     public void AddSpeed()
     {
         timespeed = coldawn;
-        EventManager.DoAddSpeed(3);
+        EventManager.DoAddSpeed(2.5f);
         speed = coefspeed;
     }
     public void SetRewardAutoTap()

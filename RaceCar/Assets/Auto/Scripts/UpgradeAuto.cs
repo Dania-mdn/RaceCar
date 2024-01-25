@@ -1,15 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.AnimatedValues;
 using UnityEngine;
 
 public class UpgradeAuto : MonoBehaviour
 {
+    public Animation AnimBody;
+    public Animation AnimWhile1;
+    public Animation AnimWhile2;
+    public Animation AnimWhile3;
+    public Animation AnimWhile4;
+    public Animation AnimEngine;
+
     public GameObject[] Body;
     public GameObject[] Engine;
     public GameObject[] While0;
     public GameObject[] While1;
     public GameObject[] While2;
     public GameObject[] While3;
+
+    public int lvl0 = 0;
+    public int lvl1 = 0;
+    public int lvl2 = 0;
 
     private void Start()
     {
@@ -18,17 +30,14 @@ public class UpgradeAuto : MonoBehaviour
             if (PlayerPrefs.HasKey("ID 0"))
             {
                 Upgrade(0, PlayerPrefs.GetInt("ID 0"));
-                Debug.Log(PlayerPrefs.GetInt("ID 0"));
             }
             if (PlayerPrefs.HasKey("ID 1"))
             {
                 Upgrade(1, PlayerPrefs.GetInt("ID 1"));
-                Debug.Log(PlayerPrefs.GetInt("ID 1"));
             }
             if (PlayerPrefs.HasKey("ID 2"))
             {
                 Upgrade(2, PlayerPrefs.GetInt("ID 2"));
-                Debug.Log(PlayerPrefs.GetInt("ID 2"));
             }
 
             PlayerPrefs.DeleteKey("Race");
@@ -46,12 +55,15 @@ public class UpgradeAuto : MonoBehaviour
     {
         if(ID == 0)
         {
+            if(AnimBody != null)
+                AnimBody.Play();
             PlayerPrefs.SetInt("ID " + ID, lvl);
             for (int i = 0; i < Body.Length; i++)
             {
                 if (i == lvl)
                 {
                     Body[i].gameObject.SetActive(true);
+                    lvl0 = lvl;
                 }
                 else
                 {
@@ -61,12 +73,15 @@ public class UpgradeAuto : MonoBehaviour
         }
         else if(ID == 1)
         {
+            if (AnimEngine != null)
+                AnimEngine.Play();
             PlayerPrefs.SetInt("ID " + ID, lvl);
             for (int i = 0; i < Engine.Length; i++)
             {
                 if (i == lvl)
                 {
                     Engine[i].gameObject.SetActive(true);
+                    lvl1 = lvl;
                 }
                 else
                 {
@@ -76,9 +91,17 @@ public class UpgradeAuto : MonoBehaviour
         }
         else
         {
+            if (AnimWhile2 != null)
+            {
+                AnimWhile1.Play();
+                AnimWhile2.Play();
+                AnimWhile3.Play();
+                AnimWhile4.Play();
+            }
             PlayerPrefs.SetInt("ID " + ID, lvl);
             for (int i = 0; i < While0.Length; i++)
             {
+                lvl2 = lvl;
                 if (i == lvl)
                 {
                     While0[i].gameObject.SetActive(true);
@@ -95,5 +118,6 @@ public class UpgradeAuto : MonoBehaviour
                 }
             }
         }
+        EventManager.DoUpgrade(lvl0 + lvl1 + lvl2);
     }
 }

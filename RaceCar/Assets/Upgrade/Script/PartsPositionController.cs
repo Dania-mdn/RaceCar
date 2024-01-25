@@ -33,7 +33,7 @@ public class PartsPositionController : MonoBehaviour
         Physics.Raycast(ray, out hit);
 
         if (Mediate != null)
-            Mediate.transform.position = hit.point;
+            Mediate.transform.position = hit.point + Mediate.transform.up / 5;
     }
     public void OnClickDown()
     {
