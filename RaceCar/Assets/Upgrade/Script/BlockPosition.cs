@@ -9,10 +9,10 @@ public class BlockPosition : MonoBehaviour
     private Animation block;
     public MoneyHandler MoneyHandler;
 
-    private SpriteRenderer SpriteRenderer;
-    public Sprite SpriteUnlock;
+    public GameObject SpriteOpen;
     public GameObject PriceGameObject;
-    public TextMeshProUGUI PriceText;
+    public TextMeshProUGUI PriceTextUnloc;
+    public TextMeshProUGUI PriceTextloc;
     private bool isOpen = false;
 
     public int alableCount;
@@ -21,9 +21,24 @@ public class BlockPosition : MonoBehaviour
     private void Awake()
     {
         block = GetComponent<Animation>();
-        SpriteRenderer = GetComponent<SpriteRenderer>();
+        SpriteOpen.SetActive(false);
+        PriceGameObject.SetActive(false);
     }
+    private void Update()
+    {
+        if (!isOpen) return; 
 
+        if (MoneyHandler.money > Price)
+        {
+            SpriteOpen.SetActive(true);
+            PriceTextUnloc.gameObject.SetActive(true);
+        }
+        else
+        {
+            SpriteOpen.SetActive(false);
+            PriceTextUnloc.gameObject.SetActive(false);
+        }
+    }
     public void Click()
     {
         if (isOpen)
@@ -53,7 +68,6 @@ public class BlockPosition : MonoBehaviour
 
     public void Open()
     {
-        SpriteRenderer.sprite = SpriteUnlock;
         PriceGameObject.SetActive(true);
         FormaterCount(Price);
         isOpen = true;
@@ -62,19 +76,23 @@ public class BlockPosition : MonoBehaviour
     {
         if (Value >= 1000000000)
         {
-            PriceText.text = "$" + (Value / 1000000000f).ToString("F1") + "B";
+            PriceTextUnloc.text = "$" + (Value / 1000000000f).ToString("F1") + "B";
+            PriceTextloc.text = "$" + (Value / 1000000000f).ToString("F1") + "B";
         }
         else if (Value >= 1000000)
         {
-            PriceText.text = "$" + (Value / 1000000f).ToString("F1") + "M";
+            PriceTextUnloc.text = "$" + (Value / 1000000f).ToString("F1") + "M";
+            PriceTextloc.text = "$" + (Value / 1000000f).ToString("F1") + "M";
         }
         else if (Value >= 1000)
         {
-            PriceText.text = "$" + (Value / 1000f).ToString("F1") + "K";
+            PriceTextUnloc.text = "$" + (Value / 1000f).ToString("F1") + "K";
+            PriceTextloc.text = "$" + (Value / 1000f).ToString("F1") + "K";
         }
         else
         {
-            PriceText.text = "$" + Value.ToString();
+            PriceTextUnloc.text = "$" + Value.ToString();
+            PriceTextloc.text = "$" + Value.ToString();
         }
     }
 }

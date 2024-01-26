@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4200496805709666696}
   - component: {fileID: 2139173397826645314}
   - component: {fileID: 2021909842003232992}
+  - component: {fileID: 2829125048196964700}
   m_Layer: 0
   m_Name: dog house
   m_TagString: Untagged
@@ -97,3 +98,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.0402575, y: 1.7462552, z: 2.2101383}
   m_Center: {x: 0, y: 0.8731276, z: 0}
+--- !u!54 &2829125048196964700
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481641820917566615}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

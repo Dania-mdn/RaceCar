@@ -28,7 +28,6 @@ public class Joystic : MonoBehaviour
 
                 autoController.direction = _targetRotation + 135;
                 autoController.Turn();
-                autoController.isImpuls = false;
             }
             else
             {

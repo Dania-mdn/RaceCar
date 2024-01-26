@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class AutoController : MonoBehaviour
 {
     public GameObject Direction;
-    public bool isImpuls = false;
     public UIRace UIRace;
     Rigidbody carRigidbody; // Stores the car's rigidbody.
     public float direction;
@@ -186,6 +185,7 @@ public class AutoController : MonoBehaviour
         if (carRigidbody.angularVelocity.magnitude > 1.1f)
         {
             carRigidbody.angularVelocity = carRigidbody.angularVelocity.normalized * 1.1f;
+            carRigidbody.velocity = carRigidbody.velocity / 1.006f;
         }
 
         if (Input.GetKey(KeyCode.W))
@@ -198,11 +198,10 @@ public class AutoController : MonoBehaviour
     
     public void Force()
     {
-        if (!isImpuls && UIRace.ForceTme >= 2)
+        if (UIRace.ForceTme >= 2)
         {
-            carRigidbody.AddForce(Direction.transform.forward * -7400, ForceMode.Impulse);
+            carRigidbody.AddForce(Direction.transform.forward * -7200, ForceMode.Impulse);
             UIRace.SetForceColdawn();
-            //isImpuls = true;
         }
     }
     public void Turn()
