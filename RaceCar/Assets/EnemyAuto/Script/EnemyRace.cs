@@ -16,11 +16,13 @@ public class EnemyRace : MonoBehaviour
     public float steeringAxis; // Used to know whether the steering wheel has reached the maximum value. It goes from -1 to 1.
     [Space(20)]
     [Space(10)]
-    [Range(20, 190)]
-    public float maxSpeed = 90; //The maximum speed that the car can reach in km/h.
+    [Range(0, 190)]
+    public float maxSpeedDefolt = 65;
+    [HideInInspector]
+    public float maxSpeed; //The maximum speed that the car can reach in km/h.
     [Range(10, 120)]
     public int maxReverseSpeed = 45; //The maximum speed that the car can reach while going on reverse in km/h.
-    [Range(1, 100)]
+    [Range(1, 10)]
     public float accelerationMultiplier; // How fast the car can accelerate. 1 is a slow acceleration and 10 is the fastest.
     [Space(10)]
     [Range(10, 45)]
@@ -169,10 +171,11 @@ public class EnemyRace : MonoBehaviour
         carSpeed = (2 * Mathf.PI * frontLeftCollider.radius * frontLeftCollider.rpm * 60) / 1000;
         localVelocityX = transform.InverseTransformDirection(carRigidbody.velocity).x;
         localVelocityZ = transform.InverseTransformDirection(carRigidbody.velocity).z;
+
         if (carRigidbody.angularVelocity.magnitude > 1.1f)
         {
             carRigidbody.angularVelocity = carRigidbody.angularVelocity.normalized * 1.1f;
-            carRigidbody.velocity = carRigidbody.velocity / 1.01f;
+            carRigidbody.velocity = carRigidbody.velocity * 0.99f;
         }
 
         Vector3 inputDirection = FolowObject.transform.position - Direction.transform.position;
@@ -185,7 +188,7 @@ public class EnemyRace : MonoBehaviour
         FoolowDistance = (FolowObject.transform.position - Direction.transform.position).magnitude;
         if(FoolowDistance > 18)
         {
-            PathFollower.speed = 5;
+            PathFollower.speed = 0;
         }
         else
         {

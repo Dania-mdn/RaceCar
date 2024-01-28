@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.AnimatedValues;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class UpgradeAuto : MonoBehaviour
 {
@@ -20,8 +22,11 @@ public class UpgradeAuto : MonoBehaviour
     public GameObject[] While3;
 
     public int lvl0 = 0;
+    public TextMeshProUGUI body;
     public int lvl1 = 0;
+    public TextMeshProUGUI Wheels;
     public int lvl2 = 0;
+    public TextMeshProUGUI Engines;
 
     private void Start()
     {
@@ -42,6 +47,9 @@ public class UpgradeAuto : MonoBehaviour
 
             PlayerPrefs.DeleteKey("Race");
         }
+        body.text = "TIER " + lvl0.ToString();
+        Wheels.text = "TIER " + lvl1.ToString();
+        Engines.text = "TIER " + lvl2.ToString();
     }
     private void OnEnable()
     {
@@ -119,5 +127,8 @@ public class UpgradeAuto : MonoBehaviour
             }
         }
         EventManager.DoUpgrade(lvl0 + lvl1 + lvl2);
+        body.text = "TIER" + lvl0.ToString();
+        Wheels.text = "TIER" + lvl1.ToString();
+        Engines.text = "TIER" + lvl2.ToString();
     }
 }

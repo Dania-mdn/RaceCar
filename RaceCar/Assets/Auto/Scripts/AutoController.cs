@@ -14,11 +14,13 @@ public class AutoController : MonoBehaviour
     public float steeringAxis; // Used to know whether the steering wheel has reached the maximum value. It goes from -1 to 1.
     [Space(20)]
     [Space(10)]
-    [Range(20, 190)]
+    [Range(0, 190)] 
+    public float maxSpeedDefolt = 90;
+    [HideInInspector] 
     public float maxSpeed = 90; //The maximum speed that the car can reach in km/h.
     [Range(10, 120)]
     public int maxReverseSpeed = 45; //The maximum speed that the car can reach while going on reverse in km/h.
-    [Range(1, 100)]
+    [Range(1, 10)]
     public float accelerationMultiplier; // How fast the car can accelerate. 1 is a slow acceleration and 10 is the fastest.
     [Space(10)]
     [Range(10, 45)]
@@ -29,9 +31,9 @@ public class AutoController : MonoBehaviour
     [Range(100, 600)]
     public int brakeForce = 350; // The strength of the wheel brakes.
     [Range(1, 10)]
-    public int decelerationMultiplier = 2; // How fast the car decelerates when the user is not using the throttle.
+    public int decelerationMultiplier = 2; // Насколько быстро замедляется автомобиль, когда пользователь не использует газ.
     [Range(1, 10)]
-    public int handbrakeDriftMultiplier = 5; // How much grip the car loses when the user hit the handbrake.
+    public int handbrakeDriftMultiplier = 5; // Насколько сильно автомобиль теряет сцепление с дорогой, когда пользователь нажимает на ручник.
     [Space(10)]
     public Vector3 bodyMassCenter; // This is a vector that contains the center of mass of the car. I recommend to set this value
                                    // in the points x = 0 and z = 0 of your car. You can select the value that you want in the y axis,
@@ -182,15 +184,11 @@ public class AutoController : MonoBehaviour
         carSpeed = (2 * Mathf.PI * frontLeftCollider.radius * frontLeftCollider.rpm * 60) / 1000;
         localVelocityX = transform.InverseTransformDirection(carRigidbody.velocity).x;
         localVelocityZ = transform.InverseTransformDirection(carRigidbody.velocity).z;
-        if (carRigidbody.angularVelocity.magnitude > 1.1f)
-        {
-            carRigidbody.angularVelocity = carRigidbody.angularVelocity.normalized * 1.1f;
-            carRigidbody.velocity = carRigidbody.velocity / 1.006f;
-        }
 
-        if (Input.GetKey(KeyCode.W))
+        if (carRigidbody.angularVelocity.magnitude > 1.2f)
         {
-            GoForward();
+            carRigidbody.angularVelocity = carRigidbody.angularVelocity.normalized * 1.2f;
+            carRigidbody.velocity = carRigidbody.velocity * 0.99f;
         }
 
         AnimateWheelMeshes();

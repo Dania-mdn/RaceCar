@@ -8,7 +8,7 @@ public class Enviroment : MonoBehaviour
 {
     public GameObject[] road;
     private float bazespeed = 2.5f;
-    private float moveSpeed = 2.5f;
+    public float moveSpeed = 2.5f;
 
     public GameObject MeinRoad;
     public GameObject SecondRoad;

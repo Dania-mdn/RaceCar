@@ -13,9 +13,10 @@ public class Joystic : MonoBehaviour
     {
         Vector3 touch_pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         target_vector = touch_pos - transform.position;
+
         if (touchMarker.gameObject.activeSelf == true)
         {
-            if (target_vector.magnitude < 9)
+            if (target_vector.magnitude < 39.1f)
             {
                 Vector3 direction = touch_pos - transform.localPosition;
                 touchMarker.transform.position = transform.localPosition + direction;
