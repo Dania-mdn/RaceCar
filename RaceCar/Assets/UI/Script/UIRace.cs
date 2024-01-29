@@ -9,10 +9,13 @@ public class UIRace : MonoBehaviour
 
     private float ForceColdawn = 0;
     public float ForceTme;
-
+    private void Start()
+    {
+        SliderForce.maxValue = 3;
+    }
     void Update()
     {
-        if (ForceTme < 2)
+        if (ForceTme < 3)
         {
             ForceTme = ForceTme + Time.deltaTime;
             SliderForce.value = ForceTme;

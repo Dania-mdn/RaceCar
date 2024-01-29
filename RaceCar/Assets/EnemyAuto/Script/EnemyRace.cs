@@ -15,28 +15,36 @@ public class EnemyRace : MonoBehaviour
     public float direction;
     public float steeringAxis; // Used to know whether the steering wheel has reached the maximum value. It goes from -1 to 1.
     [Space(20)]
-    [Space(10)]
+    [Range(0, 10)]
+    public float WheelModyfer = 1;
     [Range(0, 190)]
     public float maxSpeedDefolt = 65;
     [HideInInspector]
     public float maxSpeed; //The maximum speed that the car can reach in km/h.
     [Range(10, 120)]
+    [HideInInspector]
     public int maxReverseSpeed = 45; //The maximum speed that the car can reach while going on reverse in km/h.
     [Range(1, 10)]
     public float accelerationMultiplier; // How fast the car can accelerate. 1 is a slow acceleration and 10 is the fastest.
     [Space(10)]
     [Range(10, 45)]
+    [HideInInspector]
     public int maxSteeringAngle = 30; // The maximum angle that the tires can reach while rotating the steering wheel.
     [Range(0.1f, 1f)]
+    [HideInInspector]
     public float steeringSpeed = 0.5f; // How fast the steering wheel turns.
     [Space(10)]
     [Range(100, 600)]
+    [HideInInspector]
     public int brakeForce = 600; // The strength of the wheel brakes.
     [Range(1, 10)]
+    [HideInInspector]
     public int decelerationMultiplier = 2; // How fast the car decelerates when the user is not using the throttle.
     [Range(1, 10)]
+    [HideInInspector]
     public int handbrakeDriftMultiplier = 5; // How much grip the car loses when the user hit the handbrake.
     [Space(10)]
+    [HideInInspector]
     public Vector3 bodyMassCenter; // This is a vector that contains the center of mass of the car. I recommend to set this value
                                    // in the points x = 0 and z = 0 of your car. You can select the value that you want in the y axis,
                                    // however, you must notice that the higher this value is, the more unstable the car becomes.
@@ -69,7 +77,6 @@ public class EnemyRace : MonoBehaviour
     public bool useSounds = false;
     public AudioSource carEngineSound; // This variable stores the sound of the car engine.
     public AudioSource tireScreechSound; // This variable stores the sound of the tire screech (when the car is drifting).
-    float initialCarEngineSoundPitch; // Used to store the initial pitch of the car engine sound.
 
     [HideInInspector]
     public float carSpeed; // Used to store the speed of the car.
@@ -127,10 +134,6 @@ public class EnemyRace : MonoBehaviour
         RRwheelFriction.asymptoteValue = rearRightCollider.sidewaysFriction.asymptoteValue;
         RRwheelFriction.stiffness = rearRightCollider.sidewaysFriction.stiffness;
 
-        if (carEngineSound != null)
-        {
-            initialCarEngineSoundPitch = carEngineSound.pitch;
-        }
         if (!useSounds)
         {
             if (carEngineSound != null)
@@ -174,8 +177,8 @@ public class EnemyRace : MonoBehaviour
 
         if (carRigidbody.angularVelocity.magnitude > 1.1f)
         {
-            carRigidbody.angularVelocity = carRigidbody.angularVelocity.normalized * 1.1f;
-            carRigidbody.velocity = carRigidbody.velocity * 0.99f;
+            carRigidbody.angularVelocity = carRigidbody.angularVelocity.normalized * (1 + (WheelModyfer) / 100);
+            carRigidbody.velocity = carRigidbody.velocity * (1 - (WheelModyfer) / 1000);
         }
 
         Vector3 inputDirection = FolowObject.transform.position - Direction.transform.position;

@@ -14,6 +14,8 @@ public class MainJoystic : MonoBehaviour
     }
     public void Update()
     {
+        if (autoController == null) return;
+
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             joisticMarcer.gameObject.SetActive(true);

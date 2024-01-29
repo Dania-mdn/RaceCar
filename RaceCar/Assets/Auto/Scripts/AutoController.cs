@@ -13,28 +13,36 @@ public class AutoController : MonoBehaviour
     public float direction;
     public float steeringAxis; // Used to know whether the steering wheel has reached the maximum value. It goes from -1 to 1.
     [Space(20)]
-    [Space(10)]
-    [Range(0, 190)] 
+    [Range(0, 10)]
+    public float WheelModyfer = 1;
+    [Range(0, 100)]
     public float maxSpeedDefolt = 90;
     [HideInInspector] 
     public float maxSpeed = 90; //The maximum speed that the car can reach in km/h.
     [Range(10, 120)]
+    [HideInInspector]
     public int maxReverseSpeed = 45; //The maximum speed that the car can reach while going on reverse in km/h.
     [Range(1, 10)]
     public float accelerationMultiplier; // How fast the car can accelerate. 1 is a slow acceleration and 10 is the fastest.
     [Space(10)]
+    [HideInInspector]
     [Range(10, 45)]
     public int maxSteeringAngle = 30; // The maximum angle that the tires can reach while rotating the steering wheel.
+    [HideInInspector]
     [Range(0.1f, 1f)]
     public float steeringSpeed = 0.5f; // How fast the steering wheel turns.
     [Space(10)]
     [Range(100, 600)]
+    [HideInInspector]
     public int brakeForce = 350; // The strength of the wheel brakes.
     [Range(1, 10)]
+    [HideInInspector]
     public int decelerationMultiplier = 2; // Насколько быстро замедляется автомобиль, когда пользователь не использует газ.
+    [HideInInspector]
     [Range(1, 10)]
     public int handbrakeDriftMultiplier = 5; // Насколько сильно автомобиль теряет сцепление с дорогой, когда пользователь нажимает на ручник.
     [Space(10)]
+    [HideInInspector]
     public Vector3 bodyMassCenter; // This is a vector that contains the center of mass of the car. I recommend to set this value
                                    // in the points x = 0 and z = 0 of your car. You can select the value that you want in the y axis,
                                    // however, you must notice that the higher this value is, the more unstable the car becomes.
@@ -71,7 +79,6 @@ public class AutoController : MonoBehaviour
     public bool useSounds = false;
     public AudioSource carEngineSound; // This variable stores the sound of the car engine.
     public AudioSource tireScreechSound; // This variable stores the sound of the tire screech (when the car is drifting).
-    float initialCarEngineSoundPitch; // Used to store the initial pitch of the car engine sound.
 
     [HideInInspector]
     public float carSpeed; // Used to store the speed of the car.
@@ -84,7 +91,6 @@ public class AutoController : MonoBehaviour
     float driftingAxis;
     float localVelocityZ;
     float localVelocityX;
-    bool deceleratingCar;
 
     WheelFrictionCurve FLwheelFriction;
     float FLWextremumSlip;
@@ -129,10 +135,6 @@ public class AutoController : MonoBehaviour
         RRwheelFriction.asymptoteValue = rearRightCollider.sidewaysFriction.asymptoteValue;
         RRwheelFriction.stiffness = rearRightCollider.sidewaysFriction.stiffness;
 
-        if (carEngineSound != null)
-        {
-            initialCarEngineSoundPitch = carEngineSound.pitch;
-        }
         if (!useSounds)
         {
             if (carEngineSound != null)
@@ -187,8 +189,8 @@ public class AutoController : MonoBehaviour
 
         if (carRigidbody.angularVelocity.magnitude > 1.2f)
         {
-            carRigidbody.angularVelocity = carRigidbody.angularVelocity.normalized * 1.2f;
-            carRigidbody.velocity = carRigidbody.velocity * 0.99f;
+            carRigidbody.angularVelocity = carRigidbody.angularVelocity.normalized * (1 + (WheelModyfer * 2) / 100);
+            carRigidbody.velocity = carRigidbody.velocity * (1 - WheelModyfer / 1000);
         }
 
         AnimateWheelMeshes();
@@ -196,7 +198,7 @@ public class AutoController : MonoBehaviour
     
     public void Force()
     {
-        if (UIRace.ForceTme >= 2)
+        if (UIRace.ForceTme >= 3)
         {
             carRigidbody.AddForce(Direction.transform.forward * -7200, ForceMode.Impulse);
             UIRace.SetForceColdawn();

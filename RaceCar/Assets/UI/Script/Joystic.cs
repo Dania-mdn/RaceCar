@@ -11,6 +11,8 @@ public class Joystic : MonoBehaviour
 
     void Update()
     {
+        if (autoController == null) return;
+
         Vector3 touch_pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         target_vector = touch_pos - transform.position;
 

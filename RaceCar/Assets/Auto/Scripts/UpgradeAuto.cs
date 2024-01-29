@@ -7,6 +7,8 @@ using TMPro;
 
 public class UpgradeAuto : MonoBehaviour
 {
+    private AutoController AutoController;
+
     public Animation AnimBody;
     public Animation AnimWhile1;
     public Animation AnimWhile2;
@@ -30,6 +32,8 @@ public class UpgradeAuto : MonoBehaviour
 
     private void Start()
     {
+        AutoController = GetComponent<AutoController>();
+
         if (PlayerPrefs.HasKey("Race"))
         {
             if (PlayerPrefs.HasKey("ID 0"))
@@ -47,9 +51,13 @@ public class UpgradeAuto : MonoBehaviour
 
             PlayerPrefs.DeleteKey("Race");
         }
-        body.text = "TIER " + lvl0.ToString();
-        Wheels.text = "TIER " + lvl1.ToString();
-        Engines.text = "TIER " + lvl2.ToString();
+
+        if(body != null)
+        {
+            body.text = "TIER " + lvl0.ToString();
+            Wheels.text = "TIER " + lvl1.ToString();
+            Engines.text = "TIER " + lvl2.ToString();
+        }
     }
     private void OnEnable()
     {
@@ -63,7 +71,9 @@ public class UpgradeAuto : MonoBehaviour
     {
         if(ID == 0)
         {
-            if(AnimBody != null)
+            if(AutoController != null)
+             AutoController.accelerationMultiplier = lvl;
+            if (AnimBody != null)
                 AnimBody.Play();
             PlayerPrefs.SetInt("ID " + ID, lvl);
             for (int i = 0; i < Body.Length; i++)
@@ -81,6 +91,8 @@ public class UpgradeAuto : MonoBehaviour
         }
         else if(ID == 1)
         {
+            if (AutoController != null)
+                AutoController.maxSpeedDefolt = lvl * 10;
             if (AnimEngine != null)
                 AnimEngine.Play();
             PlayerPrefs.SetInt("ID " + ID, lvl);
@@ -99,6 +111,8 @@ public class UpgradeAuto : MonoBehaviour
         }
         else
         {
+            if (AutoController != null)
+                AutoController.WheelModyfer = lvl;
             if (AnimWhile2 != null)
             {
                 AnimWhile1.Play();
@@ -127,8 +141,11 @@ public class UpgradeAuto : MonoBehaviour
             }
         }
         EventManager.DoUpgrade(lvl0 + lvl1 + lvl2);
-        body.text = "TIER" + lvl0.ToString();
-        Wheels.text = "TIER" + lvl1.ToString();
-        Engines.text = "TIER" + lvl2.ToString();
+        if (body != null)
+        {
+            body.text = "TIER " + lvl0.ToString();
+            Wheels.text = "TIER " + lvl1.ToString();
+            Engines.text = "TIER " + lvl2.ToString();
+        }
     }
 }
