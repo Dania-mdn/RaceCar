@@ -45,6 +45,22 @@ public class MoneyHandler : MonoBehaviour
     {
         FormaterCount(IncomPriece, UIManager.IncomePrice);
         FormaterCount(PartsPrize, UIManager.PartsPrice);
+
+        if (PlayerPrefs.HasKey("money"))
+        {
+            money = PlayerPrefs.GetFloat("money");
+        }
+
+        if (PlayerPrefs.HasKey("PartsPrize"))
+        {
+            PartsPrize = PlayerPrefs.GetFloat("PartsPrize");
+            FormaterCount(Mathf.Round(PartsPrize), UIManager.PartsPrice);
+            FormaterCount(Mathf.Round(PartsPrize), UIManager.PartsPriceBlock);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("PartsPrize", PartsPrize);
+        }
     }
     private void Update()
     {
@@ -65,6 +81,7 @@ public class MoneyHandler : MonoBehaviour
         }
 
         money = money + (moneyInSecond * coefMnog * coefX2) * Time.deltaTime;
+        PlayerPrefs.SetFloat("money", money);
 
         FormaterCount(Mathf.Round(moneyInSecond * coefMnog * coefX2), UIManager.MoneyInSecond);
         FormaterCount(Mathf.Round(money), UIManager.Money);
@@ -145,6 +162,7 @@ public class MoneyHandler : MonoBehaviour
         if (Money >= 0 && PartsPositionController.TryParts())
         {
             PartsPrize = PartsPrize + (PartsPrize * 0.1f);
+            PlayerPrefs.SetFloat("PartsPrize", PartsPrize);
             FormaterCount(Mathf.Round(PartsPrize), UIManager.PartsPrice);
             FormaterCount(Mathf.Round(PartsPrize), UIManager.PartsPriceBlock);
             money = money - PartsPrize;
@@ -170,7 +188,7 @@ public class MoneyHandler : MonoBehaviour
     }
     public void Race()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(Random.Range(1, 3));
         PlayerPrefs.SetInt("Race", 1);
     }
     private void FormaterCount(float Value, TextMeshProUGUI TextValue)

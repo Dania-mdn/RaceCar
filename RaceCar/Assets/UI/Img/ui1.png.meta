@@ -404,6 +404,48 @@ TextureImporter:
       name: ui1_13
       rect:
         serializedVersion: 2
+        x: 865
+        y: 304
+        width: 339
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f82c711176c048941ba33634c87bcbc7
+      internalID: 230836653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui1_14
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 304
+        width: 19
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ea5c392c6498a748aeac2a8972eff22
+      internalID: 1882880437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui1_15
+      rect:
+        serializedVersion: 2
         x: 33
         y: 19
         width: 799
@@ -415,8 +457,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f82c711176c048941ba33634c87bcbc7
-      internalID: 230836653
+      spriteID: 6b5574a71f3ce4f44b81150c90ceae41
+      internalID: -1689430846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui1_16
+      rect:
+        serializedVersion: 2
+        x: 869
+        y: 31
+        width: 230
+        height: 229
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb9a73e8a0a51c142bf559618fa9b880
+      internalID: -1441090669
       vertices: []
       indices: 
       edges: []
@@ -440,10 +503,13 @@ TextureImporter:
       ui1_5: -192412129
       ui1_6: -291121626
       ui1_10: 1256548326
+      ui1_16: -1441090669
       ui1_9: 655293029
       ui1_1: 1769808927
+      ui1_14: 1882880437
       ui1_3: -1934422673
       ui1_13: 230836653
+      ui1_15: -1689430846
       ui1_8: 1224095292
       ui1_7: 1547269462
   spritePackingTag: 

@@ -1,7 +1,9 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RaceManager : MonoBehaviour
 {
@@ -11,7 +13,8 @@ public class RaceManager : MonoBehaviour
 
     public Canvas Canvas;
     public GameObject Joistick;
-    public GameObject TextWinner;
+    public GameObject Winner;
+    public GameObject Lost;
     public Camera Camera;
     public CinemachineVirtualCamera VirtualCamera;
 
@@ -30,6 +33,12 @@ public class RaceManager : MonoBehaviour
     public GameObject StartObject;
     public GameObject[] StartLight;
 
+    public GameObject winArrou;
+    private float _targetRotation = 0.0f;
+    private float rewardMoney = 1;
+    public TextMeshProUGUI rewardMoneyTextWon;
+    public TextMeshProUGUI rewardMoneyTextLost;
+
     private void Start()
     {
         EnemyRace.maxSpeed = 0;
@@ -39,6 +48,11 @@ public class RaceManager : MonoBehaviour
     }
     void Update()
     {
+        if (Winner.activeSelf == true)
+        {
+            _targetRotation = Mathf.Repeat(winArrou.transform.localRotation.eulerAngles.z + 180f, 360f) - 180f;
+        }
+
         if (!isFinish)
         {
             if (RaceCountPlayer > RaceCountforWinn)
@@ -89,13 +103,58 @@ public class RaceManager : MonoBehaviour
     }
     public void Finish(bool isWin)
     {
-        Destroy(AutoController);
-        EnemyRacePlayer.enabled = true;
-        VirtualCamera.Priority = 3;
-        isFinish = true;
-        Canvas.planeDistance = 2;
-        Joistick.SetActive(false);
-        TextWinner.SetActive(true);
+        if (isWin)
+        {
+            Destroy(AutoController);
+            EnemyRacePlayer.enabled = true;
+            VirtualCamera.Priority = 3;
+            isFinish = true;
+            Canvas.planeDistance = 2;
+            Joistick.SetActive(false);
+            Winner.SetActive(true);
+            rewardMoney = PlayerPrefs.GetFloat("PartsPrize") * 3;
+            FormaterCount(rewardMoney, rewardMoneyTextWon);
+        }
+        else
+        {
+            Destroy(AutoController);
+            EnemyRacePlayer.enabled = true;
+            VirtualCamera.Priority = 3;
+            isFinish = true;
+            Canvas.planeDistance = 2;
+            Joistick.SetActive(false);
+            Lost.SetActive(true);
+            rewardMoney = PlayerPrefs.GetFloat("PartsPrize") * 3;
+            FormaterCount(rewardMoney, rewardMoneyTextLost);
+        }
+    }
+    public void RewardXmonney()
+    {
+        if (_targetRotation <= 15 && _targetRotation >= -15)
+        {
+            PlayerPrefs.SetFloat("money", PlayerPrefs.GetFloat("money") + (rewardMoney * 4));
+        }
+        else if((_targetRotation > 15 && _targetRotation <= 65) || (_targetRotation >= -65 && _targetRotation < -15))
+        {
+            PlayerPrefs.SetFloat("money", PlayerPrefs.GetFloat("money") + (rewardMoney * 2));
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("money", PlayerPrefs.GetFloat("money") + (rewardMoney * 3));
+        }
+
+        MeinMenu();
+    }
+    public void retryScene()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        SceneManager.LoadScene(currentScene.name);
+    }
+    public void MeinMenu()
+    {
+        SceneManager.LoadScene(0);
+        PlayerPrefs.SetFloat("money", PlayerPrefs.GetFloat("money") + rewardMoney);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -114,6 +173,25 @@ public class RaceManager : MonoBehaviour
                 RaceCountEnemy++;
                 isCheckRaceEnemy = false;
             }
+        }
+    }
+    private void FormaterCount(float Value, TextMeshProUGUI TextValue)
+    {
+        if (Value >= 1000000000)
+        {
+            TextValue.text = "REWARD: $" + (Value / 1000000000f).ToString("F1") + "B";
+        }
+        else if (Value >= 1000000)
+        {
+            TextValue.text = "REWARD: $" + (Value / 1000000f).ToString("F1") + "M";
+        }
+        else if (Value >= 1000)
+        {
+            TextValue.text = "$REWARD: $" + (Value / 1000f).ToString("F1") + "K";
+        }
+        else
+        {
+            TextValue.text = "REWARD: $" + Value.ToString();
         }
     }
 }
