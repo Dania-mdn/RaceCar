@@ -25,94 +25,100 @@ public class EnemyUpgrade : MonoBehaviour
     {
         EnemyRace = GetComponent<EnemyRace>();
 
-        if (PlayerPrefs.HasKey("EnemyID 0"))
-        {
-            Upgrade(0, PlayerPrefs.GetInt("ID 0"));
-        }
-        if (PlayerPrefs.HasKey("EnemyID 1"))
-        {
-            Upgrade(1, PlayerPrefs.GetInt("ID 1"));
-        }
-        if (PlayerPrefs.HasKey("EnemyID 2"))
-        {
-            Upgrade(2, PlayerPrefs.GetInt("ID 2"));
-        }
+        Upgrade(0, PlayerPrefs.GetInt("EnemyID 0"));
+        Upgrade(1, PlayerPrefs.GetInt("EnemyID 1"));
+        Upgrade(2, PlayerPrefs.GetInt("EnemyID 2"));
     }
     private void OnEnable()
     {
-        EventManager.UpgradeAuto += Upgrade;
+        EventManager.UpgradeAuto += UpgradeMediate;
     }
     private void OnDisable()
     {
-        EventManager.UpgradeAuto += Upgrade;
+        EventManager.UpgradeAuto += UpgradeMediate;
+    }
+    private void UpgradeMediate(int ID, int lvl)
+    {
+        int Enemylvl = Random.Range(lvl, lvl + 2);
+        Upgrade(ID, Enemylvl);
     }
     private void Upgrade(int ID, int lvl)
     {
         if (ID == 0)
         {
-            int Enemylvl = Random.Range(lvl - 1, lvl + 1);
-
             if (EnemyRace != null)
-                EnemyRace.accelerationMultiplier = Enemylvl;
-            PlayerPrefs.SetInt("EnemyID " + ID, Enemylvl);
+                EnemyRace.accelerationMultiplier = lvl;
+            PlayerPrefs.SetInt("EnemyID " + ID, lvl);
             for (int i = 0; i < Body.Length; i++)
             {
-                if (i == Enemylvl)
+                if (i == lvl)
                 {
-                    Body[i].gameObject.SetActive(true);
-                    lvl0 = Enemylvl;
+                    if (Body[i] != null)
+                        Body[i].gameObject.SetActive(true);
+                    lvl0 = lvl;
                 }
                 else
                 {
-                    Body[i].gameObject.SetActive(false);
+                    if (Body[i] != null)
+                        Body[i].gameObject.SetActive(false);
                 }
             }
         }
         else if (ID == 1)
         {
-            int Enemylvl = Random.Range(lvl - 1, lvl + 1);
-
             if (EnemyRace != null)
-                EnemyRace.maxSpeedDefolt = Enemylvl * 10;
-            PlayerPrefs.SetInt("EnemyID " + ID, Enemylvl);
+                EnemyRace.maxSpeedDefolt = lvl * 10;
+            PlayerPrefs.SetInt("EnemyID " + ID, lvl);
             for (int i = 0; i < Engine.Length; i++)
             {
-                if (i == Enemylvl)
+                if (i == lvl)
                 {
-                    Engine[i].gameObject.SetActive(true);
-                    lvl1 = Enemylvl;
+                    if(Engine[i] != null)
+                        Engine[i].gameObject.SetActive(true);
+                    lvl1 = lvl;
                 }
                 else
                 {
-                    Engine[i].gameObject.SetActive(false);
+                    if (Engine[i] != null)
+                        Engine[i].gameObject.SetActive(false);
                 }
             }
         }
         else
         {
-            int Enemylvl = Random.Range(lvl - 1, lvl + 1);
-
             if (EnemyRace != null)
-                EnemyRace.WheelModyfer = Enemylvl;
-            PlayerPrefs.SetInt("EnemyID " + ID, Enemylvl);
+                EnemyRace.WheelModyfer = lvl;
+            PlayerPrefs.SetInt("EnemyID " + 2, lvl);
             for (int i = 0; i < While0.Length; i++)
             {
-                lvl2 = Enemylvl;
-                if (i == Enemylvl)
+                lvl2 = lvl;
+                if (i == lvl)
                 {
-                    While0[i].gameObject.SetActive(true);
-                    While1[i].gameObject.SetActive(true);
-                    While2[i].gameObject.SetActive(true);
-                    While3[i].gameObject.SetActive(true);
+                    if (While0[i] != null)
+                    {
+                        While0[i].gameObject.SetActive(true);
+                        While1[i].gameObject.SetActive(true);
+                        While2[i].gameObject.SetActive(true);
+                        While3[i].gameObject.SetActive(true);
+                    }
                 }
                 else
                 {
-                    While0[i].gameObject.SetActive(false);
-                    While1[i].gameObject.SetActive(false);
-                    While2[i].gameObject.SetActive(false);
-                    While3[i].gameObject.SetActive(false);
+                    if (While0[i] != null)
+                    {
+                        While0[i].gameObject.SetActive(false);
+                        While1[i].gameObject.SetActive(false);
+                        While2[i].gameObject.SetActive(false);
+                        While3[i].gameObject.SetActive(false);
+                    }
                 }
             }
+        }
+        if (body != null)
+        {
+            body.text = lvl0.ToString();
+            Wheels.text = lvl1.ToString();
+            Engines.text = lvl2.ToString();
         }
     }
 }

@@ -14,7 +14,7 @@ public class PartsUpgrade : MonoBehaviour
 
     public TextMeshProUGUI TMPlvl;
 
-    private void Start()
+    private void Awake()
     {
         TMPlvl.text = lvl.ToString();
 
@@ -36,11 +36,16 @@ public class PartsUpgrade : MonoBehaviour
         if (lvl + 1 > MeshLvl.Length) return;
 
         lvl++;
+        SetLvL(lvl);
+    }
+    public void SetLvL(int LVL)
+    {
+        lvl = LVL;
         TMPlvl.text = lvl.ToString();
 
         for (int i = 0; i < MeshLvl.Length; i++)
         {
-            if(i == lvl - 1)
+            if (i == lvl - 1)
             {
                 MeshLvl[i].gameObject.SetActive(true);
             }

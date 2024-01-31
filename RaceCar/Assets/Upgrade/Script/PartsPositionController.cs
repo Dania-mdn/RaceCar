@@ -9,6 +9,7 @@ public class PartsPositionController : MonoBehaviour
     private GameObject Mediate;
     private Ray ray;
     private GameObject startMediate;
+    public PositionAuto PositionAuto;
     public GameObject[] Parts;
     public GameObject[] PositionArray;
 
@@ -16,15 +17,13 @@ public class PartsPositionController : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.avalableCount += SetAvailableBlock;
+        EventManager.avalableCount += SetAvailableBlock; 
+        load();
     }
     private void OnDisable()
     {
         EventManager.avalableCount -= SetAvailableBlock;
-    }
-    private void Start()
-    {
-        SetAvailableBlock();
+        Save();
     }
     
     private void Update()
@@ -202,6 +201,74 @@ public class PartsPositionController : MonoBehaviour
         if (BlockPositionArray[avalableCount] != null)
         {
             BlockPositionArray[avalableCount].transform.GetChild(0).GetComponent<BlockPosition>().Open();
+        }
+    }
+    private void Save()
+    {
+        for (int i = 0; i < PositionArray.Length; i++)
+        {
+            PlayerPrefs.DeleteKey(i + "i");
+            PlayerPrefs.DeleteKey(i + "ID");
+            PlayerPrefs.DeleteKey(i + "lvl");
+
+            if (PositionArray[i].transform.GetComponent<Position>().Parts != null)
+
+            if (PositionArray[i].transform.GetComponent<Position>().Parts.GetComponent<PartsUpgrade>() != null)
+            {
+                PartsUpgrade PartsUpgrade = PositionArray[i].transform.GetComponent<Position>().Parts.GetComponent<PartsUpgrade>();
+                PlayerPrefs.SetInt(i + "i", i);
+                PlayerPrefs.SetInt(i + "ID", PartsUpgrade.ID);
+                PlayerPrefs.SetInt(i + "lvl", PartsUpgrade.lvl);
+            }
+        }
+
+        for (int i = 0; i < PositionAuto.Parts.Length; i++)
+        {
+            PlayerPrefs.DeleteKey(i + "iAuto");
+            PlayerPrefs.DeleteKey(i + "IDAuto");
+            PlayerPrefs.DeleteKey(i + "lvlAuto");
+
+            if (PositionAuto.Parts[i] != null)
+
+            if (PositionAuto.Parts[i].GetComponent<PartsUpgrade>() != null)
+            {
+                PartsUpgrade PartsUpgrade = PositionAuto.Parts[i].GetComponent<PartsUpgrade>().GetComponent<PartsUpgrade>();
+                PlayerPrefs.SetInt(i + "iAuto", i);
+                PlayerPrefs.SetInt(i + "IDAuto", PartsUpgrade.ID);
+                PlayerPrefs.SetInt(i + "lvlAuto", PartsUpgrade.lvl);
+            }
+        }
+    }
+    private void load()
+    {
+        SetAvailableBlock();
+
+        for (int i = 0; i < PositionArray.Length; i++)
+        {
+            //if (PositionArray[i].transform.GetChild(0) != null) return;
+            
+            if (PlayerPrefs.HasKey(i + "i"))
+
+            if (PlayerPrefs.GetInt(i + "i") == i)
+            {
+                GameObject parts = Instantiate(Parts[PlayerPrefs.GetInt(i + "ID")], PositionArray[i].transform.position, PositionArray[i].transform.rotation, PositionArray[i].transform);
+                parts.transform.parent.GetComponent<Position>().Parts = parts.transform;
+                parts.transform.parent.GetComponent<Position>().Parts.GetComponent<PartsUpgrade>().SetLvL(PlayerPrefs.GetInt(i + "lvl"));
+            }
+        }
+        for (int i = 0; i < PositionAuto.Parts.Length; i++)
+        {
+            //if (PositionAuto.Parts[PlayerPrefs.GetInt(i + "iAuto")] != null) return;
+
+            if (PlayerPrefs.HasKey(i + "iAuto"))
+
+            if (PlayerPrefs.GetInt(i + "iAuto") == i)
+            {
+                GameObject parts = Instantiate(Parts[PlayerPrefs.GetInt(i + "IDAuto")], PositionAuto.transform.position, PositionAuto.transform.rotation, PositionArray[0].transform);
+                parts.transform.parent = PositionAuto.transform;
+                parts.transform.parent.GetComponent<PositionAuto>().Parts[PlayerPrefs.GetInt(i + "IDAuto")] = parts.transform;
+                parts.transform.parent.GetComponent<PositionAuto>().Parts[PlayerPrefs.GetInt(i + "IDAuto")].GetComponent<PartsUpgrade>().SetLvL(PlayerPrefs.GetInt(i + "lvlAuto"));
+            }
         }
     }
 }

@@ -43,8 +43,6 @@ public class MoneyHandler : MonoBehaviour
     }
     private void Start()
     {
-        FormaterCount(IncomPriece, UIManager.IncomePrice);
-        FormaterCount(PartsPrize, UIManager.PartsPrice);
 
         if (PlayerPrefs.HasKey("money"))
         {
@@ -54,13 +52,24 @@ public class MoneyHandler : MonoBehaviour
         if (PlayerPrefs.HasKey("PartsPrize"))
         {
             PartsPrize = PlayerPrefs.GetFloat("PartsPrize");
-            FormaterCount(Mathf.Round(PartsPrize), UIManager.PartsPrice);
-            FormaterCount(Mathf.Round(PartsPrize), UIManager.PartsPriceBlock);
         }
         else
         {
             PlayerPrefs.SetFloat("PartsPrize", PartsPrize);
         }
+
+
+        if (PlayerPrefs.HasKey("IncomPriece"))
+        {
+            IncomPriece = PlayerPrefs.GetFloat("IncomPriece");
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("IncomPriece", PartsPrize);
+        }
+
+        FormaterCount(IncomPriece, UIManager.IncomePrice);
+        FormaterCount(PartsPrize, UIManager.PartsPrice);
     }
     private void Update()
     {
@@ -144,6 +153,7 @@ public class MoneyHandler : MonoBehaviour
             IncomCount = IncomCount - 4;
             EventManager.DuSetAvalebleIncpmMoney(IncomCount);
             IncomPriece = IncomPriece + (IncomPriece * 0.5f);
+            PlayerPrefs.SetFloat("IncomPriece", IncomPriece);
             FormaterCount(IncomPriece, UIManager.IncomePrice);
         }
     }

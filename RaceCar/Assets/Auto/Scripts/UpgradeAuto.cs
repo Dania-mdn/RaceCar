@@ -34,29 +34,15 @@ public class UpgradeAuto : MonoBehaviour
     {
         AutoController = GetComponent<AutoController>();
 
-        if (PlayerPrefs.HasKey("Race"))
-        {
-            if (PlayerPrefs.HasKey("ID 0"))
-            {
-                Upgrade(0, PlayerPrefs.GetInt("ID 0"));
-            }
-            if (PlayerPrefs.HasKey("ID 1"))
-            {
-                Upgrade(1, PlayerPrefs.GetInt("ID 1"));
-            }
-            if (PlayerPrefs.HasKey("ID 2"))
-            {
-                Upgrade(2, PlayerPrefs.GetInt("ID 2"));
-            }
+        Upgrade(0, PlayerPrefs.GetInt("ID 0"));
+        Upgrade(1, PlayerPrefs.GetInt("ID 1"));
+        Upgrade(2, PlayerPrefs.GetInt("ID 2"));
 
-            PlayerPrefs.DeleteKey("Race");
-        }
-
-        if(body != null)
+        if (body != null)
         {
-            body.text = "TIER " + lvl0.ToString();
-            Wheels.text = "TIER " + lvl1.ToString();
-            Engines.text = "TIER " + lvl2.ToString();
+            body.text = lvl0.ToString();
+            Wheels.text = lvl1.ToString();
+            Engines.text = lvl2.ToString();
         }
     }
     private void OnEnable()
@@ -120,7 +106,7 @@ public class UpgradeAuto : MonoBehaviour
                 AnimWhile3.Play();
                 AnimWhile4.Play();
             }
-            PlayerPrefs.SetInt("ID " + ID, lvl);
+            PlayerPrefs.SetInt("ID " + 2, lvl);
             for (int i = 0; i < While0.Length; i++)
             {
                 lvl2 = lvl;
@@ -143,9 +129,9 @@ public class UpgradeAuto : MonoBehaviour
         EventManager.DoUpgrade(lvl0 + lvl1 + lvl2);
         if (body != null)
         {
-            body.text = "TIER " + lvl0.ToString();
-            Wheels.text = "TIER " + lvl1.ToString();
-            Engines.text = "TIER " + lvl2.ToString();
+            body.text = lvl0.ToString();
+            Wheels.text = lvl1.ToString();
+            Engines.text = lvl2.ToString();
         }
     }
 }

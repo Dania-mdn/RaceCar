@@ -1807,6 +1807,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7804424314193146388}
+  - component: {fileID: 4370027509591999786}
   m_Layer: 0
   m_Name: Reeder
   m_TagString: Untagged
@@ -1835,6 +1836,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4370027509591999786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7804424314193146391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b52dff7c8fcc3d4b81964a62ba040f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 7804424313917340814}
+  joint:
+  - {fileID: 6868787074561613087}
+  - {fileID: 1943833269900348290}
+  - {fileID: 6325882147262813547}
+  - {fileID: 7246685823636424188}
 --- !u!1 &7804424314422057107
 GameObject:
   m_ObjectHideFlags: 0

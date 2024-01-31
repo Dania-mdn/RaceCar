@@ -10,7 +10,6 @@ public class EnemyRace : MonoBehaviour
     private float FoolowDistance;
     public GameObject FolowObject;
     public GameObject Direction;
-    public UIRace UIRace;
     Rigidbody carRigidbody; // Stores the car's rigidbody.
     public float direction;
     public float steeringAxis; // Used to know whether the steering wheel has reached the maximum value. It goes from -1 to 1.
@@ -89,7 +88,6 @@ public class EnemyRace : MonoBehaviour
     float driftingAxis;
     float localVelocityZ;
     float localVelocityX;
-    bool deceleratingCar;
 
     WheelFrictionCurve FLwheelFriction;
     float FLWextremumSlip;
@@ -201,14 +199,6 @@ public class EnemyRace : MonoBehaviour
         AnimateWheelMeshes();
     }
 
-    public void Force()
-    {
-        if (UIRace.ForceTme >= 2)
-        {
-            carRigidbody.AddForce(Direction.transform.forward * -7400, ForceMode.Impulse);
-            UIRace.SetForceColdawn();
-        }
-    }
     public void Turn()
     {
         Quaternion rotationQuaternion = Direction.transform.localRotation;

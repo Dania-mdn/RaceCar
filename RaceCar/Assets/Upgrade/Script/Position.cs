@@ -6,9 +6,4 @@ public class Position : MonoBehaviour
 {
     public Transform Parts;
 
-    private void Start()
-    {
-        if(transform.childCount > 0)
-            Parts = transform.GetChild(0);
-    }
 }

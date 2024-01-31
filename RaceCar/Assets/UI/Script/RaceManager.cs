@@ -18,7 +18,7 @@ public class RaceManager : MonoBehaviour
     public Camera Camera;
     public CinemachineVirtualCamera VirtualCamera;
 
-    private float Coldawn = 3;
+    private float Coldawn = 5;
     private float TimeStart;
     private bool isstart = false;
     private bool isFinish = false;
@@ -30,6 +30,7 @@ public class RaceManager : MonoBehaviour
     public bool isCheckRaceEnemy = true;
 
 
+    public GameObject Arrou;
     public GameObject StartObject;
     public GameObject[] StartLight;
 
@@ -41,6 +42,7 @@ public class RaceManager : MonoBehaviour
 
     private void Start()
     {
+        VirtualCamera.Priority = 3;
         EnemyRace.maxSpeed = 0;
         AutoController.maxSpeed = 0;
         TimeStart = Coldawn;
@@ -71,8 +73,14 @@ public class RaceManager : MonoBehaviour
         {
             TimeStart = TimeStart - Time.deltaTime;
 
-            if (TimeStart > 2)
+            if (TimeStart > 3)
             {
+
+            }
+            else if (TimeStart > 2)
+            {
+                Arrou.SetActive(true);
+                VirtualCamera.Priority = 1;
                 StartLight[0].SetActive(true);
                 StartLight[1].SetActive(false);
                 StartLight[2].SetActive(false);
