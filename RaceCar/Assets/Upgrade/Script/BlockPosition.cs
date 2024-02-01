@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class BlockPosition : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class BlockPosition : MonoBehaviour
 
     public int alableCount;
     public int Price;
+
+    public AudioSource Close;
+    public AudioSource open;
 
     private void Awake()
     {
@@ -49,6 +53,7 @@ public class BlockPosition : MonoBehaviour
                 PlayerPrefs.SetInt("alableCount", alableCount + 1);
                 EventManager.DuavalableCount();
                 MoneyHandler.SetBuyBlocks(Price);
+                open.Play();
             }
             else
             {
@@ -57,6 +62,7 @@ public class BlockPosition : MonoBehaviour
         }
         else
         {
+            Close.Play();
             AnimPlay();
         }
     }

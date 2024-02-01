@@ -20,7 +20,6 @@ public class EnemyUpgrade : MonoBehaviour
     public TextMeshProUGUI Wheels;
     public int lvl2 = 0;
     public TextMeshProUGUI Engines;
-
     private void Start()
     {
         EnemyRace = GetComponent<EnemyRace>();

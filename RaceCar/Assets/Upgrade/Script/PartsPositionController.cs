@@ -15,6 +15,10 @@ public class PartsPositionController : MonoBehaviour
 
     public GameObject[] BlockPositionArray;
 
+    public AudioSource Take;
+    public AudioSource Down;
+    public AudioSource UpgradeAudio;
+
     private void OnEnable()
     {
         EventManager.avalableCount += SetAvailableBlock; 
@@ -48,6 +52,7 @@ public class PartsPositionController : MonoBehaviour
                     Mediate.transform.parent = null;
                     MediatePosition.Parts = null;
                     startMediate = hit.transform.gameObject;
+                    Take.Play();
                 }
             }
             else if(hit.transform.gameObject.layer == 8)
@@ -63,6 +68,9 @@ public class PartsPositionController : MonoBehaviour
     {
         if(hit.transform != null)
         {
+            if (Mediate != null)
+                Down.Play();
+
             if (hit.transform.gameObject.layer == 3)
             {
                 Position MediatePosition = hit.transform.GetComponent<Position>();
@@ -87,6 +95,7 @@ public class PartsPositionController : MonoBehaviour
                             MediatePosition.Parts = Mediate.transform;
 
                             Mediate.GetComponent<PartsUpgrade>().UpgradeLvL();
+                            UpgradeAudio.Play();
                         }
                         else
                         {

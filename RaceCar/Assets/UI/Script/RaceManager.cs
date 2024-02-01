@@ -40,6 +40,8 @@ public class RaceManager : MonoBehaviour
     public TextMeshProUGUI rewardMoneyTextWon;
     public TextMeshProUGUI rewardMoneyTextLost;
 
+    public AudioSource StartAud;
+
     private void Start()
     {
         VirtualCamera.Priority = 3;
@@ -79,6 +81,8 @@ public class RaceManager : MonoBehaviour
             }
             else if (TimeStart > 2)
             {
+                if(StartAud.isPlaying == false)
+                    StartAud.Play();
                 Arrou.SetActive(true);
                 VirtualCamera.Priority = 1;
                 StartLight[0].SetActive(true);

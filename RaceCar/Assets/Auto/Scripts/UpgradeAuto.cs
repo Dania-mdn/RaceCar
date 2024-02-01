@@ -18,6 +18,7 @@ public class UpgradeAuto : MonoBehaviour
 
     public GameObject[] Body;
     public GameObject[] Engine;
+    public AudioSource[] EngineAud;
     public GameObject[] While0;
     public GameObject[] While1;
     public GameObject[] While2;
@@ -29,6 +30,8 @@ public class UpgradeAuto : MonoBehaviour
     public TextMeshProUGUI Wheels;
     public int lvl2 = 0;
     public TextMeshProUGUI Engines;
+
+    public AudioSource UpgradeAudio;
 
     private void Start()
     {
@@ -55,7 +58,10 @@ public class UpgradeAuto : MonoBehaviour
     }
     private void Upgrade(int ID, int lvl)
     {
-        if(ID == 0)
+        if(UpgradeAudio != null)
+            UpgradeAudio.Play();
+
+        if (ID == 0)
         {
             if(AutoController != null)
              AutoController.accelerationMultiplier = lvl;
@@ -87,11 +93,15 @@ public class UpgradeAuto : MonoBehaviour
                 if (i == lvl)
                 {
                     Engine[i].gameObject.SetActive(true);
+                    if (EngineAud.Length > 1)
+                        EngineAud[i].Play();
                     lvl1 = lvl;
                 }
                 else
                 {
                     Engine[i].gameObject.SetActive(false);
+                    if (EngineAud.Length > 1)
+                        EngineAud[i].Stop();
                 }
             }
         }
