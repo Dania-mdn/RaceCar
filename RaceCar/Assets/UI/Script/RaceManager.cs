@@ -10,6 +10,10 @@ public class RaceManager : MonoBehaviour
     public AutoController AutoController;
     public EnemyRace EnemyRacePlayer;
     public EnemyRace EnemyRace;
+    public Rigidbody EnemyRb;
+    public Rigidbody PlayerRb;
+    public GameObject Border;
+    public GameObject BorderFinish;
 
     public Canvas Canvas;
     public GameObject Joistick;
@@ -45,6 +49,8 @@ public class RaceManager : MonoBehaviour
     private void Start()
     {
         VirtualCamera.Priority = 3;
+        BorderFinish.SetActive(false);
+        Border.SetActive(true);
         EnemyRace.maxSpeed = 0;
         AutoController.maxSpeed = 0;
         TimeStart = Coldawn;
@@ -85,6 +91,8 @@ public class RaceManager : MonoBehaviour
                     StartAud.Play();
                 Arrou.SetActive(true);
                 VirtualCamera.Priority = 1;
+                BorderFinish.SetActive(true);
+                Border.SetActive(false);
                 StartLight[0].SetActive(true);
                 StartLight[1].SetActive(false);
                 StartLight[2].SetActive(false);
@@ -108,6 +116,8 @@ public class RaceManager : MonoBehaviour
             AutoController.maxSpeed = AutoController.maxSpeedDefolt;
             EnemyRacePlayer.maxSpeed = EnemyRacePlayer.maxSpeedDefolt;
             isstart = true;
+            EnemyRb.constraints = RigidbodyConstraints.None;
+            PlayerRb.constraints = RigidbodyConstraints.None;
 
             if (StartObject.activeSelf == true)
                 StartObject.SetActive(false);
@@ -167,6 +177,7 @@ public class RaceManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
         PlayerPrefs.SetFloat("money", PlayerPrefs.GetFloat("money") + rewardMoney);
+        PlayerPrefs.DeleteKey("Race");
     }
     private void OnTriggerEnter(Collider other)
     {

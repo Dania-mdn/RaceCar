@@ -187,7 +187,7 @@ public class EnemyRace : MonoBehaviour
         GoForward();
 
         FoolowDistance = (FolowObject.transform.position - Direction.transform.position).magnitude;
-        if(FoolowDistance > 18)
+        if(FoolowDistance > 10)
         {
             PathFollower.speed = 0;
         }

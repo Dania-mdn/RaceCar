@@ -430,7 +430,7 @@ GameObject:
   - component: {fileID: 7804424312695757329}
   - component: {fileID: 7804424312695757332}
   - component: {fileID: 7804424312695757335}
-  - component: {fileID: 7804424312695757333}
+  - component: {fileID: 8256916647010920577}
   m_Layer: 0
   m_Name: Sphere (1)
   m_TagString: Untagged
@@ -503,22 +503,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!70 &7804424312695757333
-CapsuleCollider2D:
+--- !u!136 &8256916647010920577
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7804424312695757328}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.00000047683716, y: 0.00000020861626}
-  m_Size: {x: 1.0000005, y: 1.0000002}
-  m_Direction: 0
+  m_Enabled: 1
+  m_Radius: 0.50000006
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.0000002682209, z: -0.00000011920929}
 --- !u!1 &7804424313021880385
 GameObject:
   m_ObjectHideFlags: 0
@@ -1848,12 +1846,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b52dff7c8fcc3d4b81964a62ba040f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 7804424313917340814}
-  joint:
-  - {fileID: 6868787074561613087}
-  - {fileID: 1943833269900348290}
-  - {fileID: 6325882147262813547}
-  - {fileID: 7246685823636424188}
 --- !u!1 &7804424314422057107
 GameObject:
   m_ObjectHideFlags: 0

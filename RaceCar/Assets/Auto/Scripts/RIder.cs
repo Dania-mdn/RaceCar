@@ -4,15 +4,41 @@ using UnityEngine;
 
 public class RIder : MonoBehaviour
 {
-    public CharacterJoint character;
-    public FixedJoint[] joint;
-    private void Start()
+    void Start()
     {
-        character.connectedBody = transform.root.GetComponent<Rigidbody>();
+        if(PlayerPrefs.HasKey("Race"))
+            EnableKinematicsRecursively(transform);
+    }
 
-        for (int i = 0; i < joint.Length; i++)
+    void EnableKinematicsRecursively(Transform parent)
+    {
+        // Включаем кинематику для физического тела объекта
+        Rigidbody rb = parent.GetComponent<Rigidbody>();
+        FixedJoint fj = parent.GetComponent<FixedJoint>();
+        CharacterJoint cj = parent.GetComponent<CharacterJoint>();
+        CapsuleCollider cc = parent.GetComponent<CapsuleCollider>();
+
+        if (rb != null)
         {
-            joint[i].connectedBody = transform.root.GetComponent<Rigidbody>();
+            rb.isKinematic = true;
+        }
+        if (fj != null)
+        {
+            Destroy(fj);
+        }
+        if (cj != null)
+        {
+            Destroy(cj);
+        }
+        if (cc != null)
+        {
+            Destroy(cc);
+        }
+
+        // Рекурсивно вызываем этот метод для каждого дочернего объекта
+        foreach (Transform child in parent)
+        {
+            EnableKinematicsRecursively(child);
         }
     }
 }
