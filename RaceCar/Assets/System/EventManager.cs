@@ -13,6 +13,7 @@ public class EventManager: MonoBehaviour
     public static event Action avalableCount;
     public static event Action<float> AddSpeed;
     public static event Action<float> Upgrade;
+    public static event Action DeleteAll;
     public static void DuUpgradeAuto(int ID, int lvl)
     {
         UpgradeAuto?.Invoke(ID, lvl);
@@ -40,5 +41,9 @@ public class EventManager: MonoBehaviour
     public static void DoUpgrade(float speed)
     {
         Upgrade?.Invoke(speed);
+    }
+    public static void DoDeleteAll()
+    {
+        DeleteAll?.Invoke();
     }
 }

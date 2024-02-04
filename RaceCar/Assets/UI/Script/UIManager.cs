@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI PartsPriceBlock;
 
     public GameObject Race;
+    public TextMeshProUGUI RaceTime;
 
     private void OnEnable()
     {
@@ -32,7 +33,7 @@ public class UIManager : MonoBehaviour
     }
     private void OnDisable()
     {
-        EventManager.OnClickDown += OnclickDown;
+        EventManager.OnClickDown -= OnclickDown;
         EventManager.SetAvalebleIncpmMoney -= AvalebleIncpmMoney;
     }
     private void Start()
@@ -64,5 +65,6 @@ public class UIManager : MonoBehaviour
     public void DeleteSave()
     {
         PlayerPrefs.DeleteAll();
+        EventManager.DoDeleteAll();
     }
 }

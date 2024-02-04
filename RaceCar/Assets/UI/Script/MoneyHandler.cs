@@ -31,6 +31,10 @@ public class MoneyHandler : MonoBehaviour
     private float IncomPriece = 100;
     private float PartsPrize = 100;
 
+    private float RaceColdawn = 60;
+    private float RaceTme;
+    public GameObject RaceTmeObject;
+
     private void OnEnable()
     {
         EventManager.OnClickDown += PrepeaToSale;
@@ -66,6 +70,11 @@ public class MoneyHandler : MonoBehaviour
         else
         {
             PlayerPrefs.SetFloat("IncomPriece", PartsPrize);
+        }
+
+        if (PlayerPrefs.HasKey("RaceCuldawn"))
+        {
+            RaceCuldawn();
         }
 
         FormaterCount(IncomPriece, UIManager.IncomePrice);
@@ -129,6 +138,17 @@ public class MoneyHandler : MonoBehaviour
         else
         {
             UIManager.BuyBlock.SetActive(false);
+        }
+
+        if (RaceTme > 0)
+        {
+            RaceTme = RaceTme - Time.deltaTime;
+            UIManager.RaceTime.text = "0:" + Mathf.Round(RaceTme).ToString();
+        }
+        else
+        {
+            if (RaceTmeObject.activeSelf == true)
+                RaceTmeObject.SetActive(false);
         }
     }
     public void AddSpeed()
@@ -201,6 +221,13 @@ public class MoneyHandler : MonoBehaviour
         SceneManager.LoadScene(Random.Range(1, 3));
         PlayerPrefs.SetInt("Race", 1);
     }
+    private void RaceCuldawn()
+    {
+        RaceTmeObject.SetActive(true);
+        RaceTme = RaceColdawn;
+        PlayerPrefs.DeleteKey("RaceCuldawn");
+    }
+
     private void FormaterCount(float Value, TextMeshProUGUI TextValue)
     {
         if (Value >= 1000000000)

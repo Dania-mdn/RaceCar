@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PartsPositionController : MonoBehaviour
 {
@@ -22,11 +23,13 @@ public class PartsPositionController : MonoBehaviour
     private void OnEnable()
     {
         EventManager.avalableCount += SetAvailableBlock; 
+        EventManager.DeleteAll += DeleteAll; 
         load();
     }
     private void OnDisable()
     {
         EventManager.avalableCount -= SetAvailableBlock;
+        EventManager.DeleteAll -= DeleteAll;
         Save();
     }
     
@@ -211,6 +214,18 @@ public class PartsPositionController : MonoBehaviour
         {
             BlockPositionArray[avalableCount].transform.GetChild(0).GetComponent<BlockPosition>().Open();
         }
+    }
+    private void DeleteAll()
+    {
+        for (int i = 0; i < PositionAuto.Parts.Length; i++)
+        {
+            Destroy(PositionAuto.Parts[i]);
+        }
+        for (int i = 0; i < PositionArray.Length; i++)
+        {
+            Destroy(PositionArray[i]);
+        }
+        SceneManager.LoadScene(0);
     }
     private void Save()
     {

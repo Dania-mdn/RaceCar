@@ -12,7 +12,6 @@ public class RaceManager : MonoBehaviour
     public EnemyRace EnemyRace;
     public Rigidbody EnemyRb;
     public Rigidbody PlayerRb;
-    public GameObject Border;
     public GameObject BorderFinish;
 
     public Canvas Canvas;
@@ -33,7 +32,7 @@ public class RaceManager : MonoBehaviour
     private int RaceCountEnemy = 0;
     public bool isCheckRaceEnemy = true;
 
-
+    public GameObject Spedometr;
     public GameObject Arrou;
     public GameObject StartObject;
     public GameObject[] StartLight;
@@ -49,8 +48,6 @@ public class RaceManager : MonoBehaviour
     private void Start()
     {
         VirtualCamera.Priority = 3;
-        BorderFinish.SetActive(false);
-        Border.SetActive(true);
         EnemyRace.maxSpeed = 0;
         AutoController.maxSpeed = 0;
         TimeStart = Coldawn;
@@ -91,8 +88,6 @@ public class RaceManager : MonoBehaviour
                     StartAud.Play();
                 Arrou.SetActive(true);
                 VirtualCamera.Priority = 1;
-                BorderFinish.SetActive(true);
-                Border.SetActive(false);
                 StartLight[0].SetActive(true);
                 StartLight[1].SetActive(false);
                 StartLight[2].SetActive(false);
@@ -149,6 +144,8 @@ public class RaceManager : MonoBehaviour
             rewardMoney = PlayerPrefs.GetFloat("PartsPrize") * 3;
             FormaterCount(rewardMoney, rewardMoneyTextLost);
         }
+        Spedometr.SetActive(false);
+        BorderFinish.SetActive(false);
     }
     public void RewardXmonney()
     {
@@ -178,6 +175,7 @@ public class RaceManager : MonoBehaviour
         SceneManager.LoadScene(0);
         PlayerPrefs.SetFloat("money", PlayerPrefs.GetFloat("money") + rewardMoney);
         PlayerPrefs.DeleteKey("Race");
+        PlayerPrefs.SetInt("RaceCuldawn", 1);
     }
     private void OnTriggerEnter(Collider other)
     {

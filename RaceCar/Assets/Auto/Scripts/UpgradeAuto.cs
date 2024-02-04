@@ -50,7 +50,7 @@ public class UpgradeAuto : MonoBehaviour
     }
     private void OnDisable()
     {
-        EventManager.UpgradeAuto += Upgrade;
+        EventManager.UpgradeAuto -= Upgrade;
     }
     private void Upgrade(int ID, int lvl)
     {
@@ -89,6 +89,8 @@ public class UpgradeAuto : MonoBehaviour
                 if (i == lvl)
                 {
                     Engine[i].gameObject.SetActive(true);
+                    if (Engine[i].transform.GetChild(0).GetComponent<ParticleSystem>() != null)
+                        Engine[i].transform.GetChild(0).GetComponent<ParticleSystem>().Play();
                     if (EngineAud.Length > 1)
                         EngineAud[i].Play();
                     lvl1 = lvl;

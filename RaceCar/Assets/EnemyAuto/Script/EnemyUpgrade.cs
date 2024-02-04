@@ -34,7 +34,7 @@ public class EnemyUpgrade : MonoBehaviour
     }
     private void OnDisable()
     {
-        EventManager.UpgradeAuto += UpgradeMediate;
+        EventManager.UpgradeAuto -= UpgradeMediate;
     }
     private void UpgradeMediate(int ID, int lvl)
     {
