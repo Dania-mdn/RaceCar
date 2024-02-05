@@ -12,9 +12,9 @@ public class UpgradeAuto : MonoBehaviour
     public Animation AnimWhile4;
     public Animation AnimEngine;
 
-    public GameObject ActivBody;
+    private GameObject ActivBody;
     public GameObject[] Body;
-    public GameObject ActivEngine;
+    private GameObject ActivEngine;
     public GameObject[] Engine;
     public AudioSource[] EngineAud;
     public GameObject[] While0;

@@ -243,6 +243,10 @@ public class MoneyHandler : MonoBehaviour
         RaceTme = RaceColdawn;
         PlayerPrefs.DeleteKey("RaceCuldawn");
     }
+    public void AddMoney()
+    {
+        money = money + 1000000;
+    }
 
     private void FormaterCount(float Value, TextMeshProUGUI TextValue)
     {

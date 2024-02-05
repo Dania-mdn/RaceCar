@@ -23,7 +23,6 @@ public class UIManager : MonoBehaviour
     public GameObject BuyBlock;
     public TextMeshProUGUI PartsPriceBlock;
 
-    public GameObject Race;
     public TextMeshProUGUI RaceTime;
 
     public TextMeshProUGUI SaleText;
@@ -38,10 +37,6 @@ public class UIManager : MonoBehaviour
     {
         EventManager.OnClickDown -= OnclickDown;
         EventManager.SetAvalebleIncpmMoney -= AvalebleIncpmMoney;
-    }
-    private void Start()
-    {
-        Race.SetActive(false);
     }
     private void OnclickDown(bool isClick)
     {

@@ -7,7 +7,9 @@ public class EnemyUpgrade : MonoBehaviour
 {
     private EnemyRace EnemyRace;
 
+    private GameObject ActivBody;
     public GameObject[] Body;
+    private GameObject ActivEngine;
     public GameObject[] Engine;
     public GameObject[] While0;
     public GameObject[] While1;
@@ -54,6 +56,9 @@ public class EnemyUpgrade : MonoBehaviour
                 {
                     if (Body[i] != null)
                         Body[i].gameObject.SetActive(true);
+                    ActivBody = Body[i];
+                    if (ActivEngine != null)
+                        ActivEngine.transform.position = ActivBody.transform.GetChild(0).position;
                     lvl0 = lvl;
                 }
                 else
@@ -72,8 +77,12 @@ public class EnemyUpgrade : MonoBehaviour
             {
                 if (i == lvl)
                 {
-                    if(Engine[i] != null)
+                    if(Engine[i] != null) 
                         Engine[i].gameObject.SetActive(true);
+                    ActivEngine = Engine[i];
+                    Engine[i].transform.position = ActivBody.transform.GetChild(0).position;
+                    if (Engine[i].transform.GetChild(0).GetComponent<ParticleSystem>() != null)
+                        Engine[i].transform.GetChild(0).GetComponent<ParticleSystem>().Play();
                     lvl1 = lvl;
                 }
                 else
