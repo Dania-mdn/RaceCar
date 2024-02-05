@@ -12,7 +12,9 @@ public class UpgradeAuto : MonoBehaviour
     public Animation AnimWhile4;
     public Animation AnimEngine;
 
+    public GameObject ActivBody;
     public GameObject[] Body;
+    public GameObject ActivEngine;
     public GameObject[] Engine;
     public AudioSource[] EngineAud;
     public GameObject[] While0;
@@ -69,6 +71,9 @@ public class UpgradeAuto : MonoBehaviour
                 if (i == lvl)
                 {
                     Body[i].gameObject.SetActive(true);
+                    ActivBody = Body[i];
+                    if(ActivEngine != null)
+                        ActivEngine.transform.position = ActivBody.transform.GetChild(0).position;
                     lvl0 = lvl;
                 }
                 else
@@ -89,6 +94,8 @@ public class UpgradeAuto : MonoBehaviour
                 if (i == lvl)
                 {
                     Engine[i].gameObject.SetActive(true);
+                    ActivEngine = Engine[i];
+                    Engine[i].transform.position = ActivBody.transform.GetChild(0).position;
                     if (Engine[i].transform.GetChild(0).GetComponent<ParticleSystem>() != null)
                         Engine[i].transform.GetChild(0).GetComponent<ParticleSystem>().Play();
                     if (EngineAud.Length > 1)

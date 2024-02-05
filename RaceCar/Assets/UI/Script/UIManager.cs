@@ -26,6 +26,9 @@ public class UIManager : MonoBehaviour
     public GameObject Race;
     public TextMeshProUGUI RaceTime;
 
+    public TextMeshProUGUI SaleText;
+    public TextMeshProUGUI RaceText;
+
     private void OnEnable()
     {
         EventManager.OnClickDown += OnclickDown;

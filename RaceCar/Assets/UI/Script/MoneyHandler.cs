@@ -11,6 +11,7 @@ public class MoneyHandler : MonoBehaviour
     public PartsPositionController PartsPositionController;
     public float money;
     private float moneyInSecond = 5;
+    public Animation AnimMoneyInSecond;
     private float coldawn = 1;
 
     private float timespeed;
@@ -34,6 +35,7 @@ public class MoneyHandler : MonoBehaviour
     private float RaceColdawn = 60;
     private float RaceTme;
     public GameObject RaceTmeObject;
+    public ParticleSystem ParticleSystem;
 
     private void OnEnable()
     {
@@ -50,7 +52,16 @@ public class MoneyHandler : MonoBehaviour
 
         if (PlayerPrefs.HasKey("money"))
         {
-            money = PlayerPrefs.GetFloat("money");
+            if (PlayerPrefs.HasKey("rewardMoney"))
+            {
+                money = PlayerPrefs.GetFloat("money") + PlayerPrefs.GetFloat("rewardMoney");
+                UIManager.RaceText.gameObject.GetComponent<Animation>().Play();
+                FormaterCount1(Mathf.Round(PlayerPrefs.GetFloat("rewardMoney")), UIManager.RaceText);
+            }
+            else
+            {
+                money = PlayerPrefs.GetFloat("money");
+            }
         }
 
         if (PlayerPrefs.HasKey("PartsPrize"))
@@ -77,8 +88,8 @@ public class MoneyHandler : MonoBehaviour
             RaceCuldawn();
         }
 
-        FormaterCount(IncomPriece, UIManager.IncomePrice);
-        FormaterCount(PartsPrize, UIManager.PartsPrice);
+        FormaterCount(Mathf.Round(IncomPriece), UIManager.IncomePrice);
+        FormaterCount(Mathf.Round(PartsPrize), UIManager.PartsPrice);
     }
     private void Update()
     {
@@ -101,7 +112,7 @@ public class MoneyHandler : MonoBehaviour
         money = money + (moneyInSecond * coefMnog * coefX2) * Time.deltaTime;
         PlayerPrefs.SetFloat("money", money);
 
-        FormaterCount(Mathf.Round(moneyInSecond * coefMnog * coefX2), UIManager.MoneyInSecond);
+        UIManager.MoneyInSecond.text = "$" + Mathf.Round(moneyInSecond * coefMnog * coefX2) + "/s".ToString();
         FormaterCount(Mathf.Round(money), UIManager.Money);
 
         if (AutoTapTme > 0)
@@ -125,9 +136,11 @@ public class MoneyHandler : MonoBehaviour
         if (speed <= 0)
         {
             EventManager.DoAddSpeed(1);
+            ParticleSystem.emissionRate = 0;
         }
         else
         {
+            ParticleSystem.emissionRate = 3;
             speed = speed - Time.deltaTime;
         }
 
@@ -174,7 +187,8 @@ public class MoneyHandler : MonoBehaviour
             EventManager.DuSetAvalebleIncpmMoney(IncomCount);
             IncomPriece = IncomPriece + (IncomPriece * 0.5f);
             PlayerPrefs.SetFloat("IncomPriece", IncomPriece);
-            FormaterCount(IncomPriece, UIManager.IncomePrice);
+            FormaterCount(Mathf.Round(IncomPriece), UIManager.IncomePrice); 
+            AnimMoneyInSecond.Play();
         }
     }
     public void PrepeaToSale(bool isClick)
@@ -184,6 +198,8 @@ public class MoneyHandler : MonoBehaviour
     public void Sale()
     {
         money = money + PartsPrize / 2;
+        UIManager.SaleText.gameObject.GetComponent<Animation>().Play();
+        FormaterCount1(Mathf.Round(PartsPrize/2), UIManager.SaleText);
     }
     public void SetBuyParts()
     {
@@ -245,6 +261,25 @@ public class MoneyHandler : MonoBehaviour
         else
         {
             TextValue.text = "$" + Value.ToString();
+        }
+    }
+    private void FormaterCount1(float Value, TextMeshProUGUI TextValue)
+    {
+        if (Value >= 1000000000)
+        {
+            TextValue.text = "+$" + (Value / 1000000000f).ToString("F1") + "B";
+        }
+        else if (Value >= 1000000)
+        {
+            TextValue.text = "+$" + (Value / 1000000f).ToString("F1") + "M";
+        }
+        else if (Value >= 1000)
+        {
+            TextValue.text = "+$" + (Value / 1000f).ToString("F1") + "K";
+        }
+        else
+        {
+            TextValue.text = "+$" + Value.ToString();
         }
     }
 }

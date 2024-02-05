@@ -173,7 +173,7 @@ public class RaceManager : MonoBehaviour
     public void MeinMenu()
     {
         SceneManager.LoadScene(0);
-        PlayerPrefs.SetFloat("money", PlayerPrefs.GetFloat("money") + rewardMoney);
+        PlayerPrefs.SetFloat("rewardMoney", rewardMoney);
         PlayerPrefs.DeleteKey("Race");
         PlayerPrefs.SetInt("RaceCuldawn", 1);
     }

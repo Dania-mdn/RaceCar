@@ -75,10 +75,8 @@ public class AutoController : MonoBehaviour
     public bool useUI = false;
     public Text carSpeedText; // Used to store the UI object that is going to show the speed of the car.
 
-    [Space(10)]
-    public bool useSounds = false;
-    public AudioSource carEngineSound; // This variable stores the sound of the car engine.
     public AudioSource tireScreechSound; // This variable stores the sound of the tire screech (when the car is drifting).
+    public AudioSource boom; 
 
     [HideInInspector]
     public float carSpeed; // Used to store the speed of the car.
@@ -134,18 +132,6 @@ public class AutoController : MonoBehaviour
         RRwheelFriction.asymptoteSlip = rearRightCollider.sidewaysFriction.asymptoteSlip;
         RRwheelFriction.asymptoteValue = rearRightCollider.sidewaysFriction.asymptoteValue;
         RRwheelFriction.stiffness = rearRightCollider.sidewaysFriction.stiffness;
-
-        if (!useSounds)
-        {
-            if (carEngineSound != null)
-            {
-                carEngineSound.Stop();
-            }
-            if (tireScreechSound != null)
-            {
-                tireScreechSound.Stop();
-            }
-        }
 
         if (!useEffects)
         {
@@ -413,11 +399,15 @@ public class AutoController : MonoBehaviour
                 {
                     RLWParticleSystem.Play();
                     RRWParticleSystem.Play();
+                    if (!tireScreechSound.isPlaying)
+                        tireScreechSound.Play();
                 }
                 else if (!isDrifting)
                 {
                     RLWParticleSystem.Stop();
                     RRWParticleSystem.Stop();
+                    if (tireScreechSound.isPlaying)
+                        tireScreechSound.Stop();
                 }
             }
             catch (Exception ex)
@@ -508,5 +498,10 @@ public class AutoController : MonoBehaviour
 
             driftingAxis = 0f;
         }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(!boom.isPlaying)
+            boom.Play();
     }
 }
