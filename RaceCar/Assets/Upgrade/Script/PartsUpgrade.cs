@@ -33,6 +33,8 @@ public class PartsUpgrade : MonoBehaviour
     }
     public void UpgradeLvL()
     {
+        EventManager.DoPartsUpgrade();
+
         if (lvl + 1 > MeshLvl.Length) return;
 
         lvl++;
