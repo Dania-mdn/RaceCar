@@ -15,6 +15,8 @@ public class EventManager: MonoBehaviour
     public static event Action<float> Upgrade;
     public static event Action PartsUpgrade;
     public static event Action DeleteAll;
+    public static event Action MuteAudio;
+    public static event Action PlayAudio;
     public static void DuUpgradeAuto(int ID, int lvl)
     {
         UpgradeAuto?.Invoke(ID, lvl);
@@ -50,5 +52,13 @@ public class EventManager: MonoBehaviour
     public static void DoDeleteAll()
     {
         DeleteAll?.Invoke();
+    }
+    public static void DoMuteAudio()
+    {
+        MuteAudio?.Invoke();
+    }
+    public static void DoPlayAudio()
+    {
+        PlayAudio?.Invoke();
     }
 }

@@ -28,6 +28,16 @@ public class BlockPosition : MonoBehaviour
         SpriteOpen.SetActive(false);
         PriceGameObject.SetActive(false);
     }
+    private void OnEnable()
+    {
+        EventManager.MuteAudio += AudioMute;
+        EventManager.PlayAudio += AudioPlay;
+    }
+    private void OnDisable()
+    {
+        EventManager.MuteAudio -= AudioMute;
+        EventManager.PlayAudio -= AudioPlay;
+    }
     private void Update()
     {
         if (!isOpen) return; 
@@ -100,5 +110,15 @@ public class BlockPosition : MonoBehaviour
             PriceTextUnloc.text = "$" + Value.ToString();
             PriceTextloc.text = "$" + Value.ToString();
         }
+    }
+    public void AudioMute()
+    {
+        Close.mute = true;
+        open.mute = true;
+    }
+    public void AudioPlay()
+    {
+        Close.mute = false;
+        open.mute = false;
     }
 }

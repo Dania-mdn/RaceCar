@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -44,6 +45,9 @@ public class RaceManager : MonoBehaviour
     public TextMeshProUGUI rewardMoneyTextLost;
 
     public AudioSource StartAud;
+    public AudioSource MeinAud;
+    public AudioSource Winn;
+    public AudioSource Lose;
 
     private void Start()
     {
@@ -52,6 +56,11 @@ public class RaceManager : MonoBehaviour
         AutoController.maxSpeed = 0;
         TimeStart = Coldawn;
         StartObject.SetActive(true);
+
+        if (PlayerPrefs.HasKey("MuteAudio"))
+        {
+            AudioMute();
+        }
     }
     void Update()
     {
@@ -214,5 +223,19 @@ public class RaceManager : MonoBehaviour
         {
             TextValue.text = "REWARD: $" + Value.ToString();
         }
+    }
+    public void AudioMute()
+    {
+        MeinAud.mute = true;
+        StartAud.mute = true;
+        Winn.mute = true;
+        Lose.mute = true;
+    }
+    public void AudioPlay()
+    {
+        MeinAud.mute = false;
+        StartAud.mute = false;
+        Winn.mute = false;
+        Lose.mute = false;
     }
 }

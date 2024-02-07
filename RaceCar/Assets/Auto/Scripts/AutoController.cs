@@ -101,6 +101,11 @@ public class AutoController : MonoBehaviour
 
     void Start()
     {
+        if (PlayerPrefs.HasKey("MuteAudio"))
+        {
+            AudioMute();
+        }
+
         carRigidbody = gameObject.GetComponent<Rigidbody>();
         carRigidbody.centerOfMass = bodyMassCenter;
 
@@ -503,5 +508,15 @@ public class AutoController : MonoBehaviour
     {
         if(!boom.isPlaying)
             boom.Play();
+    }
+    public void AudioMute()
+    {
+        tireScreechSound.mute = true;
+        boom.mute = true;
+    }
+    public void AudioPlay()
+    {
+        tireScreechSound.mute = false;
+        boom.mute = false;
     }
 }

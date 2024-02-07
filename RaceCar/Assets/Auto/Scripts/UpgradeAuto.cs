@@ -49,10 +49,14 @@ public class UpgradeAuto : MonoBehaviour
     private void OnEnable()
     {
         EventManager.UpgradeAuto += Upgrade;
+        EventManager.MuteAudio += AudioMute;
+        EventManager.PlayAudio += AudioPlay;
     }
     private void OnDisable()
     {
         EventManager.UpgradeAuto -= Upgrade;
+        EventManager.MuteAudio -= AudioMute;
+        EventManager.PlayAudio -= AudioPlay;
     }
     private void Upgrade(int ID, int lvl)
     {
@@ -98,7 +102,7 @@ public class UpgradeAuto : MonoBehaviour
                     Engine[i].transform.position = ActivBody.transform.GetChild(0).position;
                     if (Engine[i].transform.GetChild(0).GetComponent<ParticleSystem>() != null)
                         Engine[i].transform.GetChild(0).GetComponent<ParticleSystem>().Play();
-                    if (EngineAud.Length > 1)
+                    if (EngineAud.Length > 1 && !PlayerPrefs.HasKey("MuteAudio"))
                         EngineAud[i].Play();
                     lvl1 = lvl;
                 }
@@ -147,6 +151,25 @@ public class UpgradeAuto : MonoBehaviour
             body.text = lvl0.ToString();
             Wheels.text = lvl1.ToString();
             Engines.text = lvl2.ToString();
+        }
+    }
+    public void AudioMute()
+    {
+        UpgradeAudio.mute = true;
+
+        for (int i = 0; i < EngineAud.Length; i++)
+        {
+            EngineAud[i].Stop();
+        }
+    }
+    public void AudioPlay()
+    {
+        UpgradeAudio.mute = false;
+
+        for (int i = 0; i < EngineAud.Length; i++)
+        {
+            if (i == PlayerPrefs.GetInt("ID 1"))
+                EngineAud[i].Play();
         }
     }
 }

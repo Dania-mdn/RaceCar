@@ -55,6 +55,9 @@ public class Upgrade : MonoBehaviour
                 {
                     if (Body[i] != null)
                         Body[i].gameObject.SetActive(true);
+                    ActivBody = Body[i];
+                    if (ActivEngine != null)
+                        ActivEngine.transform.position = ActivBody.transform.GetChild(0).position;
                     lvl0 = lvl;
                 }
                 else
@@ -74,6 +77,8 @@ public class Upgrade : MonoBehaviour
                 {
                     if (Engine[i] != null)
                         Engine[i].gameObject.SetActive(true);
+                    ActivEngine = Engine[i];
+                    Engine[i].transform.position = ActivBody.transform.GetChild(0).position;
                     lvl1 = lvl;
                 }
                 else

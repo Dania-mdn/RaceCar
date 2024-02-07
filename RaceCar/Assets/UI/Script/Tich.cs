@@ -10,8 +10,8 @@ public class Tich : MonoBehaviour
     private int counAvalable = 0;
     public GameObject[] RewardAndSale;
     public GameObject Race;
+    public GameObject SkipButton;
     public MoneyHandler MoneyHandler;
-    public Button[] AllButton;
     public PartsPositionController PartsPositionController;
     public GameObject[] PartsPosition;
     private void OnEnable()
@@ -30,14 +30,32 @@ public class Tich : MonoBehaviour
     }
     private void Start()
     {
-        PartsPositionController.Parts[0] = PartsPosition[0];
-        PartsPositionController.Parts[1] = PartsPosition[0];
-        PartsPositionController.Parts[2] = PartsPosition[0];
-        Plane[0].SetActive(true);
-        Race.SetActive(false);
-        RewardAndSale[0].SetActive(false);
-        RewardAndSale[1].SetActive(false);
-        RewardAndSale[2].SetActive(false);
+        SkipButton.SetActive(true);
+
+        if (PlayerPrefs.HasKey("Tich"))
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            if (PlayerPrefs.HasKey("TichFirst"))
+            {
+                SkipButton.SetActive(false);
+                Race.SetActive(false); 
+                counAvalable = 5;
+            }
+            else
+            {
+                PartsPositionController.Parts[0] = PartsPosition[0];
+                PartsPositionController.Parts[1] = PartsPosition[0];
+                PartsPositionController.Parts[2] = PartsPosition[0];
+                Plane[0].SetActive(true);
+                Race.SetActive(false);
+                RewardAndSale[0].SetActive(false);
+                RewardAndSale[1].SetActive(false);
+                RewardAndSale[2].SetActive(false);
+            }
+        }
     }
     private void AvalebleIncpmMoney(float AvalableCount)
     {
@@ -76,6 +94,12 @@ public class Tich : MonoBehaviour
             Plane[1].SetActive(false);
             Plane[2].SetActive(true);
         }
+        if (PlayerPrefs.GetInt("ID 0") >= 3 && PlayerPrefs.GetInt("ID 1") >= 3 && PlayerPrefs.GetInt("ID 2") >= 3)
+        {
+            SkipButton.SetActive(true);
+            Plane[7].SetActive(true);
+            Race.SetActive(true);
+        }
     }
     private void PartsUpgrade()
     {
@@ -88,7 +112,20 @@ public class Tich : MonoBehaviour
             PartsPositionController.Parts[0] = PartsPosition[0];
             PartsPositionController.Parts[1] = PartsPosition[1];
             PartsPositionController.Parts[2] = PartsPosition[2];
+            PlayerPrefs.SetInt("TichFirst", 1);
+            SkipButton.SetActive(false);
         }
+    }
+    public void Skip()
+    {
+        PlayerPrefs.SetInt("Tich", 1);
+        PartsPositionController.Parts[0] = PartsPosition[0];
+        PartsPositionController.Parts[1] = PartsPosition[1];
+        PartsPositionController.Parts[2] = PartsPosition[2];
+        RewardAndSale[0].SetActive(true);
+        RewardAndSale[1].SetActive(true);
+        RewardAndSale[2].SetActive(true);
+        Destroy(gameObject);
     }
     private void SetSpeed(float speed)
     {

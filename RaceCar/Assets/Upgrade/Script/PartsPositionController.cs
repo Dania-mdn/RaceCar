@@ -19,17 +19,22 @@ public class PartsPositionController : MonoBehaviour
     public AudioSource Take;
     public AudioSource Down;
     public AudioSource UpgradeAudio;
+    public AudioSource Sound;
 
     private void OnEnable()
     {
         EventManager.avalableCount += SetAvailableBlock; 
-        EventManager.DeleteAll += DeleteAll; 
+        EventManager.DeleteAll += DeleteAll;
+        EventManager.MuteAudio += AudioMute;
+        EventManager.PlayAudio += AudioPlay;
         load();
     }
     private void OnDisable()
     {
         EventManager.avalableCount -= SetAvailableBlock;
         EventManager.DeleteAll -= DeleteAll;
+        EventManager.MuteAudio -= AudioMute;
+        EventManager.PlayAudio -= AudioPlay;
         Save();
     }
     
@@ -294,5 +299,19 @@ public class PartsPositionController : MonoBehaviour
                 parts.transform.parent.GetComponent<PositionAuto>().Parts[PlayerPrefs.GetInt(i + "IDAuto")].GetComponent<PartsUpgrade>().SetLvL(PlayerPrefs.GetInt(i + "lvlAuto"));
             }
         }
+    }
+    public void AudioMute()
+    {
+        Take.mute = true;
+        Down.mute = true;
+        UpgradeAudio.mute = true;
+        Sound.mute = true;
+    }
+    public void AudioPlay()
+    {
+        Take.mute = false;
+        Down.mute = false;
+        UpgradeAudio.mute = false;
+        Sound.mute = false;
     }
 }

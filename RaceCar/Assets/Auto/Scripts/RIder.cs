@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class RIder : MonoBehaviour
 {
+    public bool statick;
     void Start()
     {
-        if(PlayerPrefs.HasKey("Race"))
+        if(statick)
             EnableKinematicsRecursively(transform);
     }
 
