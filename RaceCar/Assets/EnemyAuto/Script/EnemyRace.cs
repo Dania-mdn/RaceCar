@@ -180,7 +180,7 @@ public class EnemyRace : MonoBehaviour
         GoForward();
 
         FoolowDistance = (FolowObject.transform.position - Direction.transform.position).magnitude;
-        if(FoolowDistance > 10)
+        if(FoolowDistance > 13)
         {
             PathFollower.speed = 0;
         }
@@ -489,8 +489,9 @@ public class EnemyRace : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (!boom.isPlaying)
-            boom.Play();
+        if(collision.gameObject.layer != 13)
+            if (!boom.isPlaying)
+                boom.Play();
     }
     public void AudioMute()
     {

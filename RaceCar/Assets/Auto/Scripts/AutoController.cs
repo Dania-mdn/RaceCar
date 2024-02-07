@@ -506,8 +506,9 @@ public class AutoController : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(!boom.isPlaying)
-            boom.Play();
+        if (collision.gameObject.layer != 13)
+            if (!boom.isPlaying)
+                boom.Play();
     }
     public void AudioMute()
     {
