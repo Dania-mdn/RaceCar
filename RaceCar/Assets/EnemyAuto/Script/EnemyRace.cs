@@ -169,7 +169,8 @@ public class EnemyRace : MonoBehaviour
         if (carRigidbody.angularVelocity.magnitude > 1.1f)
         {
             carRigidbody.angularVelocity = carRigidbody.angularVelocity.normalized * (1 + (WheelModyfer) / 100);
-            carRigidbody.velocity = carRigidbody.velocity * (1 - (WheelModyfer) / 1000);
+            if (carRigidbody.velocity.magnitude > 15)
+                carRigidbody.velocity = carRigidbody.velocity * (1 - (WheelModyfer) / 1000);
         }
 
         Vector3 inputDirection = FolowObject.transform.position - Direction.transform.position;
@@ -180,13 +181,13 @@ public class EnemyRace : MonoBehaviour
         GoForward();
 
         FoolowDistance = (FolowObject.transform.position - Direction.transform.position).magnitude;
-        if(FoolowDistance > 13)
+        if(FoolowDistance > 13 + (maxSpeedDefolt / 20))
         {
             PathFollower.speed = 0;
         }
         else
         {
-            PathFollower.speed = 25;
+            PathFollower.speed = 50;
         }
 
         AnimateWheelMeshes();

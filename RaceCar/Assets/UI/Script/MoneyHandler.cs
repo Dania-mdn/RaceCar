@@ -49,6 +49,7 @@ public class MoneyHandler : MonoBehaviour
     }
     private void Start()
     {
+        EventManager.DoShowAdd();
 
         if (PlayerPrefs.HasKey("money"))
         {
@@ -173,10 +174,12 @@ public class MoneyHandler : MonoBehaviour
     public void SetRewardAutoTap()
     {
         AutoTapTme = AutoTapColdawn;
+        EventManager.DoReward();
     }
     public void SetRewardIncomX2()
     {
         IncomX2Tme = IncomX2Coldawn;
+        EventManager.DoReward();
     }
     public void AddMonneyInSecond()
     {

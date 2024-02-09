@@ -125,6 +125,7 @@ public class Tich : MonoBehaviour
         RewardAndSale[0].SetActive(true);
         RewardAndSale[1].SetActive(true);
         RewardAndSale[2].SetActive(true);
+        Race.SetActive(true);
         Destroy(gameObject);
     }
     private void SetSpeed(float speed)

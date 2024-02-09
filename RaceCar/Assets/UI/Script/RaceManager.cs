@@ -153,6 +153,7 @@ public class RaceManager : MonoBehaviour
             rewardMoney = PlayerPrefs.GetFloat("PartsPrize") * 3;
             FormaterCount(rewardMoney, rewardMoneyTextLost);
         }
+        MeinAud.mute = true;
         Spedometr.SetActive(false);
         BorderFinish.SetActive(false);
     }
@@ -171,10 +172,13 @@ public class RaceManager : MonoBehaviour
             PlayerPrefs.SetFloat("money", PlayerPrefs.GetFloat("money") + (rewardMoney * 3));
         }
 
+        EventManager.DoReward();
         MeinMenu();
     }
     public void retryScene()
     {
+        EventManager.DoReward();
+
         Scene currentScene = SceneManager.GetActiveScene();
 
         SceneManager.LoadScene(currentScene.name);

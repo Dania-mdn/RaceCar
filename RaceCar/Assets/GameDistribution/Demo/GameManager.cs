@@ -4,13 +4,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-
-    public Text gameControlText;
-    public Text rewardedAdText;
-    public Text rewardPlayerText;
-
-    public Text scoreText;
-    public Text levelText;
+    public Toggle Musick;
 
     void Awake()
     {
@@ -20,38 +14,41 @@ public class GameManager : MonoBehaviour
         GameDistribution.OnRewardedVideoSuccess += OnRewardedVideoSuccess;
         GameDistribution.OnRewardedVideoFailure += OnRewardedVideoFailure;
         GameDistribution.OnRewardGame += OnRewardGame;
+        EventManager.ShowAdd += ShowAd;
+        EventManager.Reward += ShowRewardedAd; 
+        //PreloadRewardedAd();
     }
-
     public void OnResumeGame()
     {
-        // RESUME MY GAME
-        gameControlText.text = "RESUME GAME";
+        if (Musick.isOn == false)
+        {
+            EventManager.DoPlayAudio();
+            PlayerPrefs.DeleteKey("MuteAudio");
+        }
     }
 
     public void OnPauseGame()
     {
-        // PAUSE MY GAME
-        gameControlText.text = "GAME PAUSED";
+        EventManager.DoMuteAudio();
+        PlayerPrefs.SetInt("MuteAudio", 1);
     }
     public void OnRewardGame()
     {
-        // REWARD PLAYER HERE
-        rewardPlayerText.text = "Give Reward Here.";
+
     }
     public void OnRewardedVideoSuccess()
     {
-        rewardedAdText.text = "Rewarded video succeeded...";
+
     }
 
     public void OnRewardedVideoFailure()
     {
-        rewardedAdText.text = "Rewarded video failed...";
+
     }
 
     public void OnPreloadRewardedVideo(int loaded)
     {
-        // FEEDBACK ABOUT PRELOADED AD
-        rewardedAdText.text = loaded == 1 ? "Rewarded video has been loaded." : "Rewarded video couldn't be loaded.";
+
     }
 
     public void ShowAd()

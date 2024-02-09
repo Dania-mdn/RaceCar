@@ -40,8 +40,9 @@ public class BlockPosition : MonoBehaviour
     }
     private void Update()
     {
-        if (!isOpen) return; 
+        if (!isOpen) return;
 
+        PriceGameObject.SetActive(true);
         if (MoneyHandler.money > Price)
         {
             SpriteOpen.SetActive(true);

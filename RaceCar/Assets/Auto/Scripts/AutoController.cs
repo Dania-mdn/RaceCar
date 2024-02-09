@@ -181,7 +181,9 @@ public class AutoController : MonoBehaviour
         if (carRigidbody.angularVelocity.magnitude > 1.2f)
         {
             carRigidbody.angularVelocity = carRigidbody.angularVelocity.normalized * (1 + (WheelModyfer * 2) / 100);
-            carRigidbody.velocity = carRigidbody.velocity * (1 - WheelModyfer / 1000);
+
+            if(carRigidbody.velocity.magnitude > 15)
+                carRigidbody.velocity = carRigidbody.velocity * (1 - WheelModyfer / 1000);
         }
 
         AnimateWheelMeshes();

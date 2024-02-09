@@ -307,6 +307,8 @@ MonoBehaviour:
   PriceTextloc: {fileID: 2135503917428329458}
   alableCount: 7
   Price: 100000000
+  Close: {fileID: 0}
+  open: {fileID: 0}
 --- !u!1 &5218867570270250314
 GameObject:
   m_ObjectHideFlags: 0

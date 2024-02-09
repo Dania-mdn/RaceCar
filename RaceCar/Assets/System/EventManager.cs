@@ -17,6 +17,8 @@ public class EventManager: MonoBehaviour
     public static event Action DeleteAll;
     public static event Action MuteAudio;
     public static event Action PlayAudio;
+    public static event Action ShowAdd;
+    public static event Action Reward;
     public static void DuUpgradeAuto(int ID, int lvl)
     {
         UpgradeAuto?.Invoke(ID, lvl);
@@ -60,5 +62,13 @@ public class EventManager: MonoBehaviour
     public static void DoPlayAudio()
     {
         PlayAudio?.Invoke();
+    }
+    public static void DoShowAdd()
+    {
+        ShowAdd?.Invoke();
+    }
+    public static void DoReward()
+    {
+        Reward?.Invoke();
     }
 }
