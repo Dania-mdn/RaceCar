@@ -91,7 +91,17 @@ public class BlockPosition : MonoBehaviour
     }
     private void FormaterCount(float Value)
     {
-        if (Value >= 1000000000)
+        if (Value >= 1000000000000000)
+        {
+            PriceTextUnloc.text = "$" + (Value / 1000000000000000f).ToString("F1") + "Q";
+            PriceTextloc.text = "$" + (Value / 1000000000000000f).ToString("F1") + "Q";
+        }
+        else if (Value >= 1000000000000)
+        {
+            PriceTextUnloc.text = "$" + (Value / 1000000000000f).ToString("F1") + "T";
+            PriceTextloc.text = "$" + (Value / 1000000000000f).ToString("F1") + "T";
+        }
+        else if (Value >= 1000000000)
         {
             PriceTextUnloc.text = "$" + (Value / 1000000000f).ToString("F1") + "B";
             PriceTextloc.text = "$" + (Value / 1000000000f).ToString("F1") + "B";

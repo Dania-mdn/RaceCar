@@ -9,7 +9,7 @@ public class MoneyHandler : MonoBehaviour
 {
     public UIManager UIManager;
     public PartsPositionController PartsPositionController;
-    public float money;
+    public float money = 100;
     private float moneyInSecond = 5;
     public Animation AnimMoneyInSecond;
     private float coldawn = 1;
@@ -29,8 +29,8 @@ public class MoneyHandler : MonoBehaviour
 
     private float IncomCount = 4;
 
-    private float IncomPriece = 100;
-    private float PartsPrize = 100;
+    private float IncomPriece = 20;
+    private float PartsPrize = 20;
 
     private float RaceColdawn = 60;
     private float RaceTme;
@@ -41,11 +41,13 @@ public class MoneyHandler : MonoBehaviour
     {
         EventManager.OnClickDown += PrepeaToSale;
         EventManager.Sale += Sale;
+        EventManager.DeleteAll += DeleteAll;
     }
     private void OnDisable()
     {
         EventManager.OnClickDown -= PrepeaToSale;
         EventManager.Sale -= Sale;
+        EventManager.DeleteAll -= DeleteAll;
     }
     private void Start()
     {
@@ -113,7 +115,7 @@ public class MoneyHandler : MonoBehaviour
         money = money + (moneyInSecond * coefMnog * coefX2) * Time.deltaTime;
         PlayerPrefs.SetFloat("money", money);
 
-        UIManager.MoneyInSecond.text = "$" + Mathf.Round(moneyInSecond * coefMnog * coefX2) + "/s".ToString();
+        FormaterCount2(Mathf.Round(Mathf.Round(moneyInSecond * coefMnog * coefX2)), UIManager.MoneyInSecond);
         FormaterCount(Mathf.Round(money), UIManager.Money);
 
         if (AutoTapTme > 0)
@@ -250,10 +252,22 @@ public class MoneyHandler : MonoBehaviour
     {
         money = money + 1000000;
     }
+    public void DeleteAll()
+    {
+        money = 0;
+    }
 
     private void FormaterCount(float Value, TextMeshProUGUI TextValue)
     {
-        if (Value >= 1000000000)
+        if (Value >= 1000000000000000)
+        {
+            TextValue.text = "$" + (Value / 1000000000000000f).ToString("F1") + "Q";
+        }
+        else if (Value >= 1000000000000)
+        {
+            TextValue.text = "$" + (Value / 1000000000000f).ToString("F1") + "T";
+        }
+        else if (Value >= 1000000000)
         {
             TextValue.text = "$" + (Value / 1000000000f).ToString("F1") + "B";
         }
@@ -272,7 +286,15 @@ public class MoneyHandler : MonoBehaviour
     }
     private void FormaterCount1(float Value, TextMeshProUGUI TextValue)
     {
-        if (Value >= 1000000000)
+        if (Value >= 1000000000000000)
+        {
+            TextValue.text = "+$" + (Value / 1000000000f).ToString("F1") + "Q";
+        }
+        else if (Value >= 1000000000000)
+        {
+            TextValue.text = "+$" + (Value / 1000000000f).ToString("F1") + "T";
+        }
+        else if (Value >= 1000000000)
         {
             TextValue.text = "+$" + (Value / 1000000000f).ToString("F1") + "B";
         }
@@ -287,6 +309,33 @@ public class MoneyHandler : MonoBehaviour
         else
         {
             TextValue.text = "+$" + Value.ToString();
+        }
+    }
+    private void FormaterCount2(float Value, TextMeshProUGUI TextValue)
+    {
+        if(Value >= 1000000000000000)
+        {
+            TextValue.text = "+$" + (Value / 1000000000f).ToString("F1") + "Q/s";
+        }
+        else if(Value >= 1000000000000)
+        {
+            TextValue.text = "+$" + (Value / 1000000000f).ToString("F1") + "T/s";
+        }
+        else if(Value >= 1000000000)
+        {
+            TextValue.text = "+$" + (Value / 1000000000f).ToString("F1") + "B/s";
+        }
+        else if (Value >= 1000000)
+        {
+            TextValue.text = "+$" + (Value / 1000000f).ToString("F1") + "M/s";
+        }
+        else if (Value >= 1000)
+        {
+            TextValue.text = "+$" + (Value / 1000f).ToString("F1") + "K/s";
+        }
+        else
+        {
+            TextValue.text = "+$" + Value.ToString() + "/s";
         }
     }
 }

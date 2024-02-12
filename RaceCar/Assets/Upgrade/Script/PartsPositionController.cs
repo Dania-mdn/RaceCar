@@ -215,7 +215,7 @@ public class PartsPositionController : MonoBehaviour
                     Destroy(BlockPositionArray[i].gameObject);
             }
         }
-        if (BlockPositionArray[avalableCount] != null)
+        if (avalableCount < BlockPositionArray.Length && BlockPositionArray[avalableCount] != null)
         {
             BlockPositionArray[avalableCount].transform.GetChild(0).GetComponent<BlockPosition>().Open();
         }

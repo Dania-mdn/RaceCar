@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
         GameDistribution.OnRewardGame += OnRewardGame;
         EventManager.ShowAdd += ShowAd;
         EventManager.Reward += ShowRewardedAd; 
-        //PreloadRewardedAd();
+        PreloadRewardedAd();
     }
     public void OnResumeGame()
     {
@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
             EventManager.DoPlayAudio();
             PlayerPrefs.DeleteKey("MuteAudio");
         }
+        PreloadRewardedAd();
     }
 
     public void OnPauseGame()
