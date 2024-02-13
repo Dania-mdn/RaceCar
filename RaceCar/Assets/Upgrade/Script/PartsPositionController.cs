@@ -8,6 +8,7 @@ public class PartsPositionController : MonoBehaviour
 {
     private RaycastHit hit;
     private GameObject Mediate;
+    private GameObject TargetUpgrade;
     private Ray ray;
     private GameObject startMediate;
     public PositionAuto PositionAuto;
@@ -16,10 +17,14 @@ public class PartsPositionController : MonoBehaviour
 
     public GameObject[] BlockPositionArray;
 
+    private float lastClickTime = 0f;
+    private float doubleClickDelay = 0.3f;
+
     public AudioSource Take;
     public AudioSource Down;
     public AudioSource UpgradeAudio;
     public AudioSource Sound;
+    public PositionAuto MediatePosition;
 
     private void OnEnable()
     {
@@ -48,29 +53,74 @@ public class PartsPositionController : MonoBehaviour
     }
     public void OnClickDown()
     {
-        if (hit.transform != null)
+        startMediate = hit.transform.gameObject;
+        if (Time.time - lastClickTime < doubleClickDelay)
         {
-            if (hit.transform.gameObject.layer == 3)
+            if (TargetUpgrade != null)
             {
-                Position MediatePosition = hit.transform.GetComponent<Position>();
-
-                if (MediatePosition.Parts != null)
+                if (MediatePosition.Parts[TargetUpgrade.GetComponent<PartsUpgrade>().ID] == null)
                 {
-                    Mediate = MediatePosition.Parts.gameObject;
-                    Mediate.transform.parent = null;
-                    MediatePosition.Parts = null;
-                    startMediate = hit.transform.gameObject;
-                    Take.Play();
+                    TargetUpgrade.transform.position = MediatePosition.transform.position;
+                    TargetUpgrade.transform.parent = MediatePosition.transform;
+                    MediatePosition.Parts[TargetUpgrade.GetComponent<PartsUpgrade>().ID] = TargetUpgrade.transform;
+                }
+                else
+                {
+                    if (TargetUpgrade.GetComponent<PartsUpgrade>().ID == MediatePosition.Parts[TargetUpgrade.GetComponent<PartsUpgrade>().ID].gameObject.GetComponent<PartsUpgrade>().ID &&
+                        TargetUpgrade.GetComponent<PartsUpgrade>().lvl == MediatePosition.Parts[TargetUpgrade.GetComponent<PartsUpgrade>().ID].gameObject.GetComponent<PartsUpgrade>().lvl)
+                    {
+                        Destroy(MediatePosition.Parts[TargetUpgrade.GetComponent<PartsUpgrade>().ID].gameObject.GetComponent<PartsUpgrade>().gameObject);
+
+                        TargetUpgrade.transform.position = MediatePosition.transform.position;
+                        TargetUpgrade.transform.parent = MediatePosition.transform;
+                        MediatePosition.Parts[TargetUpgrade.GetComponent<PartsUpgrade>().ID] = TargetUpgrade.transform;
+
+                        TargetUpgrade.GetComponent<PartsUpgrade>().UpgradeLvL();
+                    }
+                    else
+                    {
+                        MediatePosition.Parts[TargetUpgrade.GetComponent<PartsUpgrade>().ID].transform.position = startMediate.transform.position;
+                        MediatePosition.Parts[TargetUpgrade.GetComponent<PartsUpgrade>().ID].transform.parent = startMediate.transform;
+                        startMediate.GetComponent<Position>().Parts = MediatePosition.Parts[TargetUpgrade.GetComponent<PartsUpgrade>().ID];
+
+                        TargetUpgrade.transform.position = MediatePosition.transform.position;
+                        TargetUpgrade.transform.parent = MediatePosition.transform;
+                        MediatePosition.Parts[TargetUpgrade.GetComponent<PartsUpgrade>().ID] = TargetUpgrade.transform;
+                    }
+                }
+                EventManager.DuUpgradeAuto(TargetUpgrade.GetComponent<PartsUpgrade>().ID, TargetUpgrade.GetComponent<PartsUpgrade>().lvl);
+            }
+            TargetUpgrade = null;
+            EventManager.DuOnClickDown(false);
+            Debug.Log(TargetUpgrade);
+        }
+        else
+        {
+            if (hit.transform != null)
+            {
+                if (hit.transform.gameObject.layer == 3)
+                {
+                    Position MediatePosition = hit.transform.GetComponent<Position>();
+
+                    if (MediatePosition.Parts != null)
+                    {
+                        Mediate = MediatePosition.Parts.gameObject;
+                        TargetUpgrade = MediatePosition.Parts.gameObject;
+                        Mediate.transform.parent = null;
+                        MediatePosition.Parts = null;
+                        Take.Play();
+                    }
+                }
+                else if (hit.transform.gameObject.layer == 8)
+                {
+                    hit.transform.GetChild(0).GetComponent<BlockPosition>().Click();
                 }
             }
-            else if(hit.transform.gameObject.layer == 8)
-            {
-                hit.transform.GetChild(0).GetComponent<BlockPosition>().Click();
-            }
-        }
 
-        if(Mediate != null)
-            EventManager.DuOnClickDown(true);
+            if (Mediate != null)
+                EventManager.DuOnClickDown(true);
+        }
+        lastClickTime = Time.time;
     }
     public void OnClickUp()
     {
@@ -127,14 +177,12 @@ public class PartsPositionController : MonoBehaviour
             }
             else if (hit.transform.gameObject.layer == 6)
             {
-                PositionAuto MediatePosition = hit.transform.GetComponent<PositionAuto>();
-
                 if (Mediate != null)
                 {
                     if (MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID] == null)
                     {
-                        Mediate.transform.position = hit.transform.position;
-                        Mediate.transform.parent = hit.transform;
+                        Mediate.transform.position = MediatePosition.transform.position;
+                        Mediate.transform.parent = MediatePosition.transform;
                         MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID] = Mediate.transform;
                     }
                     else
@@ -144,8 +192,8 @@ public class PartsPositionController : MonoBehaviour
                         {
                             Destroy(MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID].gameObject.GetComponent<PartsUpgrade>().gameObject);
 
-                            Mediate.transform.position = hit.transform.position;
-                            Mediate.transform.parent = hit.transform;
+                            Mediate.transform.position = MediatePosition.transform.position;
+                            Mediate.transform.parent = MediatePosition.transform;
                             MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID] = Mediate.transform;
 
                             Mediate.GetComponent<PartsUpgrade>().UpgradeLvL();
@@ -156,8 +204,8 @@ public class PartsPositionController : MonoBehaviour
                             MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID].transform.parent = startMediate.transform;
                             startMediate.GetComponent<Position>().Parts = MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID];
 
-                            Mediate.transform.position = hit.transform.position;
-                            Mediate.transform.parent = hit.transform;
+                            Mediate.transform.position = MediatePosition.transform.position;
+                            Mediate.transform.parent = MediatePosition.transform;
                             MediatePosition.Parts[Mediate.GetComponent<PartsUpgrade>().ID] = Mediate.transform;
                         }
                     }
@@ -313,5 +361,10 @@ public class PartsPositionController : MonoBehaviour
         Down.mute = false;
         UpgradeAudio.mute = false;
         Sound.mute = false;
+    }
+    public void Upgrade()
+    {
+        if(TargetUpgrade != null)
+            TargetUpgrade.GetComponent<PartsUpgrade>().UpgradeLvL();
     }
 }

@@ -40,7 +40,7 @@ public class Upgrade : MonoBehaviour
     }
     private void UpgradeMediate(int ID, int lvl)
     {
-        int Enemylvl = Random.Range(lvl, lvl + 2);
+        int Enemylvl = Random.Range(lvl-1, lvl + 1);
         Upgrade1(ID, Enemylvl);
     }
     private void Upgrade1(int ID, int lvl)

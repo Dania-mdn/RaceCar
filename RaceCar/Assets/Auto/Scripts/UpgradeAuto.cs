@@ -5,6 +5,9 @@ public class UpgradeAuto : MonoBehaviour
 {
     private AutoController AutoController;
 
+    public Animation AnimBodyUI;
+    public Animation AnimEngineUI;
+    public Animation AnimWhileUI;
     public Animation AnimBody;
     public Animation AnimWhile1;
     public Animation AnimWhile2;
@@ -68,7 +71,10 @@ public class UpgradeAuto : MonoBehaviour
             if(AutoController != null)
              AutoController.accelerationMultiplier = lvl;
             if (AnimBody != null)
+            {
                 AnimBody.Play();
+                AnimBodyUI.Play();
+            }
             PlayerPrefs.SetInt("ID " + ID, lvl);
             for (int i = 0; i < Body.Length; i++)
             {
@@ -91,7 +97,10 @@ public class UpgradeAuto : MonoBehaviour
             if (AutoController != null)
                 AutoController.maxSpeedDefolt = lvl * 10;
             if (AnimEngine != null)
+            {
                 AnimEngine.Play();
+                AnimEngineUI.Play();
+            }
             PlayerPrefs.SetInt("ID " + ID, lvl);
             for (int i = 0; i < Engine.Length; i++)
             {
@@ -123,7 +132,8 @@ public class UpgradeAuto : MonoBehaviour
                 AnimWhile1.Play();
                 AnimWhile2.Play();
                 AnimWhile3.Play();
-                AnimWhile4.Play();
+                AnimWhile4.Play(); 
+                AnimWhileUI.Play();
             }
             PlayerPrefs.SetInt("ID " + 2, lvl);
             for (int i = 0; i < While0.Length; i++)

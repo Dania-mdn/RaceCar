@@ -70,6 +70,7 @@ public class MoneyHandler : MonoBehaviour
         if (PlayerPrefs.HasKey("PartsPrize"))
         {
             PartsPrize = PlayerPrefs.GetFloat("PartsPrize");
+            PartsPrize = Mathf.Clamp(PartsPrize, 0, 1000000000000000000);
         }
         else
         {
@@ -80,6 +81,7 @@ public class MoneyHandler : MonoBehaviour
         if (PlayerPrefs.HasKey("IncomPriece"))
         {
             IncomPriece = PlayerPrefs.GetFloat("IncomPriece");
+            IncomPriece = Mathf.Clamp(IncomPriece, 0, 1000000000000000000);
         }
         else
         {
@@ -113,6 +115,7 @@ public class MoneyHandler : MonoBehaviour
         }
 
         money = money + (moneyInSecond * coefMnog * coefX2) * Time.deltaTime;
+        money = Mathf.Clamp(money, 0, 1000000000000000000);
         PlayerPrefs.SetFloat("money", money);
 
         FormaterCount2(Mathf.Round(Mathf.Round(moneyInSecond * coefMnog * coefX2)), UIManager.MoneyInSecond);
@@ -188,9 +191,11 @@ public class MoneyHandler : MonoBehaviour
         if(IncomCount >= 4)
         {
             moneyInSecond = moneyInSecond + (moneyInSecond * 0.5f);
+            moneyInSecond = Mathf.Clamp(moneyInSecond, 0, 1000000000000000000);
             IncomCount = IncomCount - 4;
             EventManager.DuSetAvalebleIncpmMoney(IncomCount);
             IncomPriece = IncomPriece + (IncomPriece * 0.5f);
+            IncomPriece = Mathf.Clamp(IncomPriece, 0, 1000000000000000000);
             PlayerPrefs.SetFloat("IncomPriece", IncomPriece);
             FormaterCount(Mathf.Round(IncomPriece), UIManager.IncomePrice); 
             AnimMoneyInSecond.Play();
@@ -213,6 +218,7 @@ public class MoneyHandler : MonoBehaviour
         if (Money >= 0 && PartsPositionController.TryParts())
         {
             PartsPrize = PartsPrize + (PartsPrize * 0.1f);
+            PartsPrize = Mathf.Clamp(PartsPrize, 0, 1000000000000000000);
             PlayerPrefs.SetFloat("PartsPrize", PartsPrize);
             FormaterCount(Mathf.Round(PartsPrize), UIManager.PartsPrice);
             FormaterCount(Mathf.Round(PartsPrize), UIManager.PartsPriceBlock);
@@ -250,7 +256,7 @@ public class MoneyHandler : MonoBehaviour
     }
     public void AddMoney()
     {
-        money = money + 1000000;
+        money = money + 10000000000;
     }
     public void DeleteAll()
     {
