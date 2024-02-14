@@ -8,6 +8,7 @@ public class EnemyRace : MonoBehaviour
 {
     public PathFollower PathFollower;
     private float FoolowDistance;
+    private float FoolowDistanceNext = 0;
     public GameObject FolowObject;
     public GameObject Direction;
     Rigidbody carRigidbody; // Stores the car's rigidbody.
@@ -190,7 +191,35 @@ public class EnemyRace : MonoBehaviour
             PathFollower.speed = 50;
         }
 
-        AnimateWheelMeshes();
+        AnimateWheelMeshes(); 
+
+        if (carRigidbody.velocity.magnitude < 0.2f)
+        {
+            FoolowDistance = (FolowObject.transform.position - transform.position).magnitude;
+
+            if (FoolowDistance <= FoolowDistanceNext)
+            {
+                FoolowDistanceNext = FoolowDistance;
+                PathFollower.speed = 500;
+            }
+            else
+            {
+                if (FoolowDistance > 35)
+                {
+                    PathFollower.speed = 500;
+                }
+                else
+                {
+                    PathFollower.speed = 0;
+                    if (transform.position.y < 0.23)
+                        Invoke("Teleport", 1);
+                }
+            }
+        }
+    }
+    public void Teleport()
+    {
+        gameObject.transform.position = FolowObject.transform.position;
     }
 
     public void Turn()

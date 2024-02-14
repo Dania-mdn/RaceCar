@@ -124,7 +124,9 @@ public class RaceManager : MonoBehaviour
             PlayerRb.constraints = RigidbodyConstraints.None;
 
             if (StartObject.activeSelf == true)
+            {
                 StartObject.SetActive(false);
+            }
         }
     }
     public void Finish(bool isWin)

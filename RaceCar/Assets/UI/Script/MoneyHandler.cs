@@ -260,7 +260,7 @@ public class MoneyHandler : MonoBehaviour
     }
     public void DeleteAll()
     {
-        money = 0;
+        money = 150;
     }
 
     private void FormaterCount(float Value, TextMeshProUGUI TextValue)

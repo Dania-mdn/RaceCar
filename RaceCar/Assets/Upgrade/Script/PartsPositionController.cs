@@ -92,7 +92,6 @@ public class PartsPositionController : MonoBehaviour
             }
             TargetUpgrade = null;
             EventManager.DuOnClickDown(false);
-            Debug.Log(TargetUpgrade);
         }
         else
         {
@@ -249,6 +248,7 @@ public class PartsPositionController : MonoBehaviour
                 break;
             }
         }
+        Save();
     }
     private void SetAvailableBlock()
     {

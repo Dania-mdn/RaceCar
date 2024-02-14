@@ -1,4 +1,5 @@
 
+using PathCreation.Examples;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +8,11 @@ using UnityEngine.UI;
 
 public class AutoController : MonoBehaviour
 {
+    public GameObject TeleportButton;
+    public PathFollower PathFollower;
+    private float FoolowDistance = 0 ;
+    private float FoolowDistanceNext = 0;
+    public GameObject FolowObject;
     public GameObject Direction;
     public UIRace UIRace;
     Rigidbody carRigidbody; // Stores the car's rigidbody.
@@ -170,6 +176,10 @@ public class AutoController : MonoBehaviour
         }
     }
 
+    public void Teleport()
+    {
+        gameObject.transform.position = FolowObject.transform.position;
+    }
     void Update()
     {
         Direction.transform.rotation = Quaternion.Euler(0.0f, direction, 0.0f);
@@ -187,8 +197,44 @@ public class AutoController : MonoBehaviour
         }
 
         AnimateWheelMeshes();
+
+        if (carRigidbody.velocity.magnitude > 0.2f)
+        {
+            if (TeleportButton.activeSelf)
+            {
+                TeleportButton.SetActive(false);
+            }
+        }
+        else
+        {
+            FoolowDistance = (FolowObject.transform.position - transform.position).magnitude;
+
+            if (FoolowDistance <= FoolowDistanceNext)
+            {
+                FoolowDistanceNext = FoolowDistance;
+                PathFollower.speed = 500;
+            }
+            else
+            {
+                if (FoolowDistance > 35)
+                {
+                    PathFollower.speed = 500;
+                }
+                else
+                {
+                    PathFollower.speed = 0;
+                    if(transform.position.y < 0.23) 
+                        if (!TeleportButton.activeSelf)
+                            Invoke("Teleport2", 1);
+                }
+            }
+        }
     }
-    
+
+    public void Teleport2()
+    {
+        TeleportButton.SetActive(true);
+    }
     public void Force()
     {
         if (UIRace.ForceTme >= 3)

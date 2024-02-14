@@ -64,9 +64,9 @@
 		<script>
 			var canvas = document.querySelector("#unity-canvas");
 			var config = {
-				dataUrl: "Build/275dfc67e25d8e6874130226b8011f96.data.unityweb",
-				frameworkUrl: "Build/6efb234cb23416827fd18a95ee9d9c7c.js.unityweb",
-				codeUrl: "Build/ba1e4f66898093064fa6856726381ae1.wasm.unityweb",
+				dataUrl: "Build/7f4fa8eb098ae36a5bae6f20c8f0dbce.data.unityweb",
+				frameworkUrl: "Build/ee8e2837aa3e4994874837545700e0cb.js.unityweb",
+				codeUrl: "Build/564d1ae241a431ebdf94f70633212a46.wasm.unityweb",
 				streamingAssetsUrl: "StreamingAssets",
 				companyName: "DefaultCompany",
 				productName: "RaceCar",
@@ -92,14 +92,14 @@
 					w = window.innerWidth;
 					h = window.innerHeight;
 
-					var r = 900 / 500;
+					var r = 900 / 600;
 
 					if (w * r > window.innerHeight) {
 						w = Math.min(w, Math.ceil(h / r));
 					}
 					h = Math.floor(w * r);
 				} else {
-					w = 500;
+					w = 600;
 					h = 900;
 				}
 
