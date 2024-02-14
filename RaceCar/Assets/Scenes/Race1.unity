@@ -12890,20 +12890,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567272617}
   m_CullTransparentMesh: 1
---- !u!64 &1568358683
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9126154219016471513}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 6912372362326455421, guid: aa35326e084c5774b9fea1733afca70f, type: 3}
 --- !u!4 &1570128470 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4345878849055200, guid: fa6105287f77b1240a0017f7d23434c2,
@@ -18241,7 +18227,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148672884703}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.2, y: 5, z: -24.4}
+  m_LocalPosition: {x: -11.2, y: 5.2, z: -24.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -32142,8 +32128,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9126154219016471513}
   m_LocalRotation: {x: -0, y: -0.1013277, z: -0, w: 0.99485314}
-  m_LocalPosition: {x: -55.1, y: 0.35, z: 3.3}
-  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_LocalPosition: {x: -55.1, y: 0.15, z: 3.3}
+  m_LocalScale: {x: 2, y: 1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 543450653150262629}
@@ -32414,7 +32400,6 @@ GameObject:
   - component: {fileID: 7750852081676343296}
   - component: {fileID: 8758912473014972156}
   - component: {fileID: 5364932718813188148}
-  - component: {fileID: 1568358683}
   m_Layer: 0
   m_Name: Street_Bump
   m_TagString: Untagged
