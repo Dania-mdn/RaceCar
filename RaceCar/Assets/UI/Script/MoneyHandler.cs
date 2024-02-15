@@ -88,6 +88,16 @@ public class MoneyHandler : MonoBehaviour
             PlayerPrefs.SetFloat("IncomPriece", PartsPrize);
         }
 
+        if (PlayerPrefs.HasKey("moneyInSecond"))
+        {
+            moneyInSecond = PlayerPrefs.GetFloat("moneyInSecond");
+            moneyInSecond = Mathf.Clamp(moneyInSecond, 0, 1000000000000000000);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("moneyInSecond", moneyInSecond);
+        }
+
         if (PlayerPrefs.HasKey("RaceCuldawn"))
         {
             RaceCuldawn();
@@ -192,6 +202,7 @@ public class MoneyHandler : MonoBehaviour
         {
             moneyInSecond = moneyInSecond + (moneyInSecond * 0.5f);
             moneyInSecond = Mathf.Clamp(moneyInSecond, 0, 1000000000000000000);
+            PlayerPrefs.SetFloat("moneyInSecond", moneyInSecond);
             IncomCount = IncomCount - 4;
             EventManager.DuSetAvalebleIncpmMoney(IncomCount);
             IncomPriece = IncomPriece + (IncomPriece * 0.5f);
@@ -245,7 +256,8 @@ public class MoneyHandler : MonoBehaviour
     }
     public void Race()
     {
-        SceneManager.LoadScene(Random.Range(1, 3));
+        //SceneManager.LoadScene(Random.Range(1, 3)); 
+        SceneManager.LoadScene(3);
         PlayerPrefs.SetInt("Race", 1);
     }
     private void RaceCuldawn()
