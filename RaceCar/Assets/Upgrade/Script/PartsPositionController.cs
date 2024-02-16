@@ -113,6 +113,11 @@ public class PartsPositionController : MonoBehaviour
                 else if (hit.transform.gameObject.layer == 8)
                 {
                     hit.transform.GetChild(0).GetComponent<BlockPosition>().Click();
+                    TargetUpgrade = null;
+                }
+                else
+                {
+                    TargetUpgrade = null;
                 }
             }
 

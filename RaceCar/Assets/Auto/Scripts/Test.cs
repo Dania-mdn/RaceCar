@@ -66,7 +66,7 @@ public class Test : MonoBehaviour
     {
         if (UIRace.ForceTme >= 3)
         {
-            rb.AddForce(transform.forward * -7200, ForceMode.Impulse);
+            rb.AddForce(Direction.transform.forward * 8000, ForceMode.Impulse);
             UIRace.SetForceColdawn();
         }
     }
