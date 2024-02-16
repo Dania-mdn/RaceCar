@@ -21,7 +21,7 @@ public class AutoController : MonoBehaviour
     [Space(20)]
     [Range(0, 10)]
     public float WheelModyfer = 1;
-    [Range(0, 100)]
+    [Range(0, 300)]
     public float maxSpeedDefolt = 90;
     [HideInInspector] 
     public float maxSpeed = 90; //The maximum speed that the car can reach in km/h.
@@ -184,6 +184,10 @@ public class AutoController : MonoBehaviour
     {
         Direction.transform.rotation = Quaternion.Euler(0.0f, direction, 0.0f);
 
+        Quaternion targetRotation = Direction.transform.rotation;
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 3 * Time.deltaTime);
+
         carSpeed = (2 * Mathf.PI * frontLeftCollider.radius * frontLeftCollider.rpm * 60) / 1000;
         localVelocityX = transform.InverseTransformDirection(carRigidbody.velocity).x;
         localVelocityZ = transform.InverseTransformDirection(carRigidbody.velocity).z;
@@ -245,26 +249,29 @@ public class AutoController : MonoBehaviour
     }
     public void Turn()
     {
-        Quaternion rotationQuaternion = Direction.transform.localRotation;
+        //Quaternion rotationQuaternion = Direction.transform.localRotation;
 
-        float steeringAxis = -rotationQuaternion.eulerAngles.y + 180;
-        float steeringAngle = -steeringAxis;
+        //float steeringAxis = -rotationQuaternion.eulerAngles.y + 180;
+        //float steeringAngle = -steeringAxis;
 
-        if(steeringAngle > -maxSteeringAngle && steeringAngle < maxSteeringAngle)
-        {
-            frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, steeringSpeed);
-            frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
-        }
-        else if(steeringAngle < -maxSteeringAngle)
-        {
-            frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, -maxSteeringAngle, steeringSpeed);
-            frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, -maxSteeringAngle, steeringSpeed);
-        }
-        else if(steeringAngle > maxSteeringAngle)
-        {
-            frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, maxSteeringAngle, steeringSpeed);
-            frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, maxSteeringAngle, steeringSpeed);
-        }
+        //if (steeringAngle > -maxSteeringAngle && steeringAngle < maxSteeringAngle)
+        //{
+        //    frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, steeringSpeed);
+        //    frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
+            
+        //}
+        //else if (steeringAngle < -maxSteeringAngle)
+        //{
+        //    frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, -maxSteeringAngle, steeringSpeed);
+        //    frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, -maxSteeringAngle, steeringSpeed);
+            
+        //}
+        //else if (steeringAngle > maxSteeringAngle)
+        //{
+        //    frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, maxSteeringAngle, steeringSpeed);
+        //    frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, maxSteeringAngle, steeringSpeed);
+            
+        //}
     }
 
     public void ResetSteeringAngle()

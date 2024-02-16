@@ -27,13 +27,13 @@ public class MainJoystic : MonoBehaviour
             DirectionMarcer.gameObject.SetActive(false);
         }
 
-        /*if(joisticMarcer.gameObject.activeSelf == false)
-        {
-            autoController.Handbrake();
-        }
-        else
-        {
-            autoController.GoForward();
-        }*/
+        //if (joisticMarcer.gameObject.activeSelf == false)
+        //{
+        //    autoController.Handbrake();
+        //}
+        //else
+        //{
+        //    autoController.GoForward();
+        //}
     }
 }

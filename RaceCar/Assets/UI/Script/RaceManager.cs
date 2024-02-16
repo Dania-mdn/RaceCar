@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 
 public class RaceManager : MonoBehaviour
 {
-    public AutoController AutoController;
     public EnemyRace EnemyRacePlayer;
     public EnemyRace EnemyRace;
     public Rigidbody EnemyRb;
@@ -53,7 +52,6 @@ public class RaceManager : MonoBehaviour
     {
         VirtualCamera.Priority = 3;
         EnemyRace.maxSpeed = 0;
-        AutoController.maxSpeed = 0;
         TimeStart = Coldawn;
         StartObject.SetActive(true);
 
@@ -117,7 +115,6 @@ public class RaceManager : MonoBehaviour
         else
         {
             EnemyRace.maxSpeed = EnemyRace.maxSpeedDefolt;
-            AutoController.maxSpeed = AutoController.maxSpeedDefolt;
             EnemyRacePlayer.maxSpeed = EnemyRacePlayer.maxSpeedDefolt;
             isstart = true;
             EnemyRb.constraints = RigidbodyConstraints.None;
@@ -133,7 +130,6 @@ public class RaceManager : MonoBehaviour
     {
         if (isWin)
         {
-            Destroy(AutoController);
             EnemyRacePlayer.enabled = true;
             VirtualCamera.Priority = 3;
             isFinish = true;
@@ -145,7 +141,6 @@ public class RaceManager : MonoBehaviour
         }
         else
         {
-            Destroy(AutoController);
             EnemyRacePlayer.enabled = true;
             VirtualCamera.Priority = 3;
             isFinish = true;
