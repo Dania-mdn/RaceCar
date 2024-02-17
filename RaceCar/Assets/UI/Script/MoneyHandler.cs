@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MoneyHandler : MonoBehaviour
 {
@@ -35,6 +34,7 @@ public class MoneyHandler : MonoBehaviour
     private float RaceColdawn = 60;
     private float RaceTme;
     public GameObject RaceTmeObject;
+    public GameObject RaceTmeObject1;
     public ParticleSystem ParticleSystem;
 
     private void OnEnable()
@@ -177,7 +177,10 @@ public class MoneyHandler : MonoBehaviour
         else
         {
             if (RaceTmeObject.activeSelf == true)
+            {
                 RaceTmeObject.SetActive(false);
+                RaceTmeObject1.SetActive(true);
+            }
         }
     }
     public void AddSpeed()
@@ -254,15 +257,10 @@ public class MoneyHandler : MonoBehaviour
     {
         money = money - Price;
     }
-    public void Race()
-    {
-        //SceneManager.LoadScene(Random.Range(1, 3)); 
-        SceneManager.LoadScene(3);
-        PlayerPrefs.SetInt("Race", 1);
-    }
     private void RaceCuldawn()
     {
         RaceTmeObject.SetActive(true);
+        RaceTmeObject1.SetActive(false);
         RaceTme = RaceColdawn;
         PlayerPrefs.DeleteKey("RaceCuldawn");
     }

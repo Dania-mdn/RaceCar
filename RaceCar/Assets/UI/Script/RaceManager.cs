@@ -137,7 +137,7 @@ public class RaceManager : MonoBehaviour
             Joistick.SetActive(false);
             Winner.SetActive(true);
             rewardMoney = PlayerPrefs.GetFloat("PartsPrize") * 3;
-            FormaterCount(rewardMoney, rewardMoneyTextWon);
+            FormaterCount(Mathf.Round(rewardMoney), rewardMoneyTextWon);
         }
         else
         {
@@ -148,7 +148,7 @@ public class RaceManager : MonoBehaviour
             Joistick.SetActive(false);
             Lost.SetActive(true);
             rewardMoney = PlayerPrefs.GetFloat("PartsPrize") * 3;
-            FormaterCount(rewardMoney, rewardMoneyTextLost);
+            FormaterCount(Mathf.Round(rewardMoney), rewardMoneyTextLost);
         }
         MeinAud.mute = true;
         Spedometr.SetActive(false);

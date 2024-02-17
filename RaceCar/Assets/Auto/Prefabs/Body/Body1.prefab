@@ -242,6 +242,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5253580789748828802}
     m_Modifications:
+    - target: {fileID: 7804424313756297333, guid: d63442512e628cf4a85ea6cee724368a,
+        type: 3}
+      propertyPath: m_Axis.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804424313756297333, guid: d63442512e628cf4a85ea6cee724368a,
+        type: 3}
+      propertyPath: m_EnableCollision
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804424313756297333, guid: d63442512e628cf4a85ea6cee724368a,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -0.5542941
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804424313756297333, guid: d63442512e628cf4a85ea6cee724368a,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 2.0248864
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804424313756297333, guid: d63442512e628cf4a85ea6cee724368a,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: 0.00000022351746
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804424313756297333, guid: d63442512e628cf4a85ea6cee724368a,
+        type: 3}
+      propertyPath: m_LowTwistLimit.limit
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 7804424313785290502, guid: d63442512e628cf4a85ea6cee724368a,
         type: 3}
       propertyPath: m_LocalRotation.w
