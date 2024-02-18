@@ -182,7 +182,7 @@ public class EnemyRace : MonoBehaviour
         GoForward();
 
         FoolowDistance = (FolowObject.transform.position - Direction.transform.position).magnitude;
-        if(FoolowDistance > 13 + (maxSpeedDefolt / 20))
+        if (FoolowDistance > 13 + (maxSpeedDefolt / 20))
         {
             PathFollower.speed = 0;
         }
@@ -191,7 +191,7 @@ public class EnemyRace : MonoBehaviour
             PathFollower.speed = 50;
         }
 
-        AnimateWheelMeshes(); 
+        AnimateWheelMeshes();
 
         if (carRigidbody.velocity.magnitude < 0.2f)
         {
@@ -519,7 +519,7 @@ public class EnemyRace : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer != 13)
+        if (collision.gameObject.layer != 13)
             if (!boom.isPlaying)
                 boom.Play();
     }

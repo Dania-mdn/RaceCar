@@ -93,15 +93,15 @@ public class UIManager : MonoBehaviour
             Income.SetActive(true);
         }
     }
-    public void Race()
+    public void Race(bool Race)
     {
-        isRace = true;
+        isRace = Race;
         RaceStartTime = culdawn;
     }
     public void RaceLoad()
     {
-        //SceneManager.LoadScene(Random.Range(1, 3)); 
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(Random.Range(1, 3)); 
+        //SceneManager.LoadScene(3);
         PlayerPrefs.SetInt("Race", 1);
     }
     public void Audio()

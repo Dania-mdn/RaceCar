@@ -115,7 +115,7 @@ public class RaceManager : MonoBehaviour
         else
         {
             EnemyRace.maxSpeed = EnemyRace.maxSpeedDefolt;
-            EnemyRacePlayer.maxSpeed = EnemyRacePlayer.maxSpeedDefolt;
+            //EnemyRacePlayer.maxSpeed = EnemyRacePlayer.maxSpeedDefolt;
             isstart = true;
             EnemyRb.constraints = RigidbodyConstraints.None;
             PlayerRb.constraints = RigidbodyConstraints.None;
@@ -130,7 +130,7 @@ public class RaceManager : MonoBehaviour
     {
         if (isWin)
         {
-            EnemyRacePlayer.enabled = true;
+            //EnemyRacePlayer.enabled = true;
             VirtualCamera.Priority = 3;
             isFinish = true;
             Canvas.planeDistance = 2;
@@ -141,7 +141,7 @@ public class RaceManager : MonoBehaviour
         }
         else
         {
-            EnemyRacePlayer.enabled = true;
+            //EnemyRacePlayer.enabled = true;
             VirtualCamera.Priority = 3;
             isFinish = true;
             Canvas.planeDistance = 2;

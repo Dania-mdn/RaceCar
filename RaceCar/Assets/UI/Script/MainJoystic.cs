@@ -5,8 +5,6 @@ public class MainJoystic : MonoBehaviour
     public GameObject joisticMarcer;
     public GameObject DirectionMarcer;
 
-    //public AutoController autoController;
-
     private void Start()
     {
         joisticMarcer.gameObject.SetActive(false);
@@ -14,7 +12,6 @@ public class MainJoystic : MonoBehaviour
     }
     public void Update()
     {
-        //if (autoController == null) return;
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -26,14 +23,5 @@ public class MainJoystic : MonoBehaviour
             joisticMarcer.gameObject.SetActive(false);
             DirectionMarcer.gameObject.SetActive(false);
         }
-
-        //if (joisticMarcer.gameObject.activeSelf == false)
-        //{
-        //    autoController.Handbrake();
-        //}
-        //else
-        //{
-        //    autoController.GoForward();
-        //}
     }
 }
