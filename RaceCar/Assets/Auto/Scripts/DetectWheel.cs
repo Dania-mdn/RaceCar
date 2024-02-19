@@ -5,20 +5,45 @@ using UnityEngine;
 public class DetectWheel : MonoBehaviour
 {
     public Test Test;
+    public EnemyRace EnemyRace;
     public bool IsRight;
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(IsRight)
-            Test.bool1 = true;
+        if (IsRight)
+        {
+            if(Test != null)
+                Test.bool1 = true;
+
+            if (EnemyRace != null)
+                EnemyRace.bool1 = true;
+        }
         else
-            Test.bool2 = true;
+        {
+            if (Test != null)
+                Test.bool2 = true;
+
+            if (EnemyRace != null)
+                EnemyRace.bool2 = true;
+        }
     }
     private void OnCollisionExit(Collision collision)
     {
         if (IsRight)
-            Test.bool1 = false;
+        {
+            if (Test != null)
+                Test.bool1 = false;
+
+            if (EnemyRace != null)
+                EnemyRace.bool1 = false;
+        }
         else
-            Test.bool2 = false;
+        {
+            if (Test != null)
+                Test.bool1 = false;
+
+            if (EnemyRace != null)
+                EnemyRace.bool1 = false;
+        }
     }
 }

@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class RaceManager : MonoBehaviour
 {
+    public Test Test;
     public EnemyRace EnemyRacePlayer;
     public EnemyRace EnemyRace;
     public Rigidbody EnemyRb;
@@ -51,7 +52,6 @@ public class RaceManager : MonoBehaviour
     private void Start()
     {
         VirtualCamera.Priority = 3;
-        EnemyRace.maxSpeed = 0;
         TimeStart = Coldawn;
         StartObject.SetActive(true);
 
@@ -114,8 +114,6 @@ public class RaceManager : MonoBehaviour
         }
         else
         {
-            EnemyRace.maxSpeed = EnemyRace.maxSpeedDefolt;
-            //EnemyRacePlayer.maxSpeed = EnemyRacePlayer.maxSpeedDefolt;
             isstart = true;
             EnemyRb.constraints = RigidbodyConstraints.None;
             PlayerRb.constraints = RigidbodyConstraints.None;
@@ -130,7 +128,8 @@ public class RaceManager : MonoBehaviour
     {
         if (isWin)
         {
-            //EnemyRacePlayer.enabled = true;
+            EnemyRacePlayer.enabled = true;
+            Test.enabled = false;
             VirtualCamera.Priority = 3;
             isFinish = true;
             Canvas.planeDistance = 2;
@@ -141,7 +140,8 @@ public class RaceManager : MonoBehaviour
         }
         else
         {
-            //EnemyRacePlayer.enabled = true;
+            EnemyRacePlayer.enabled = true;
+            Test.enabled = false;
             VirtualCamera.Priority = 3;
             isFinish = true;
             Canvas.planeDistance = 2;
@@ -156,17 +156,21 @@ public class RaceManager : MonoBehaviour
     }
     public void RewardXmonney()
     {
+        Debug.Log(_targetRotation);
         if (_targetRotation <= 15 && _targetRotation >= -15)
         {
-            PlayerPrefs.SetFloat("money", PlayerPrefs.GetFloat("money") + (rewardMoney * 4));
+            rewardMoney = rewardMoney * 4;
+            Debug.Log(4);
         }
         else if((_targetRotation > 15 && _targetRotation <= 65) || (_targetRotation >= -65 && _targetRotation < -15))
         {
-            PlayerPrefs.SetFloat("money", PlayerPrefs.GetFloat("money") + (rewardMoney * 2));
+            rewardMoney = rewardMoney * 2;
+            Debug.Log(2);
         }
         else
         {
-            PlayerPrefs.SetFloat("money", PlayerPrefs.GetFloat("money") + (rewardMoney * 3));
+            rewardMoney = rewardMoney * 3;
+            Debug.Log(3);
         }
 
         EventManager.DoReward();

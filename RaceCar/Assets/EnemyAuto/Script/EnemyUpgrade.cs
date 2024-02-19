@@ -48,7 +48,7 @@ public class EnemyUpgrade : MonoBehaviour
         if (ID == 0)
         {
             if (EnemyRace != null)
-                EnemyRace.accelerationMultiplier = lvl;
+                EnemyRace.SetParametr(2, lvl);
             PlayerPrefs.SetInt("EnemyID " + ID, lvl);
             for (int i = 0; i < Body.Length; i++)
             {
@@ -71,7 +71,7 @@ public class EnemyUpgrade : MonoBehaviour
         else if (ID == 1)
         {
             if (EnemyRace != null)
-                EnemyRace.maxSpeedDefolt = lvl * 10;
+                EnemyRace.SetParametr(1, lvl);
             PlayerPrefs.SetInt("EnemyID " + ID, lvl);
             for (int i = 0; i < Engine.Length; i++)
             {
@@ -95,7 +95,7 @@ public class EnemyUpgrade : MonoBehaviour
         else
         {
             if (EnemyRace != null)
-                EnemyRace.WheelModyfer = lvl;
+                EnemyRace.SetParametr(3, lvl);
             PlayerPrefs.SetInt("EnemyID " + 2, lvl);
             for (int i = 0; i < While0.Length; i++)
             {

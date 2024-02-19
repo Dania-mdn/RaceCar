@@ -84,6 +84,9 @@ public class Tich : MonoBehaviour
         {
             Plane[5].SetActive(false);
             Plane[6].SetActive(true);
+            PartsPositionController.Parts[0] = PartsPosition[1];
+            PartsPositionController.Parts[1] = PartsPosition[1];
+            PartsPositionController.Parts[2] = PartsPosition[1];
             counAvalable++;
         }
     }
@@ -94,7 +97,7 @@ public class Tich : MonoBehaviour
             Plane[1].SetActive(false);
             Plane[2].SetActive(true);
         }
-        if (PlayerPrefs.GetInt("ID 0") >= 3 && PlayerPrefs.GetInt("ID 1") >= 3 && PlayerPrefs.GetInt("ID 2") >= 3)
+        if (PlayerPrefs.GetInt("ID 0") >= 1 && PlayerPrefs.GetInt("ID 1") >= 1 && PlayerPrefs.GetInt("ID 2") >= 1)
         {
             SkipButton.SetActive(true);
             Plane[7].SetActive(true);
@@ -109,9 +112,6 @@ public class Tich : MonoBehaviour
             RewardAndSale[0].SetActive(true);
             RewardAndSale[1].SetActive(true);
             RewardAndSale[2].SetActive(true);
-            PartsPositionController.Parts[0] = PartsPosition[0];
-            PartsPositionController.Parts[1] = PartsPosition[1];
-            PartsPositionController.Parts[2] = PartsPosition[2];
             PlayerPrefs.SetInt("TichFirst", 1);
             SkipButton.SetActive(false);
         }

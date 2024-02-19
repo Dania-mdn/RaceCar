@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
         {
             EventManager.DoPlayAudio();
             PlayerPrefs.DeleteKey("MuteAudio");
+            Time.timeScale = 1;
         }
     }
 
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
     {
         EventManager.DoMuteAudio();
         PlayerPrefs.SetInt("MuteAudio", 1);
+        Time.timeScale = 0;
     }
     public void OnRewardGame()
     {

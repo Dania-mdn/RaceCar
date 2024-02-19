@@ -70,7 +70,7 @@ public class Test : MonoBehaviour
             isUp = true;
             Invoke("Force1", 1);
         }
-        carSpeedText.text = Math.Round(rb.velocity.magnitude).ToString();
+        carSpeedText.text = Math.Round(rb.velocity.magnitude * 12).ToString();
     }
     void FixedUpdate()
     {
@@ -86,6 +86,7 @@ public class Test : MonoBehaviour
             Quaternion deltaRotation = Quaternion.Euler(Vector3.up * rotateInput * 1000 * Time.fixedDeltaTime);
             rb.MoveRotation(rb.rotation * deltaRotation);
         }
+        rb.angularVelocity = new Vector3(0, rb.angularVelocity.y, 0);
     }
     public void SetParametr(int ParametrCount, int lvl)
     {
