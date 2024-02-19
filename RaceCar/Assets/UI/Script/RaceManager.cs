@@ -156,21 +156,17 @@ public class RaceManager : MonoBehaviour
     }
     public void RewardXmonney()
     {
-        Debug.Log(_targetRotation);
         if (_targetRotation <= 15 && _targetRotation >= -15)
         {
             rewardMoney = rewardMoney * 4;
-            Debug.Log(4);
         }
         else if((_targetRotation > 15 && _targetRotation <= 65) || (_targetRotation >= -65 && _targetRotation < -15))
         {
             rewardMoney = rewardMoney * 2;
-            Debug.Log(2);
         }
         else
         {
             rewardMoney = rewardMoney * 3;
-            Debug.Log(3);
         }
 
         EventManager.DoReward();

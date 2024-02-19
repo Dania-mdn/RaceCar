@@ -6255,7 +6255,7 @@ MonoBehaviour:
   Lost: {fileID: 2117918511}
   Camera: {fileID: 1697935063}
   VirtualCamera: {fileID: 1073750039}
-  RaceCountforWinn: 0
+  RaceCountforWinn: 1
   isCheckRacePlayer: 1
   isCheckRaceEnemy: 1
   Spedometr: {fileID: 900644260}
@@ -6265,7 +6265,7 @@ MonoBehaviour:
   - {fileID: 1738515067}
   - {fileID: 57143730}
   - {fileID: 30613706}
-  winArrou: {fileID: 834767567}
+  winArrou: {fileID: 989533704}
   rewardMoneyTextWon: {fileID: 728671129}
   rewardMoneyTextLost: {fileID: 1586105971}
   StartAud: {fileID: 1667134927}
@@ -10163,7 +10163,7 @@ RectTransform:
   - {fileID: 207805163}
   m_Father: {fileID: 1563719074}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -31.77792}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -88.13376}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 14.7, y: -73}
