@@ -1,8 +1,5 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -135,7 +132,7 @@ public class RaceManager : MonoBehaviour
             Canvas.planeDistance = 2;
             Joistick.SetActive(false);
             Winner.SetActive(true);
-            rewardMoney = PlayerPrefs.GetFloat("PartsPrize") * 3;
+            rewardMoney = PlayerPrefs.GetFloat("PartsPrize") * 2;
             FormaterCount(Mathf.Round(rewardMoney), rewardMoneyTextWon);
         }
         else
@@ -147,7 +144,7 @@ public class RaceManager : MonoBehaviour
             Canvas.planeDistance = 2;
             Joistick.SetActive(false);
             Lost.SetActive(true);
-            rewardMoney = PlayerPrefs.GetFloat("PartsPrize") * 3;
+            rewardMoney = PlayerPrefs.GetFloat("PartsPrize") * 2;
             FormaterCount(Mathf.Round(rewardMoney), rewardMoneyTextLost);
         }
         MeinAud.mute = true;

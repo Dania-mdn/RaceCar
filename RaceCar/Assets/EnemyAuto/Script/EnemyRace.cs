@@ -1,7 +1,5 @@
 using PathCreation.Examples;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyRace : MonoBehaviour
@@ -40,6 +38,11 @@ public class EnemyRace : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        if (PlayerPrefs.HasKey("MuteAudio"))
+        {
+            AudioMute();
+        }
     }
     private void Update()
     {

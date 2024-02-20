@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-using UnityEngine.UIElements;
 
 public class MuweInMeinMenu : MonoBehaviour
 {
@@ -41,11 +37,6 @@ public class MuweInMeinMenu : MonoBehaviour
     }
     void Update()
     {
-        /*if (transform.rotation.y != 90)
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 90, 0), 0.1f);
-        }*/
-
         if(rb.IsSleeping()) rb.WakeUp();
 
         frontLeftMesh.transform.Rotate(Vector3.right * rotationSpeed * Speed * Time.deltaTime);
@@ -90,6 +81,6 @@ public class MuweInMeinMenu : MonoBehaviour
     }
     private void UpgradeSpeed(float speed)
     {
-        rotationSpeed = bazespeed + speed / 2;
+        rotationSpeed = bazespeed + speed * 8;
     }
 }

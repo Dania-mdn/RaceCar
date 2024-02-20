@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class PartsPositionController : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class PartsPositionController : MonoBehaviour
 
     public AudioSource Take;
     public AudioSource Down;
+    public AudioSource Sale;
     public AudioSource UpgradeAudio;
     public AudioSource Sound;
     public PositionAuto MediatePosition;
@@ -131,7 +133,12 @@ public class PartsPositionController : MonoBehaviour
         if(hit.transform != null)
         {
             if (Mediate != null)
-                Down.Play();
+            {
+                if(hit.transform.gameObject.layer != 7)
+                    Down.Play();
+                else
+                    Sale.Play();
+            }
 
             if (hit.transform.gameObject.layer == 3)
             {
@@ -357,6 +364,7 @@ public class PartsPositionController : MonoBehaviour
     {
         Take.mute = true;
         Down.mute = true;
+        Sale.mute = true;
         UpgradeAudio.mute = true;
         Sound.mute = true;
     }
@@ -364,6 +372,7 @@ public class PartsPositionController : MonoBehaviour
     {
         Take.mute = false;
         Down.mute = false;
+        Sale.mute = false;
         UpgradeAudio.mute = false;
         Sound.mute = false;
     }

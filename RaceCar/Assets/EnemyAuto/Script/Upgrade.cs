@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -40,7 +38,7 @@ public class Upgrade : MonoBehaviour
     }
     private void UpgradeMediate(int ID, int lvl)
     {
-        int Enemylvl = Random.Range(lvl-1, lvl + 1);
+        int Enemylvl = Random.Range(lvl-1, lvl + 2);
         Enemylvl = Mathf.Clamp(Enemylvl, 0, 10);
         Upgrade1(ID, Enemylvl);
     }

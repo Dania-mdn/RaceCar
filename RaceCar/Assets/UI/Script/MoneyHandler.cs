@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 
@@ -29,7 +26,7 @@ public class MoneyHandler : MonoBehaviour
     private float IncomCount = 4;
 
     private float IncomPriece = 20;
-    private float PartsPrize = 20;
+    private float PartsPrize = 50;
 
     private float RaceColdawn = 60;
     private float RaceTme;
