@@ -5,7 +5,7 @@ public class MoneyHandler : MonoBehaviour
 {
     public UIManager UIManager;
     public PartsPositionController PartsPositionController;
-    public float money = 100;
+    public float money = 140;
     private float moneyInSecond = 5;
     public Animation AnimMoneyInSecond;
     private float coldawn = 1;
