@@ -200,12 +200,12 @@ public class MoneyHandler : MonoBehaviour
     {
         if(IncomCount >= 4)
         {
-            moneyInSecond = moneyInSecond + (moneyInSecond * 0.5f);
+            moneyInSecond = moneyInSecond + (moneyInSecond * 0.25f);
             moneyInSecond = Mathf.Clamp(moneyInSecond, 0, 1000000000000000000);
             PlayerPrefs.SetFloat("moneyInSecond", moneyInSecond);
             IncomCount = IncomCount - 4;
             EventManager.DuSetAvalebleIncpmMoney(IncomCount);
-            IncomPriece = IncomPriece + (IncomPriece * 0.5f);
+            IncomPriece = IncomPriece + (IncomPriece * 0.25f);
             IncomPriece = Mathf.Clamp(IncomPriece, 0, 1000000000000000000);
             PlayerPrefs.SetFloat("IncomPriece", IncomPriece);
             FormaterCount(Mathf.Round(IncomPriece), UIManager.IncomePrice); 
@@ -224,11 +224,11 @@ public class MoneyHandler : MonoBehaviour
     }
     public void SetBuyParts()
     {
-        float Money = money - (PartsPrize + (PartsPrize * 0.1f));
+        float Money = money - PartsPrize;
 
         if (Money >= 0 && PartsPositionController.TryParts())
         {
-            PartsPrize = PartsPrize + (PartsPrize * 0.1f);
+            PartsPrize = PartsPrize + (PartsPrize * 0.05f);
             PartsPrize = Mathf.Clamp(PartsPrize, 0, 1000000000000000000);
             PlayerPrefs.SetFloat("PartsPrize", PartsPrize);
             FormaterCount(Mathf.Round(PartsPrize), UIManager.PartsPrice);
