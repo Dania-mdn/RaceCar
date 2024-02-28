@@ -10,6 +10,8 @@ public class RaceManager : MonoBehaviour
     public EnemyRace EnemyRace;
     public Rigidbody EnemyRb;
     public Rigidbody PlayerRb;
+    public MuweRace EnemyMuweRace;
+    public MuweRace PlayerMuweRace;
     public GameObject BorderFinish;
 
     public Canvas Canvas;
@@ -111,9 +113,12 @@ public class RaceManager : MonoBehaviour
         }
         else
         {
+            Test.enabled = true;
             isstart = true;
             EnemyRb.constraints = RigidbodyConstraints.None;
+            EnemyMuweRace.enabled = true;
             PlayerRb.constraints = RigidbodyConstraints.None;
+            PlayerMuweRace.enabled = true;
 
             if (StartObject.activeSelf == true)
             {

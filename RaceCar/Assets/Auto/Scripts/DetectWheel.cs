@@ -5,8 +5,7 @@ public class DetectWheel : MonoBehaviour
     public Test Test;
     public EnemyRace EnemyRace;
     public bool IsRight;
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (IsRight)
         {
@@ -38,10 +37,10 @@ public class DetectWheel : MonoBehaviour
         else
         {
             if (Test != null)
-                Test.bool1 = false;
+                Test.bool2 = false;
 
             if (EnemyRace != null)
-                EnemyRace.bool1 = false;
+                EnemyRace.bool2 = false;
         }
     }
 }

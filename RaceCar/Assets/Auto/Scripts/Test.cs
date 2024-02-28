@@ -16,6 +16,7 @@ public class Test : MonoBehaviour
     private Rigidbody rb;
     public float direction;
     public GameObject Direction;
+    public GameObject Direction1;
     public float SpeedTurn;
     public bool bool1;
     public bool bool2;
@@ -45,11 +46,11 @@ public class Test : MonoBehaviour
     }
     private void Update()
     {
-        Direction.transform.rotation = Quaternion.Euler(0.0f, direction, 0.0f); 
+        Direction.transform.rotation = Quaternion.Euler(0.0f, direction, 0.0f);
 
         accelerationRight = Vector3.Dot(rb.velocity, transform.right);
 
-        if (accelerationRight > 6 || accelerationRight < -6)
+        if (accelerationRight > 10 || accelerationRight < -10)
         {
             RLWParticleSystem.Play();
             RRWParticleSystem.Play();
@@ -86,10 +87,10 @@ public class Test : MonoBehaviour
             Quaternion rotation = Direction.transform.rotation;
             Vector3 forwardDirection = rotation * Vector3.forward;
             float rotateInput = Vector3.Dot(forwardDirection, transform.right);
+            rotateInput *= 0.25f;
             Quaternion deltaRotation = Quaternion.Euler(Vector3.up * rotateInput * 1000 * Time.fixedDeltaTime);
             rb.MoveRotation(rb.rotation * deltaRotation);
         }
-        rb.angularVelocity = new Vector3(0, rb.angularVelocity.y, 0);
     }
     public void SetParametr(int ParametrCount, int lvl)
     {
