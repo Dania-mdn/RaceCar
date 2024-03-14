@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     }
     public void OnRewardedVideoSuccess()
     {
-
+        Debug.Log(1);
     }
 
     public void OnRewardedVideoFailure()

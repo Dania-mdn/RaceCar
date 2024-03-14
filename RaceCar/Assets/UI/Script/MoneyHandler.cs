@@ -22,6 +22,7 @@ public class MoneyHandler : MonoBehaviour
     private float IncomX2Coldawn = 60;
     private float IncomX2Tme;
     private int coefX2 = 1;
+    private int i = 0;
 
     private float IncomCount = 4;
 
@@ -34,13 +35,15 @@ public class MoneyHandler : MonoBehaviour
     {
         EventManager.OnClickDown += PrepeaToSale;
         EventManager.Sale += Sale;
-        EventManager.DeleteAll += DeleteAll;
+        EventManager.DeleteAll += DeleteAll; 
+        GameDistribution.OnRewardedVideoSuccess += CompliteReward;
     }
     private void OnDisable()
     {
         EventManager.OnClickDown -= PrepeaToSale;
         EventManager.Sale -= Sale;
         EventManager.DeleteAll -= DeleteAll;
+        GameDistribution.OnRewardedVideoSuccess += CompliteReward;
     }
     private void Start()
     {
@@ -163,13 +166,25 @@ public class MoneyHandler : MonoBehaviour
     }
     public void SetRewardAutoTap()
     {
-        AutoTapTme = AutoTapColdawn;
+        i = 1;
         EventManager.DoReward();
     }
     public void SetRewardIncomX2()
     {
-        IncomX2Tme = IncomX2Coldawn;
         EventManager.DoReward();
+        i = 2;
+    }
+    private void CompliteReward()
+    {
+        if(i == 1)
+        {
+            AutoTapTme = AutoTapColdawn;
+        }
+        else if(i == 2)
+        {
+            IncomX2Tme = IncomX2Coldawn;
+        }
+        i = 0;
     }
     public void AddMonneyInSecond()
     {

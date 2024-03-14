@@ -23,6 +23,7 @@ public class EventManager: MonoBehaviour
     public static void DuUpgradeAuto(int ID, int lvl)
     {
         UpgradeAuto?.Invoke(ID, lvl);
+        ShowAdd?.Invoke();
     }
     public static void DuOnClickDown(bool isClick)
     {
