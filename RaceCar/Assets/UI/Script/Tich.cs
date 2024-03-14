@@ -5,7 +5,6 @@ public class Tich : MonoBehaviour
     public GameObject[] Plane;
     private int counAvalable = 0;
     public GameObject[] RewardAndSale;
-    public GameObject Race;
     public GameObject SkipButton;
     public MoneyHandler MoneyHandler;
     public PartsPositionController PartsPositionController;
@@ -37,7 +36,6 @@ public class Tich : MonoBehaviour
             if (PlayerPrefs.HasKey("TichFirst"))
             {
                 SkipButton.SetActive(false);
-                Race.SetActive(false); 
                 counAvalable = 5;
             }
             else
@@ -46,7 +44,6 @@ public class Tich : MonoBehaviour
                 PartsPositionController.Parts[1] = PartsPosition[0];
                 PartsPositionController.Parts[2] = PartsPosition[0];
                 Plane[0].SetActive(true);
-                Race.SetActive(false);
                 RewardAndSale[0].SetActive(false);
                 RewardAndSale[1].SetActive(false);
                 RewardAndSale[2].SetActive(false);
@@ -93,12 +90,6 @@ public class Tich : MonoBehaviour
             Plane[1].SetActive(false);
             Plane[2].SetActive(true);
         }
-        if (PlayerPrefs.GetInt("ID 0") >= 1 && PlayerPrefs.GetInt("ID 1") >= 1 && PlayerPrefs.GetInt("ID 2") >= 1)
-        {
-            SkipButton.SetActive(true);
-            Plane[7].SetActive(true);
-            Race.SetActive(true);
-        }
     }
     private void PartsUpgrade()
     {
@@ -109,7 +100,8 @@ public class Tich : MonoBehaviour
             RewardAndSale[1].SetActive(true);
             RewardAndSale[2].SetActive(true);
             PlayerPrefs.SetInt("TichFirst", 1);
-            SkipButton.SetActive(false);
+            SkipButton.SetActive(false); 
+            Skip();
         }
     }
     public void Skip()
@@ -121,7 +113,6 @@ public class Tich : MonoBehaviour
         RewardAndSale[0].SetActive(true);
         RewardAndSale[1].SetActive(true);
         RewardAndSale[2].SetActive(true);
-        Race.SetActive(true);
         Destroy(gameObject);
     }
     private void SetSpeed(float speed)

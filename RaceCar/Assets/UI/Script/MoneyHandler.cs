@@ -28,10 +28,6 @@ public class MoneyHandler : MonoBehaviour
     private float IncomPriece = 20;
     private float PartsPrize = 50;
 
-    private float RaceColdawn = 60;
-    private float RaceTme;
-    public GameObject RaceTmeObject;
-    public GameObject RaceTmeObject1;
     public ParticleSystem ParticleSystem;
 
     private void OnEnable()
@@ -55,8 +51,6 @@ public class MoneyHandler : MonoBehaviour
             if (PlayerPrefs.HasKey("rewardMoney"))
             {
                 money = PlayerPrefs.GetFloat("money") + PlayerPrefs.GetFloat("rewardMoney");
-                UIManager.RaceText.gameObject.GetComponent<Animation>().Play();
-                FormaterCount1(Mathf.Round(PlayerPrefs.GetFloat("rewardMoney")), UIManager.RaceText);
             }
             else
             {
@@ -93,11 +87,6 @@ public class MoneyHandler : MonoBehaviour
         else
         {
             PlayerPrefs.SetFloat("moneyInSecond", moneyInSecond);
-        }
-
-        if (PlayerPrefs.HasKey("RaceCuldawn"))
-        {
-            RaceCuldawn();
         }
 
         FormaterCount(Mathf.Round(IncomPriece), UIManager.IncomePrice);
@@ -165,20 +154,6 @@ public class MoneyHandler : MonoBehaviour
         {
             UIManager.BuyBlock.SetActive(false);
         }
-
-        if (RaceTme > 0)
-        {
-            RaceTme = RaceTme - Time.deltaTime;
-            UIManager.RaceTime.text = "0:" + Mathf.Round(RaceTme).ToString();
-        }
-        else
-        {
-            if (RaceTmeObject.activeSelf == true)
-            {
-                RaceTmeObject.SetActive(false);
-                RaceTmeObject1.SetActive(true);
-            }
-        }
     }
     public void AddSpeed()
     {
@@ -200,7 +175,7 @@ public class MoneyHandler : MonoBehaviour
     {
         if(IncomCount >= 4)
         {
-            moneyInSecond = moneyInSecond + (moneyInSecond * 0.25f);
+            moneyInSecond = (moneyInSecond + 2) + (moneyInSecond * 0.04f);
             moneyInSecond = Mathf.Clamp(moneyInSecond, 0, 1000000000000000000);
             PlayerPrefs.SetFloat("moneyInSecond", moneyInSecond);
             IncomCount = IncomCount - 4;
@@ -210,6 +185,7 @@ public class MoneyHandler : MonoBehaviour
             PlayerPrefs.SetFloat("IncomPriece", IncomPriece);
             FormaterCount(Mathf.Round(IncomPriece), UIManager.IncomePrice); 
             AnimMoneyInSecond.Play();
+            money = money - IncomPriece;
         }
     }
     public void PrepeaToSale(bool isClick)
@@ -253,13 +229,6 @@ public class MoneyHandler : MonoBehaviour
     public void SetBuyBlocks(int Price)
     {
         money = money - Price;
-    }
-    private void RaceCuldawn()
-    {
-        RaceTmeObject.SetActive(true);
-        RaceTmeObject1.SetActive(false);
-        RaceTme = RaceColdawn;
-        PlayerPrefs.DeleteKey("RaceCuldawn");
     }
     public void AddMoney()
     {

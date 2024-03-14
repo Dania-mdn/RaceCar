@@ -21,20 +21,11 @@ public class UIManager : MonoBehaviour
     public GameObject BuyBlock;
     public TextMeshProUGUI PartsPriceBlock;
 
-    public TextMeshProUGUI RaceTime;
-
     public TextMeshProUGUI SaleText;
-    public TextMeshProUGUI RaceText;
 
     public Toggle TogglAudio;
     private bool isMuteAudio;
     public AudioSource A0;
-    public AudioSource A1;
-
-    public TextMeshProUGUI RaceStart;
-    private int culdawn = 5;
-    private float RaceStartTime;
-    private bool isRace = false;
 
     private void OnEnable()
     {
@@ -54,20 +45,6 @@ public class UIManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("MuteAudio"))
             TogglAudio.isOn = true;
-    }
-    private void Update()
-    {
-        if (!isRace) return;
-
-        if(RaceStartTime > 0)
-        {
-            RaceStartTime = RaceStartTime - Time.deltaTime;
-            RaceStart.text = "0:0" + Mathf.Round(RaceStartTime).ToString();
-        }
-        else
-        {
-            RaceLoad();
-        }
     }
     private void OnclickDown(bool isClick)
     {
@@ -91,15 +68,9 @@ public class UIManager : MonoBehaviour
             Income.SetActive(true);
         }
     }
-    public void Race(bool Race)
-    {
-        isRace = Race;
-        RaceStartTime = culdawn;
-    }
     public void RaceLoad()
     {
         SceneManager.LoadScene(Random.Range(1, 3)); 
-        //SceneManager.LoadScene(3);
         PlayerPrefs.SetInt("Race", 1);
     }
     public void Audio()
@@ -125,11 +96,9 @@ public class UIManager : MonoBehaviour
     public void AudioMute()
     {
         A0.mute = true;
-        A1.mute = true;
     }
     public void AudioPlay()
     {
         A0.mute = false;
-        A1.mute = false;
     }
 }

@@ -3,8 +3,6 @@ using TMPro;
 
 public class UpgradeAuto : MonoBehaviour
 {
-    private Test AutoController;
-
     public Animation AnimBodyUI;
     public Animation AnimEngineUI;
     public Animation AnimWhileUI;
@@ -36,8 +34,6 @@ public class UpgradeAuto : MonoBehaviour
 
     private void Start()
     {
-        AutoController = GetComponent<Test>();
-
         Upgrade(0, PlayerPrefs.GetInt("ID 0"));
         Upgrade(1, PlayerPrefs.GetInt("ID 1"));
         Upgrade(2, PlayerPrefs.GetInt("ID 2"));
@@ -68,8 +64,6 @@ public class UpgradeAuto : MonoBehaviour
 
         if (ID == 0)
         {
-            if (AutoController != null)
-                AutoController.SetParametr(2, lvl);
             if (AnimBody != null)
             {
                 AnimBody.Play();
@@ -94,8 +88,6 @@ public class UpgradeAuto : MonoBehaviour
         }
         else if(ID == 1)
         {
-            if (AutoController != null)
-                AutoController.SetParametr(1, lvl);
             if (AnimEngine != null)
             {
                 AnimEngine.Play();
@@ -125,8 +117,6 @@ public class UpgradeAuto : MonoBehaviour
         }
         else
         {
-            if (AutoController != null)
-                AutoController.SetParametr(3, lvl);
             if (AnimWhile2 != null)
             {
                 AnimWhile1.Play();
