@@ -73,7 +73,7 @@ public class GameDistribution : MonoBehaviour
         }
         catch (EntryPointNotFoundException e)
         {
-            Debug.LogWarning("GD ShowAd failed. Make sure you are running a WebGL build in a browser:" + e.Message);
+            Debug.LogWarning("GD ShowAd failed. Make sure you are running a WebGL build in a browser: 0" + e.Message);
         }
     }
 

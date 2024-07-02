@@ -35,15 +35,15 @@ public class MoneyHandler : MonoBehaviour
     {
         EventManager.OnClickDown += PrepeaToSale;
         EventManager.Sale += Sale;
-        EventManager.DeleteAll += DeleteAll; 
-        GameDistribution.OnRewardedVideoSuccess += CompliteReward;
+        EventManager.DeleteAll += DeleteAll;
+        GameManager.OnRewardedVideoSuccess0 += CompliteReward;
     }
     private void OnDisable()
     {
         EventManager.OnClickDown -= PrepeaToSale;
         EventManager.Sale -= Sale;
         EventManager.DeleteAll -= DeleteAll;
-        GameDistribution.OnRewardedVideoSuccess += CompliteReward;
+        GameManager.OnRewardedVideoSuccess0 += CompliteReward;
     }
     private void Start()
     {

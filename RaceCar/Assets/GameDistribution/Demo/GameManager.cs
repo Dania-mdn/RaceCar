@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public Toggle Musick;
+    public static Action OnRewardedVideoSuccess0;
 
     void Awake()
     {
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
     }
     public void OnRewardedVideoSuccess()
     {
-        Debug.Log(1);
+        OnRewardedVideoSuccess0?.Invoke();
     }
 
     public void OnRewardedVideoFailure()
